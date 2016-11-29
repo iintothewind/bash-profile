@@ -1,49 +1,28 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-" let Vundle manage Vundle, required
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'pathogen.vim'
-Plugin 'Align'
-Plugin 'AutoAlign'
-Plugin 'eagletmt/neco-ghc'
-Plugin 'godlygeek/tabular'
-Plugin 'haskell.vim'
-Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'jonathanfilip/vim-lucius'
-Plugin 'plasticboy/vim-markdown'
-Plugin 'mhinz/vim-signify'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-Plugin 'Shougo/neocomplete.vim'
-Plugin 'Shougo/unite.vim'
-Plugin 'Shougo/vimproc.vim'
-Plugin 'Townk/vim-autoclose'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'VundleVim/Vundle.vim'
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" To ignore plugin indent changes, instead use:
-"filetype plugin on
-"
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
-" Put your non-Plugin stuff after this line
-" execute pathogen#infect()
+call plug#begin('~/.vim/plugged')
+Plug 'Align'
+Plug 'AutoAlign'
+Plug 'haskell.vim'
+Plug 'tpope/vim-repeat'
+Plug 'eagletmt/neco-ghc'
+Plug 'godlygeek/tabular'
+Plug 'jistr/vim-nerdtree-tabs'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'plasticboy/vim-markdown'
+Plug 'mhinz/vim-signify'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/syntastic'
+Plug 'Shougo/neocomplete.vim'
+Plug 'Shougo/unite.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'Townk/vim-autoclose'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'VundleVim/Vundle.vim'
+call plug#end()
+
 colorscheme lucius
 " auto reload vimrc when editing it
 autocmd! bufwritepost .vimrc source ~/.vimrc
