@@ -12,18 +12,15 @@ fi
 if [ -f $HOME/.shell/proxy.sh ]; then
   . $HOME/.shell/proxy.sh;
 fi
-# alias
-if [ -f $HOME/.shell/alias.sh ]; then
-  . $HOME/.shell/alias.sh;
-fi
 # completion
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion;
 fi
-# exports
-#export PS1="[\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]]\$ "
-export GIT_PS1_SHOWDIRTYSTATE=1
-export HISTTIMEFORMAT="%y-%m-%d %T "
-export LC_CTYPE=zh_CN.UTF-8
-export LC_ALL=zh_CN.UTF-8
-
+# alias
+if [ -f $HOME/.shell/alias.sh ]; then
+  . $HOME/.shell/alias.sh;
+fi
+# environments
+if [ -f $HOME/.shell/environments.sh ]; then
+  . $HOME/.shell/environments.sh;
+fi

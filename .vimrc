@@ -20,6 +20,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'VundleVim/Vundle.vim'
 call plug#end()
 
 colorscheme lucius
@@ -65,7 +66,7 @@ set showmatch
 set showmode
 set wildchar=<TAB>
 set wildmenu
-set wildignore=*.o,*.class,*.pyc,.DS_Store
+set wildignore=*.o,*.class,*.pyc
 set backspace=2
 set backspace=indent,eol,start
 if has('gui_running')
