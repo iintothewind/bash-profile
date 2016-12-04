@@ -23,22 +23,22 @@ autocmd! bufwritepost vimrc source ~/.vimrc
 
 " Turn persistent undo on 
 " means that you can undo even when you close a buffer/VIM
-try
-    set undodir=~/.vim/undo
-    set undofile
-catch
-endtry
+"try
+"    set undodir=~/.vim/undo
+"    set undofile
+"catch
+"endtry
 
 " Command mode related
 " Smart mappings on the command line
-cno $h e ~/
-cno $d e ~/Desktop/
-cno $j e ./
-cno $c e <C-\>eCurrentFileDir("e")<cr>
+cnoremap $h e ~/
+cnoremap $d e ~/Desktop/
+cnoremap $j e ./
+cnoremap $c e <C-\>eCurrentFileDir("e")<cr>
 
 " $q is super useful when browsing on the command line
 " it deletes everything until the last slash 
-cno $q <C-\>eDeleteTillSlash()<cr>
+cnoremap $q <C-\>eDeleteTillSlash()<cr>
 
 " Bash like keys for the command line
 cnoremap <C-A>		<Home>

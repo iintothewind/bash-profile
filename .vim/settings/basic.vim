@@ -153,7 +153,7 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 set backup
-set backupdir=~/.vim/backup
+set backupdir=~/.vim/backup,/tmp
 set directory=~/.vim/swap,/tmp
 
 " Use spaces instead of tabs

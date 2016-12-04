@@ -5,6 +5,6 @@ source ~/.vim/settings/plugins.vim
 source ~/.vim/settings/extends.vim
 
 try
-source ~/.vim/settings/optinal.vim
+source ~/.vim/settings/optional.vim
 catch
 endtry
