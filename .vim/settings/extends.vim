@@ -45,8 +45,12 @@ cnoremap <C-A>		<Home>
 cnoremap <C-E>		<End>
 cnoremap <C-K>		<C-U>
 
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
+"cnoremap <C-P> <Up>
+"cnoremap <C-N> <Down>
+
+" use j k to scroll screen
+nnoremap <C-J> <C-D>
+nnoremap <C-K> <C-U>
 
 " Parenthesis/bracket
 vnoremap $1 <esc>`>a)<esc>`<i(<esc>
