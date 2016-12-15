@@ -42,11 +42,12 @@ cnoremap <C-K>		<C-U>
 nnoremap <C-N> <C-D>
 nnoremap <C-M> <C-U>
 
-" General abbreviations
-iab xdate <c-r>=strftime("%yyyy-%mm-%dd %H:%M:%S")<cr>
+" use ctrl-i to insert abbreviations
+" disabled, it does not work with neocomplete
+"inoremap <expr><C-I> <C-]>
 
-"  Omni complete functions
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+" General abbreviations
+iab xdate <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 
 " Helper functions
 func! DeleteTillSlash()
