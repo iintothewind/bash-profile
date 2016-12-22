@@ -6,12 +6,24 @@ export HISTTIMEFORMAT="%y-%m-%d %T "
 export LC_CTYPE=zh_CN.UTF-8
 export LC_ALL=zh_CN.UTF-8
 
-# Haskell Environments
-export HASKELL_HOME="$HOME/Library/Haskell"
+# linux only
+#if [[ $(uname) == Linux ]]; then
+  
+#fi
 
-# Python Environments
-export PYTHON_HOME="$HOME/Library/Python/2.7"
-export WORKON_HOME="$HOME/.envs"
+# mac only
+if [[ $(uname) == Darwin ]]; then
+  # Haskell Environments
+  export HASKELL_HOME="$HOME/Library/Haskell"
 
-# Path
-export PATH="$PATH:$HASKELL_HOME/bin:$PYTHON_HOME/bin"
+  # Python Environments
+  export PYTHON_HOME="$HOME/Library/Python/2.7"
+  export WORKON_HOME="$HOME/.envs"
+
+  # Java Environments
+  export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home"
+
+  # Path
+  export PATH="$PATH:$HASKELL_HOME/bin:$PYTHON_HOME/bin"
+fi
+

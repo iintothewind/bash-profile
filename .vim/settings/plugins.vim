@@ -9,15 +9,14 @@ Plug 'airblade/vim-gitgutter'
 Plug 'amix/open_file_under_cursor.vim'
 Plug 'eagletmt/neco-ghc'
 Plug 'godlygeek/tabular'
-Plug 'neovimhaskell/haskell-vim'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'jlanzarotta/bufExplorer'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kien/ctrlp.vim'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mhinz/vim-signify'
 Plug 'mkitt/tabline.vim'
 Plug 'navicore/vissort.vim'
+Plug 'neovimhaskell/haskell-vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdtree'
@@ -29,11 +28,13 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-scripts/Align'
+Plug 'vim-scripts/AutoAlign'
+Plug 'vim-scripts/LargeFile'
 Plug 'yegappan/mru'
 call plug#end()
 
 "  Load pathogen paths
-call pathogen#infect('~/.vim/infected/{}')
 call pathogen#infect('~/.vim/infected/{}')
 call pathogen#helptags()
 
@@ -53,22 +54,22 @@ let g:bufExplorerDefaultHelp=0
 let g:bufExplorerShowRelativePath=1
 let g:bufExplorerFindActive=1
 let g:bufExplorerSortBy='name'
-map <leader>o :BufExplorer<cr>
+"map <leader>o :BufExplorer<cr>
 
 "  MRU plugin
 let MRU_Max_Entries = 400
-map <leader>f :MRU<CR>
+map <silent> <leader>f :MRU<CR>
 
 "  YankStack
-nmap <c-p> <Plug>yankstack_substitute_older_paste
-nmap <c-P> <Plug>yankstack_substitute_newer_paste
+nmap <silent> <c-p> <Plug>yankstack_substitute_older_paste
+nmap <silent> <c-P> <Plug>yankstack_substitute_newer_paste
 
 "  CTRL-P
 let g:ctrlp_working_path_mode = 0
 
 let g:ctrlp_map = '<c-f>'
-map <leader>j :CtrlP<cr>
-map <c-b> :CtrlPBuffer<cr>
+map <silent> <leader>g :CtrlP<cr>
+map <silent> <c-b> :CtrlPBuffer<cr>
 
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
@@ -76,10 +77,6 @@ let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
 "  ZenCoding
 " Enable all functions in all modes
 let g:user_zen_mode='a'
-
-"  snipMate (beside <TAB> support <CTRL-j>)
-ino <c-j> <c-r>=snipMate#TriggerSnippet()<cr>
-snor <c-j> <esc>i<right><c-r>=snipMate#TriggerSnippet()<cr>
 
 "  Vim grep
 let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated'
@@ -90,11 +87,8 @@ let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden= 0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__', '\.class$', '\.DS_Store$']
 let g:NERDTreeWinSize=35
-map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark
-map <leader>nf :NERDTreeFind<cr>
-map <F9> :NERDTreeMirror<CR>
-map <F9> :NERDTreeToggle<CR>
+map <silent> <F9> :NERDTreeMirror<CR>
+map <silent> <F9> :NERDTreeToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 let g:nerdtree_tabs_autofind                = 1
 
@@ -124,6 +118,7 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
+let g:syntastic_ignore_files = [".*\.xml$"] 
 " Python
 let g:syntastic_python_checkers=['pyflakes']
 
