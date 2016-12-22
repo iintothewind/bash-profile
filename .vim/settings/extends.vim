@@ -29,13 +29,6 @@ autocmd! bufwritepost vimrc source ~/.vimrc
 "catch
 "endtry
 
-" Command mode related
-" Smart mappings on the command line
-cnoremap $h e ~/
-cnoremap $d e ~/Desktop/
-cnoremap $j e ./
-cnoremap $c e <C-\>eCurrentFileDir("e")<cr>
-
 " $q is super useful when browsing on the command line
 " it deletes everything until the last slash 
 cnoremap $q <C-\>eDeleteTillSlash()<cr>
@@ -45,34 +38,16 @@ cnoremap <C-A>		<Home>
 cnoremap <C-E>		<End>
 cnoremap <C-K>		<C-U>
 
-"cnoremap <C-P> <Up>
-"cnoremap <C-N> <Down>
-
 " use j k to scroll screen
-nnoremap <C-J> <C-D>
-nnoremap <C-K> <C-U>
+nnoremap <C-N> <C-D>
+nnoremap <C-M> <C-U>
 
-" Parenthesis/bracket
-vnoremap $1 <esc>`>a)<esc>`<i(<esc>
-vnoremap $2 <esc>`>a]<esc>`<i[<esc>
-vnoremap $3 <esc>`>a}<esc>`<i{<esc>
-vnoremap $$ <esc>`>a"<esc>`<i"<esc>
-vnoremap $q <esc>`>a'<esc>`<i'<esc>
-vnoremap $e <esc>`>a"<esc>`<i"<esc>
-
-" Map auto complete of (, ", ', [
-inoremap $1 ()<esc>i
-inoremap $2 []<esc>i
-inoremap $3 {}<esc>i
-inoremap $4 {<esc>o}<esc>O
-inoremap $q ''<esc>i
-inoremap $e ""<esc>i
+" use ctrl-i to insert abbreviations
+" disabled, it does not work with neocomplete
+"inoremap <expr><C-I> <C-]>
 
 " General abbreviations
-iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
-
-"  Omni complete functions
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+iab xdate <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 
 " Helper functions
 func! DeleteTillSlash()

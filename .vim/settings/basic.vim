@@ -84,8 +84,6 @@ set smartcase
 
 " Highlight search results
 set hlsearch
-"<F2>关闭高亮
-map <F2> : nohlsearch <CR>
 " Makes search act like search in modern browsers
 set incsearch 
 
@@ -168,9 +166,9 @@ set tabstop=2
 
 set viminfo+=!
 set iskeyword+=_,$,@,%,#,-
-" Linebreak on 500 characters
+" Linebreak on 300 characters
 set lbr
-set tw=500
+set tw=300
 
 set autoindent
 set smartindent
@@ -187,7 +185,8 @@ map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
-
+"<F2>关闭高亮
+map <silent> <F2> :nohlsearch<cr>
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -239,17 +238,10 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}][TYPE=%Y][POS=%l,%v][%p%%]
 map 0 ^
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
-"nmap <M-j> mz:m+<cr>`z
-"nmap <M-k> mz:m-2<cr>`z
-"vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-"vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-"if has("mac") || has("macunix")
-"  nmap <D-j> <M-j>
-"  nmap <D-k> <M-k>
-"  vmap <D-j> <M-j>
-"  vmap <D-k> <M-k>
-"endif
+nmap <silent> <leader>j mz:m+<cr>`z
+nmap <silent> <leader>k mz:m-2<cr>`z
+vmap <silent> <leader>j :m'>+<cr>`<my`>mzgv`yo`z
+vmap <silent> <leader>k :m'<-2<cr>`>my`<mzgv`yo`z
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
@@ -298,10 +290,10 @@ map <leader>ss :setlocal spell!<cr>
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
+"map <leader>q :e ~/buffer<cr>
 
 " Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
+"map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>

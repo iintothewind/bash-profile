@@ -4,11 +4,11 @@
 # Shamelessly copied from https://github.com/gf3/dotfiles
 # Screenshot: http://i.imgur.com/s0Blh.png
 
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-  export TERM=gnome-256color
-elif infocmp xterm-256color >/dev/null 2>&1; then
-  export TERM=xterm-256color
-fi
+#if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+#  export TERM=gnome-256color
+#elif infocmp xterm-256color >/dev/null 2>&1; then
+#  export TERM=xterm-256color
+#fi
 
 if tput setaf 1 &> /dev/null; then
   tput sgr0
@@ -38,13 +38,13 @@ else
   RESET="\033[m"
 fi
 
-#export MAGENTA
-#export ORANGE
-#export GREEN
-#export PURPLE
-#export WHITE
-#export BOLD
-#export RESET
+export MAGENT
+export ORANGE
+export GREEN
+export PURPLE
+export WHITE
+export BOLD
+export RESET
 
 function parse_git_dirty() {
   [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
@@ -56,3 +56,9 @@ function parse_git_branch() {
 
 export PS1="\[${BOLD}${MAGENTA}\]\u\[$WHITE\] on \[$ORANGE\]\h\[$WHITE\] in \[$GREEN\]\W\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(parse_git_branch)\[$WHITE\]\n\$ \[$RESET\]"
 export PS2="\[$ORANGE\]→ \[$RESET\]"
+
+# use default prompt for text mode
+#if [[ $(tty) == \/dev\/tty[0-6]* ]]; then
+#  export PS1="[\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]]\$ "
+#fi
+
