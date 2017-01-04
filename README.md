@@ -22,6 +22,25 @@ mtproxy
 rmproxy
 ```
 
+### display proxy status
+```
+$ proxystatus
+http_proxy=http://3.20.128.6:88
+https_proxy=http://3.20.128.6:88
+HTTP_PROXY=http://3.20.128.6:88
+HTTPS_PROXY=http://3.20.128.6:88
+networksetup -getwebproxy Wi-Fi
+Enabled: Yes
+Server: 3.20.128.6
+Port: 88
+Authenticated Proxy Enabled: 0
+networksetup -getsecurewebproxy Wi-Fi
+Enabled: Yes
+Server: 3.20.128.6
+Port: 88
+Authenticated Proxy Enabled: 0
+```
+
 ## .vim/doc
 the help doc chinese version
 
