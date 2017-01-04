@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 # environments
 if [ -f $HOME/.shell/environments.sh ]; then
   . $HOME/.shell/environments.sh;
@@ -24,3 +25,5 @@ if brew list | grep coreutils > /dev/null ; then
   alias ls='ls -F --show-control-chars --color=auto'
   eval `gdircolors -b $HOME/.dir_colors`
 fi
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

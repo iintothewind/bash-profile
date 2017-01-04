@@ -13,6 +13,12 @@ export LC_ALL=zh_CN.UTF-8
 
 # mac only
 if [[ $(uname) == Darwin ]]; then
+  # ./local/bin
+  export LOCAL_BIN="$HOME/.local/bin"
+
+  # brew sbin
+  export BREW_SBIN="/usr/local/sbin"
+
   # Haskell Environments
   export HASKELL_HOME="$HOME/Library/Haskell"
 
@@ -21,9 +27,12 @@ if [[ $(uname) == Darwin ]]; then
   export WORKON_HOME="$HOME/.envs"
 
   # Java Environments
-  export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_102.jdk/Contents/Home"
+  export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home"
 
   # Path
-  export PATH="$PATH:$HASKELL_HOME/bin:$PYTHON_HOME/bin"
+  export PATH="$PATH:$BREW_SBIN:$LOCAL_BIN:$HASKELL_HOME/bin:$PYTHON_HOME/bin"
+
+  # github api token 
+  # export HOMEBREW_GITHUB_API_TOKEN=""
 fi
 
