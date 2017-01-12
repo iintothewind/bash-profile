@@ -30,6 +30,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Align'
 Plug 'vim-scripts/AutoAlign'
+Plug 'vim-scripts/comments.vim'
 Plug 'vim-scripts/LargeFile'
 Plug 'yegappan/mru'
 call plug#end()
@@ -96,19 +97,17 @@ let g:nerdtree_tabs_autofind                = 1
 let g:multi_cursor_next_key="\<C-s>"
 
 "  surround.vim config
-" Annotate strings with gettext http://amix.dk/blog/post/19678
-vmap Si S(i_<esc>f)
-au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
+vmap Si S(i<esc>f)
 
 " airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme                      ='wombat'
 
-"  Vimroom
-let g:goyo_width=100
-let g:goyo_margin_top = 2
-let g:goyo_margin_bottom = 2
-nnoremap <silent> <leader>z :Goyo<cr>
+""  Vimroom
+"let g:goyo_width=100
+"let g:goyo_margin_top = 2
+"let g:goyo_margin_bottom = 2
+"nnoremap <silent> <leader>z :Goyo<cr>
 
 "  Vim-go
 " let g:go_fmt_command = "goimports"
@@ -130,12 +129,12 @@ let g:syntastic_python_checkers=['pyflakes']
 "let g:syntastic_go_checkers = ['go', 'golint', 'errcheck']
 
 " Custom CoffeeScript SyntasticCheck
-func! SyntasticCheckCoffeescript()
-    let l:filename = substitute(expand("%:p"), '\(\w\+\)\.coffee', '.coffee.\1.js', '')
-    execute "tabedit " . l:filename
-    execute "SyntasticCheck"
-    execute "Errors"
-endfunc
+"func! SyntasticCheckCoffeescript()
+    "let l:filename = substitute(expand("%:p"), '\(\w\+\)\.coffee', '.coffee.\1.js', '')
+    "execute "tabedit " . l:filename
+    "execute "SyntasticCheck"
+    "execute "Errors"
+"endfunc
 "nnoremap <silent> <leader>c :call SyntasticCheckCoffeescript()<cr>
 
 "  Git gutter (Git diff)
