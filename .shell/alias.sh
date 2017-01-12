@@ -7,10 +7,14 @@ alias fgrep='fgrep --color'
 
 # utils
 alias sudo="sudo "
+alias l="ls -thF"
 alias ll="ls -lthF"
 alias la="ls -lthFA"
 alias md="mkdir "
 alias rm="rm -i"
+
+alias fdperm='find . -type d -exec chmod 755 {} \;'
+alias ffperm='find . -type f -exec chmod 644 {} \;'
 
 # common
 alias dte="date \"+%Y-%m-%d %H:%M:%S\""
@@ -24,6 +28,7 @@ if [[ $(uname) == Linux ]]; then
   alias xcv="xclip -o"
   alias rmrtlan="sudo route del default enp0s31f6"
   alias scrnoff="xset dpms force off "
+  alias ssup="nohup sslocal -c ~/.shadow.json 2>&1 &"
 fi
 
 # mac only

@@ -16,8 +16,8 @@ set autoread
 set autowrite
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = "'"
-let g:mapleader = "'"
+let mapleader = ";"
+let g:mapleader = ";"
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -30,9 +30,8 @@ command W w !sudo tee % > /dev/null
 " set so=7
 
 set helplang=cn
-" 配置多语言环境,解决中文乱码问题
+" set encoding
 if has("multi_byte")
-    " UTF-8 编码
     set encoding=utf-8
     set termencoding=utf-8
     set formatoptions+=mM
@@ -207,7 +206,7 @@ map <C-l> <C-W>l
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+nmap <leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 
@@ -287,7 +286,7 @@ map <leader>ss :setlocal spell!<cr>
 "map <leader>s? z=
 
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
 "map <leader>q :e ~/buffer<cr>
