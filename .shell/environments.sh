@@ -16,6 +16,12 @@ if [[ $(uname) == Darwin ]]; then
   # ./local/bin
   export LOCAL_BIN="$HOME/.local/bin"
 
+  # gnubin
+  export GNU_BIN="$(brew --prefix coreutils)/libexec/gnubin";
+
+  # gnuman
+  export GNU_MAN="$(brew --prefix coreutils)/libexec/gnuman";
+
   # brew sbin
   export BREW_SBIN="/usr/local/sbin"
 
@@ -30,9 +36,12 @@ if [[ $(uname) == Darwin ]]; then
   export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home"
 
   # Path
-  export PATH="$PATH:$BREW_SBIN:$LOCAL_BIN:$HASKELL_HOME/bin:$PYTHON_HOME/bin"
+  export PATH="$GNU_BIN:$PATH:$BREW_SBIN:$LOCAL_BIN:$HASKELL_HOME/bin:$PYTHON_HOME/bin"
+
+  # Man Pages
+  export MANPTH="$GNU_MAN:$MANPATH"
 
   # github api token 
-  # export HOMEBREW_GITHUB_API_TOKEN=""
+  export HOMEBREW_GITHUB_API_TOKEN="a005a033359adb04f98cff208828ea927e88a523"
 fi
 

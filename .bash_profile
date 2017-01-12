@@ -19,6 +19,10 @@ fi
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion;
 fi
+# autojump
+if [ -f $(brew --prefix)/etc/profile.d/autojump.sh ]; then 
+  . /usr/local/etc/profile.d/autojump.sh;
+fi
 # ls color
 if brew list | grep coreutils > /dev/null ; then
   PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
@@ -27,3 +31,4 @@ if brew list | grep coreutils > /dev/null ; then
 fi
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
