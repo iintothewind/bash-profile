@@ -1,0 +1,12 @@
+[repositories]
+  local
+  maven-local
+  aliyun-mave: http://maven.aliyun.com/nexus/content/groups/public
+  typesafe-maven: https://dl.bintray.com/typesafe/maven-releases
+  typesafe-ivy: http://dl.bintray.com/typesafe/ivy-releases, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  sbtplugin: http://dl.bintray.com/sbt/sbt-plugin-releases, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  jcenter: https://jcenter.bintray.com
+  apache: https://repository.apache.org/content/repositories/releases
+  atlassian: https://maven.atlassian.com/repository/public
+  sonatype: https://oss.sonatype.org/content/repositories
+

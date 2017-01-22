@@ -9,7 +9,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'amix/open_file_under_cursor.vim'
 Plug 'eagletmt/neco-ghc'
 Plug 'godlygeek/tabular'
-Plug 'jistr/vim-nerdtree-tabs'
+"Plug 'jistr/vim-nerdtree-tabs'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kien/ctrlp.vim'
 Plug 'maxbrunsfeld/vim-yankstack'
@@ -19,9 +19,10 @@ Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'rking/ag.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/syntastic'
-Plug 'shemerey/vim-peepopen'
+"Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/syntastic'
+Plug 'w0rp/ale'
+"Plug 'shemerey/vim-peepopen'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -31,8 +32,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Align'
 Plug 'vim-scripts/AutoAlign'
 Plug 'vim-scripts/comments.vim'
+Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/LargeFile'
-Plug 'yegappan/mru'
+"Plug 'yegappan/mru'
 call plug#end()
 
 "  Load pathogen paths
@@ -50,6 +52,9 @@ try
 catch
 endtry
 
+" Open Ag and put the cursor in the right position
+"map <leader>ag :Ag 
+
 "  bufExplorer plugin
 let g:bufExplorerDefaultHelp=0
 let g:bufExplorerShowRelativePath=1
@@ -58,29 +63,61 @@ let g:bufExplorerSortBy='name'
 "map <leader>o :BufExplorer<cr>
 
 "  MRU plugin
-let MRU_Max_Entries = 400
-map <silent> <leader>f :MRU<CR>
+"let MRU_Max_Entries = 400
+"map <silent> <leader>f :MRU<CR>
 
 "  YankStack
-nmap <silent> <c-p> <Plug>yankstack_substitute_older_paste
-nmap <silent> <c-P> <Plug>yankstack_substitute_newer_paste
+"nmap <silent> <c-p> <Plug>yankstack_substitute_older_paste
+"nmap <silent> <c-P> <Plug>yankstack_substitute_newer_paste
 
 "  CTRL-P
 let g:ctrlp_working_path_mode = 0
-
-let g:ctrlp_map = '<c-f>'
-map <silent> <leader>g :CtrlP<cr>
-map <silent> <c-b> :CtrlPBuffer<cr>
-
+let g:ctrlp_map = '<f11>'
 let g:ctrlp_max_height = 20
-let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee'
+let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee|\.class|\.pyc'
+let g:ctrlp_prompt_mappings = {
+  \ 'PrtBS()':              ['<bs>', '<c-]>'],
+  \ 'PrtDelete()':          ['<del>'],
+  \ 'PrtDeleteWord()':      ['<c-w>'],
+  \ 'PrtClear()':           ['<c-u>'],
+  \ 'PrtSelectMove("j")':   ['<c-j>', '<down>'],
+  \ 'PrtSelectMove("k")':   ['<c-k>', '<up>'],
+  \ 'PrtSelectMove("t")':   ['<Home>', '<kHome>'],
+  \ 'PrtSelectMove("b")':   ['<End>', '<kEnd>'],
+  \ 'PrtSelectMove("u")':   ['<PageUp>', '<kPageUp>'],
+  \ 'PrtSelectMove("d")':   ['<PageDown>', '<kPageDown>'],
+  \ 'PrtHistory(-1)':       ['<c-n>'],
+  \ 'PrtHistory(1)':        ['<c-p>'],
+  \ 'AcceptSelection("e")': ['<c-i>', '<2-LeftMouse>'],
+  \ 'AcceptSelection("h")': ['<c-x>', '<c-cr>', '<c-s>'],
+  \ 'AcceptSelection("t")': ['<cr>', '<c-t>'],
+  \ 'AcceptSelection("v")': ['<c-v>', '<RightMouse>'],
+  \ 'ToggleFocus()':        ['<s-tab>'],
+  \ 'ToggleRegex()':        ['<c-r>'],
+  \ 'ToggleByFname()':      ['<c-d>'],
+  \ 'ToggleType(1)':        ['<c-f>', '<c-up>', '<f12>'],
+  \ 'ToggleType(-1)':       ['<c-b>', '<c-down>'],
+  \ 'PrtExpandDir()':       ['<tab>'],
+  \ 'PrtInsert("c")':       ['<MiddleMouse>', '<insert>'],
+  \ 'PrtInsert()':          ['<c-\>'],
+  \ 'PrtCurStart()':        ['<c-a>'],
+  \ 'PrtCurEnd()':          ['<c-e>'],
+  \ 'PrtCurLeft()':         ['<c-h>', '<left>', '<c-^>'],
+  \ 'PrtCurRight()':        ['<c-l>', '<right>'],
+  \ 'PrtClearCache()':      ['<F5>'],
+  \ 'PrtDeleteEnt()':       ['<F7>'],
+  \ 'CreateNewFile()':      ['<c-y>'],
+  \ 'MarkToOpen()':         ['<c-z>'],
+  \ 'OpenMulti()':          ['<c-o>'],
+  \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
+  \ }
 
 "  ZenCoding
 " Enable all functions in all modes
-let g:user_zen_mode='a'
+"let g:user_zen_mode='a'
 
 "  Vim grep
-let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated'
+let Grep_Skip_Dirs = 'RCS CVS SCCS .svn .git generated'
 set grepprg=/bin/grep\ -nH
 
 "  Nerd Tree
@@ -88,8 +125,8 @@ let g:NERDTreeWinPos = "left"
 let NERDTreeShowHidden= 0
 let NERDTreeIgnore = ['\.pyc$', '__pycache__', '\.class$', '\.DS_Store$']
 let g:NERDTreeWinSize=35
-map <silent> <F9> :NERDTreeMirror<CR>
-map <silent> <F9> :NERDTreeToggle<CR>
+"map <silent> <F9> :NERDTreeMirror<CR>
+"map <silent> <F9> :NERDTreeToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
 let g:nerdtree_tabs_autofind                = 1
 
@@ -138,7 +175,7 @@ let g:syntastic_python_checkers=['pyflakes']
 "nnoremap <silent> <leader>c :call SyntasticCheckCoffeescript()<cr>
 
 "  Git gutter (Git diff)
-let g:gitgutter_enabled=0
+let g:gitgutter_enabled = 1
 nnoremap <silent> <leader>d :GitGutterToggle<cr>
 
 " vim-markdown
@@ -147,16 +184,27 @@ let g:vim_markdown_folding_disabled = 1
 " neco-ghc
 let g:necoghc_enable_detailed_browse = 1
 
-" neocomplete plugin
+" neocomplete
 " Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
-
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-" Define dictionary.
+let g:neocomplcache_enable_ignore_case = 1
+let g:neocomplcache_enable_auto_select             = 1
+let g:neocomplcache_enable_fuzzy_completion        = 1
+let g:neocomplcache_enable_camel_case_completion   = 1
+let g:neocomplcache_enable_underbar_completion     = 1
+let g:neocomplcache_fuzzy_completion_start_length  = 1
+let g:neocomplcache_auto_completion_start_length   = 1
+let g:neocomplcache_manual_completion_start_length = 1
+let g:neocomplcache_min_keyword_length = 1
+let g:neocomplcache_min_syntax_length = 1
+let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+let g:neocomplcache_same_filetype_lists = {}
+let g:neocomplcache_same_filetype_lists._ = '_'
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
@@ -205,3 +253,4 @@ endif
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 "let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
