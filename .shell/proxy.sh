@@ -9,14 +9,6 @@ function setLocalProxy {
   return 0
 }
 
-function removeLocalProxy {
-  unset http_proxy
-  unset https_proxy
-  unset HTTP_PROXY
-  unset HTTPS_PROXY
-  return 0
-}
-
 # GE Proxy settings
 function setGeProxy {
   export http_proxy=http://3.20.128.6:88
@@ -45,11 +37,14 @@ function setShadowSocksProxy {
   return 0
 }
 
-function removeGeProxy {
+function removeProxy {
   unset http_proxy
   unset https_proxy
   unset HTTP_PROXY
   unset HTTPS_PROXY
+  if [[ "$JAVA_OPTS" == *http* ]]; then
+    unset JAVA_OPTS
+  fi
   if type networksetup > /dev/null 2>&1; then
     sudo networksetup -setautoproxystate Wi-Fi off
     sudo networksetup -setwebproxystate Wi-Fi off
@@ -74,7 +69,7 @@ function getProxyStatus {
 if [[ $(uname) == Linux ]]; then
   alias mtproxy=setLocalProxy
   alias mtscproxy=setShadowSocksProxy
-  alias rmproxy=removeLocalProxy
+  alias rmproxy=removeProxy
   alias proxystatus=getProxyStatus
   if [[ $(netstat -tln|grep 1080) == tcp*0.0.0.0*1080*LISTEN* ]]; then 
     export http_proxy=http://localhost:8123
@@ -94,7 +89,7 @@ fi
 if [[ $(uname) == Darwin ]]; then
   alias mtproxy=setGeProxy
   alias mtscproxy=setShadowSocksProxy
-  alias rmproxy=removeGeProxy
+  alias rmproxy=removeProxy
   alias proxystatus=getProxyStatus
   if [[ $(ipconfig getifaddr en0) == 10.189* ]]; then 
       export http_proxy=http://3.20.128.6:88
@@ -103,7 +98,6 @@ if [[ $(uname) == Darwin ]]; then
       export HTTPS_PROXY=http://3.20.128.6:88
   fi
 fi
-
 
 export no_proxy=localhost,*.ge.com,10/8,127/8,192/8
 export NO_PROXY=localhost,*.ge.com,10/8,127/8,192/8
