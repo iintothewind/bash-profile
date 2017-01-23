@@ -1,6 +1,14 @@
 # bash-profile
 This is a place we can share the most useful settings of our bash profiles
 
+## .m2
+### settings.xml
+maven settings configuration
+
+## .sbt
+### repositories
+scala sbt repositories 
+
 ## .Shell/alias.sh
 the alias settings file
 
