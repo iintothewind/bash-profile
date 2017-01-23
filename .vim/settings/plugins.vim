@@ -1,40 +1,41 @@
 " Load plug
 call plug#begin('~/.vim/plugged')
+"Plug 'Shougo/unite.vim'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'jistr/vim-nerdtree-tabs'
+"Plug 'maxbrunsfeld/vim-yankstack'
+"Plug 'mkitt/tabline.vim'
+"Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/syntastic'
+"Plug 'shemerey/vim-peepopen'
+"Plug 'vim-scripts/Align'
+"Plug 'vim-scripts/AutoAlign'
+"Plug 'vim-scripts/comments.vim'
+"Plug 'yegappan/mru'
 Plug 'Shougo/neocomplete.vim'
-Plug 'Shougo/unite.vim'
 Plug 'Shougo/vimproc.vim'
 Plug 'Townk/vim-autoclose'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'amix/open_file_under_cursor.vim'
 Plug 'eagletmt/neco-ghc'
 Plug 'godlygeek/tabular'
-"Plug 'jistr/vim-nerdtree-tabs'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kien/ctrlp.vim'
-Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mhinz/vim-signify'
-Plug 'mkitt/tabline.vim'
 Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'rking/ag.vim'
-"Plug 'scrooloose/nerdtree'
-"Plug 'scrooloose/syntastic'
-Plug 'w0rp/ale'
-"Plug 'shemerey/vim-peepopen'
+Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/Align'
-Plug 'vim-scripts/AutoAlign'
-Plug 'vim-scripts/comments.vim'
-Plug 'scrooloose/nerdcommenter'
 Plug 'vim-scripts/LargeFile'
-"Plug 'yegappan/mru'
+Plug 'w0rp/ale'
 call plug#end()
 
 "  Load pathogen paths
@@ -56,10 +57,10 @@ endtry
 "map <leader>ag :Ag 
 
 "  bufExplorer plugin
-let g:bufExplorerDefaultHelp=0
-let g:bufExplorerShowRelativePath=1
-let g:bufExplorerFindActive=1
-let g:bufExplorerSortBy='name'
+let g:bufExplorerDefaultHelp      = 0
+let g:bufExplorerShowRelativePath = 1
+let g:bufExplorerFindActive       = 1
+let g:bufExplorerSortBy           = 'name'
 "map <leader>o :BufExplorer<cr>
 
 "  MRU plugin
@@ -70,12 +71,15 @@ let g:bufExplorerSortBy='name'
 "nmap <silent> <c-p> <Plug>yankstack_substitute_older_paste
 "nmap <silent> <c-P> <Plug>yankstack_substitute_newer_paste
 
+" indentLine
+
+
 "  CTRL-P
 let g:ctrlp_working_path_mode = 0
-let g:ctrlp_map = '<f11>'
-let g:ctrlp_max_height = 20
-let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee|\.class|\.pyc'
-let g:ctrlp_prompt_mappings = {
+let g:ctrlp_map               = '<f11>'
+let g:ctrlp_max_height        = 20
+let g:ctrlp_custom_ignore     = 'node_modules\|^\.DS_Store\|^\.git\|^\.coffee|\.class|\.pyc'
+let g:ctrlp_prompt_mappings   = {
   \ 'PrtBS()':              ['<bs>', '<c-]>'],
   \ 'PrtDelete()':          ['<del>'],
   \ 'PrtDeleteWord()':      ['<c-w>'],
@@ -121,10 +125,10 @@ let Grep_Skip_Dirs = 'RCS CVS SCCS .svn .git generated'
 set grepprg=/bin/grep\ -nH
 
 "  Nerd Tree
-let g:NERDTreeWinPos = "left"
-let NERDTreeShowHidden= 0
-let NERDTreeIgnore = ['\.pyc$', '__pycache__', '\.class$', '\.DS_Store$']
-let g:NERDTreeWinSize=35
+let g:NERDTreeWinPos   = "left"
+let NERDTreeShowHidden = 0
+let NERDTreeIgnore     = ['\.pyc$', '__pycache__', '\.class$', '\.DS_Store$']
+let g:NERDTreeWinSize  = 35
 "map <silent> <F9> :NERDTreeMirror<CR>
 "map <silent> <F9> :NERDTreeToggle<CR>
 let g:nerdtree_tabs_open_on_console_startup = 1
@@ -151,12 +155,12 @@ let g:airline_theme                      ='wombat'
 
 "  Syntastic (syntax checker)
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 1
-let g:syntastic_ignore_files = [".*\.xml$"] 
+let g:syntastic_auto_loc_list            = 1
+let g:syntastic_check_on_open            = 1
+let g:syntastic_check_on_wq              = 1
+let g:syntastic_ignore_files             = [".*\.xml$"]
 " Python
-let g:syntastic_python_checkers=['pyflakes']
+let g:syntastic_python_checkers = ['pyflakes']
 
 " Javascript
 "let g:syntastic_javascript_checkers = ['jshint']
@@ -190,9 +194,9 @@ let g:acp_enableAtStartup = 0
 " Use neocomplete.
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplcache_enable_ignore_case = 1
+let g:neocomplete#enable_smart_case                = 1
+let g:neocomplete#lock_buffer_name_pattern         = '\*ku\*'
+let g:neocomplcache_enable_ignore_case             = 1
 let g:neocomplcache_enable_auto_select             = 1
 let g:neocomplcache_enable_fuzzy_completion        = 1
 let g:neocomplcache_enable_camel_case_completion   = 1
@@ -200,12 +204,12 @@ let g:neocomplcache_enable_underbar_completion     = 1
 let g:neocomplcache_fuzzy_completion_start_length  = 1
 let g:neocomplcache_auto_completion_start_length   = 1
 let g:neocomplcache_manual_completion_start_length = 1
-let g:neocomplcache_min_keyword_length = 1
-let g:neocomplcache_min_syntax_length = 1
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-let g:neocomplcache_same_filetype_lists = {}
-let g:neocomplcache_same_filetype_lists._ = '_'
-let g:neocomplete#sources#dictionary#dictionaries = {
+let g:neocomplcache_min_keyword_length             = 1
+let g:neocomplcache_min_syntax_length              = 1
+let g:neocomplcache_lock_buffer_name_pattern       = '\*ku\*'
+let g:neocomplcache_same_filetype_lists            = {}
+let g:neocomplcache_same_filetype_lists._          = '_'
+let g:neocomplete#sources#dictionary#dictionaries  = {
     \ 'default' : '',
     \ 'vimshell' : $HOME.'/.vimshell_hist',
     \ 'scheme' : $HOME.'/.gosh_completions'
@@ -241,11 +245,11 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 "let g:neocomplete#disable_auto_complete = 1
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags " Enable heavy omni completion.
+autocmd FileType css setlocal omnifunc           = csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc = htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc    = javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc        = pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc           = xmlcomplete#CompleteTags " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
