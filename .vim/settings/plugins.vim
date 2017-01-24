@@ -72,7 +72,8 @@ let g:bufExplorerSortBy           = 'name'
 "nmap <silent> <c-P> <Plug>yankstack_substitute_newer_paste
 
 " indentLine
-
+nmap <Leader>/ <Plug>NERDCommenterToggle
+vmap <Leader>/ <Plug>NERDCommenterToggle
 
 "  CTRL-P
 let g:ctrlp_working_path_mode = 0
