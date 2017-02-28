@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # environments
 if [ -f $HOME/.shell/environments.sh ]; then
   . $HOME/.shell/environments.sh;
@@ -21,7 +22,7 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 fi
 # autojump
 if [ -f $(brew --prefix)/etc/profile.d/autojump.sh ]; then 
-  . /usr/local/etc/profile.d/autojump.sh;
+  . $(brew --prefix)/etc/profile.d/autojump.sh;
 fi
 # ls color
 if brew list | grep coreutils > /dev/null ; then
@@ -30,5 +31,8 @@ if brew list | grep coreutils > /dev/null ; then
   eval `gdircolors -b $HOME/.dir_colors`
 fi
 
+#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
+
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
 

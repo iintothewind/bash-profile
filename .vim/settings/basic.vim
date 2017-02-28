@@ -189,6 +189,13 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" map macro recording from q to leader-q
+noremap <Leader>q q
+noremap q <Nop>
+
+" map redo C-r to r
+map <silent> r :red<cr>
+
 " Close the current buffer
 "map <leader>bd :Bclose<cr>:tabclose<cr>gT
 
@@ -249,7 +256,6 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 " Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
@@ -272,11 +278,11 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 "
 "map <leader>cc :botright cope<cr>
 "map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-"map <leader>cn :cn<cr>
-"map <leader>cp :cp<cr>
+nmap <silent> <F6> :cn<cr>
+nmap <silent> <F7> :cp<cr>
 
 " Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+"map <leader>ss :setlocal spell!<cr>
 
 " Shortcuts using <leader>
 "map <leader>sn ]s
@@ -294,7 +300,7 @@ noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 "map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+"map <leader>pp :setlocal paste!<cr>
 
 
 function! CmdLine(str)

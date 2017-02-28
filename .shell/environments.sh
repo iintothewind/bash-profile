@@ -28,6 +28,9 @@ if [[ $(uname) == Darwin ]]; then
   # Haskell Environments
   export HASKELL_HOME="$HOME/Library/Haskell"
 
+  # Sqlite Environments
+  export SQLITE_HOME="$(brew --prefix sqlite)"
+
   # Python Environments
   export PYTHON_HOME="$HOME/Library/Python/2.7"
   export WORKON_HOME="$HOME/.envs"
@@ -36,12 +39,9 @@ if [[ $(uname) == Darwin ]]; then
   export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home"
 
   # Path
-  export PATH="$GNU_BIN:$PATH:$BREW_SBIN:$LOCAL_BIN:$HASKELL_HOME/bin:$PYTHON_HOME/bin"
+  export PATH="$GNU_BIN:$PATH:$BREW_SBIN:$LOCAL_BIN:$HASKELL_HOME/bin:$PYTHON_HOME/bin:$SQLITE_HOME/bin"
 
   # Man Pages
   export MANPTH="$GNU_MAN:$MANPATH"
-
-  # github api token 
-  export HOMEBREW_GITHUB_API_TOKEN="a005a033359adb04f98cff208828ea927e88a523"
 fi
 

@@ -19,6 +19,7 @@ function setGeProxy {
     sudo networksetup -setautoproxystate Wi-Fi off
     sudo networksetup -setwebproxy Wi-Fi 3.20.128.6 88
     sudo networksetup -setsecurewebproxy Wi-Fi 3.20.128.6 88
+    sudo networksetup -setdnsservers Wi-Fi Empty
   fi
   return 0
 }
@@ -33,6 +34,7 @@ function setShadowSocksProxy {
     sudo networksetup -setautoproxystate Wi-Fi off
     sudo networksetup -setwebproxy Wi-Fi 192.168.0.161 8123
     sudo networksetup -setsecurewebproxy Wi-Fi 192.168.0.161 8123
+    sudo networksetup -setdnsservers Wi-Fi 115.159.96.69 115.159.157.26 115.159.158.38 115.159.220.214
   fi
   return 0
 }
