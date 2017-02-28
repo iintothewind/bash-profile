@@ -1,33 +1,31 @@
 " Load plug
 call plug#begin('~/.vim/plugged')
-"Plug 'Shougo/unite.vim'
 "Plug 'Xuyuanp/nerdtree-git-plugin'
+"Plug 'amix/open_file_under_cursor.vim'
 "Plug 'jistr/vim-nerdtree-tabs'
-"Plug 'maxbrunsfeld/vim-yankstack'
 "Plug 'mkitt/tabline.vim'
 "Plug 'scrooloose/nerdtree'
 "Plug 'scrooloose/syntastic'
-"Plug 'shemerey/vim-peepopen'
 "Plug 'vim-scripts/Align'
 "Plug 'vim-scripts/AutoAlign'
 "Plug 'vim-scripts/comments.vim'
-"Plug 'yegappan/mru'
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc.vim'
 Plug 'Townk/vim-autoclose'
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
-Plug 'amix/open_file_under_cursor.vim'
 Plug 'eagletmt/neco-ghc'
 Plug 'godlygeek/tabular'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kien/ctrlp.vim'
+Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'mhinz/vim-signify'
 Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'rking/ag.vim'
 Plug 'scrooloose/nerdcommenter'
+Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -53,25 +51,15 @@ try
 catch
 endtry
 
-" Open Ag and put the cursor in the right position
-"map <leader>ag :Ag 
-
-"  bufExplorer plugin
-let g:bufExplorerDefaultHelp      = 0
-let g:bufExplorerShowRelativePath = 1
-let g:bufExplorerFindActive       = 1
-let g:bufExplorerSortBy           = 'name'
-"map <leader>o :BufExplorer<cr>
-
-"  MRU plugin
-"let MRU_Max_Entries = 400
-"map <silent> <leader>f :MRU<CR>
-
 "  YankStack
-"nmap <silent> <c-p> <Plug>yankstack_substitute_older_paste
-"nmap <silent> <c-P> <Plug>yankstack_substitute_newer_paste
+call yankstack#setup()
+let g:yankstack_map_keys = 0
+let g:yankstack_yank_keys = ['y', 'd']
+nmap <silent> <leader>p <Plug>yankstack_substitute_older_paste
+nmap <silent> <leader>P <Plug>yankstack_substitute_newer_paste
 
 " indentLine
+let g:indentLine_setConceal = 0
 nmap <Leader>/ <Plug>NERDCommenterToggle
 vmap <Leader>/ <Plug>NERDCommenterToggle
 
@@ -117,23 +105,19 @@ let g:ctrlp_prompt_mappings   = {
   \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
   \ }
 
-"  ZenCoding
-" Enable all functions in all modes
-"let g:user_zen_mode='a'
-
 "  Vim grep
 let Grep_Skip_Dirs = 'RCS CVS SCCS .svn .git generated'
 set grepprg=/bin/grep\ -nH
 
 "  Nerd Tree
-let g:NERDTreeWinPos   = "left"
-let NERDTreeShowHidden = 0
-let NERDTreeIgnore     = ['\.pyc$', '__pycache__', '\.class$', '\.DS_Store$']
-let g:NERDTreeWinSize  = 35
+"let g:NERDTreeWinPos   = "left"
+"let NERDTreeShowHidden = 0
+"let NERDTreeIgnore     = ['\.pyc$', '__pycache__', '\.class$', '\.DS_Store$']
+"let g:NERDTreeWinSize  = 35
 "map <silent> <F9> :NERDTreeMirror<CR>
 "map <silent> <F9> :NERDTreeToggle<CR>
-let g:nerdtree_tabs_open_on_console_startup = 1
-let g:nerdtree_tabs_autofind                = 1
+"let g:nerdtree_tabs_open_on_console_startup = 1
+"let g:nerdtree_tabs_autofind                = 1
 
 "  vim-multiple-cursors
 let g:multi_cursor_next_key="\<C-s>"
@@ -145,23 +129,14 @@ vmap Si S(i<esc>f)
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme                      ='wombat'
 
-""  Vimroom
-"let g:goyo_width=100
-"let g:goyo_margin_top = 2
-"let g:goyo_margin_bottom = 2
-"nnoremap <silent> <leader>z :Goyo<cr>
-
-"  Vim-go
-" let g:go_fmt_command = "goimports"
-
-"  Syntastic (syntax checker)
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list            = 1
-let g:syntastic_check_on_open            = 1
-let g:syntastic_check_on_wq              = 1
-let g:syntastic_ignore_files             = [".*\.xml$"]
-" Python
-let g:syntastic_python_checkers = ['pyflakes']
+""  Syntastic (syntax checker)
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list            = 1
+"let g:syntastic_check_on_open            = 1
+"let g:syntastic_check_on_wq              = 1
+"let g:syntastic_ignore_files             = [".*\.xml$"]
+"" Python
+"let g:syntastic_python_checkers = ['pyflakes']
 
 " Javascript
 "let g:syntastic_javascript_checkers = ['jshint']
@@ -179,6 +154,10 @@ let g:syntastic_python_checkers = ['pyflakes']
 "endfunc
 "nnoremap <silent> <leader>c :call SyntasticCheckCoffeescript()<cr>
 
+" ale
+"let g:airline#extensions#ale#error_symbol = '⨉'
+"let g:airline#extensions#ale#warning_symbol = '⚠ '
+
 "  Git gutter (Git diff)
 let g:gitgutter_enabled = 1
 nnoremap <silent> <leader>d :GitGutterToggle<cr>
@@ -188,13 +167,15 @@ let g:vim_markdown_folding_disabled = 1
 
 " neco-ghc
 let g:necoghc_enable_detailed_browse = 1
+" Disable haskell-vim omnifunc
+let g:haskellmode_completion_ghc = 0
+autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
 
 " neocomplete
 " Disable AutoComplPop.
-let g:acp_enableAtStartup = 0
-" Use neocomplete.
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
+let g:acp_enableAtStartup                          = 0
+let g:neocomplete#enable_at_startup                = 1
+let g:neocomplete#enable_auto_close_preview        = 0
 let g:neocomplete#enable_smart_case                = 1
 let g:neocomplete#lock_buffer_name_pattern         = '\*ku\*'
 let g:neocomplcache_enable_ignore_case             = 1
@@ -227,7 +208,6 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  "return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
   " For no inserting <CR> key.
   return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
@@ -236,6 +216,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+au CompleteDone * pclose
 " Close popup by <Space>.
 "inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
 " AutoComplPop like behavior.
@@ -246,11 +227,11 @@ inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 "let g:neocomplete#disable_auto_complete = 1
 "inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc           = csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc = htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc    = javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc        = pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc           = xmlcomplete#CompleteTags " Enable heavy omni completion.
+"autocmd FileType css setlocal omnifunc           = csscomplete#CompleteCSS
+"autocmd FileType html,markdown setlocal omnifunc = htmlcomplete#CompleteTags
+"autocmd FileType javascript setlocal omnifunc    = javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc        = pythoncomplete#Complete
+"autocmd FileType xml setlocal omnifunc           = xmlcomplete#CompleteTags " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
   let g:neocomplete#sources#omni#input_patterns = {}
 endif
