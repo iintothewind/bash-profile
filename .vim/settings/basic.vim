@@ -172,7 +172,7 @@ set tw=300
 
 set autoindent
 set smartindent
-set wrap "Wrap lines
+set wrap 
 
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
@@ -205,8 +205,8 @@ map <silent> r :red<cr>
 "map <leader>h :bprevious<cr>
 
 " Useful mappings for managing tabs
-"map <leader>tn :tabnew<cr>
-"map <leader>n :tabnext<cr>
+map <silent> gb :tabprev<cr>
+"map <silent> gt :tabnext<cr>
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
