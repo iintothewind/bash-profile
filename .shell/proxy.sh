@@ -24,6 +24,20 @@ function setGeProxy {
   return 0
 }
 
+function setGePac {
+  export http_proxy=http://3.20.128.6:88
+  export https_proxy=http://3.20.128.6:88
+  export HTTP_PROXY=http://3.20.128.6:88
+  export HTTPS_PROXY=http://3.20.128.6:88
+  if type networksetup > /dev/null 2>&1; then
+    sudo networksetup -setautoproxyurl Wi-Fi "https://cloudproxy.setpac.ge.com/pac.pac"
+    sudo networksetup -setwebproxystate Wi-Fi off
+    sudo networksetup -setsecurewebproxystate Wi-Fi off
+    sudo networksetup -setdnsservers Wi-Fi Empty
+  fi
+  return 0
+}
+
 # Shadowsocks Proxy settings
 function setShadowSocksProxy {
   export http_proxy=http://192.168.0.161:8123
@@ -34,7 +48,6 @@ function setShadowSocksProxy {
     sudo networksetup -setautoproxystate Wi-Fi off
     sudo networksetup -setwebproxy Wi-Fi 192.168.0.161 8123
     sudo networksetup -setsecurewebproxy Wi-Fi 192.168.0.161 8123
-    sudo networksetup -setdnsservers Wi-Fi 115.159.96.69 115.159.157.26 115.159.158.38 115.159.220.214
   fi
   return 0
 }
@@ -90,6 +103,7 @@ fi
 
 if [[ $(uname) == Darwin ]]; then
   alias mtproxy=setGeProxy
+  alias mtpac=setGePac
   alias mtscproxy=setShadowSocksProxy
   alias rmproxy=removeProxy
   alias proxystatus=getProxyStatus
