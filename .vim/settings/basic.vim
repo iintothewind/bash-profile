@@ -82,7 +82,7 @@ set ignorecase
 set smartcase
 
 " Highlight search results
-set hlsearch
+"set hlsearch
 " Makes search act like search in modern browsers
 set incsearch 
 
@@ -176,8 +176,8 @@ set wrap
 
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
+"map <space> /
+"map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>

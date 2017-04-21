@@ -4,6 +4,7 @@
 function qf() { find . -name "$@" -print ;}
 function genv() { env | fgrep "$@" ;}
 function gps() { ps -ef | fgrep "$@" | fgrep -v fgrep ;}
+function ghs() { history | fgrep "$@" | fgrep -v fgrep ;}
 
 function setJavaProxy {
   if [[ "$HTTP_PROXY" == http* ]]; then
@@ -45,8 +46,8 @@ if type git > /dev/null 2>&1 ; then
   alias gbi="git bisect"
   alias ggrep="git grep"
   alias ggp="git grep"
-  alias glog="git log"
-  alias glg="git lg"
+  alias glog="git ll"
+  alias gll="git ll"
   alias glast="git last"
   alias glst="git last"
   alias gshow="git show"
@@ -64,7 +65,7 @@ if type git > /dev/null 2>&1 ; then
   alias gdif="git diff"
   alias gmerge="git merge"
   alias gme="git merge"
-  alias grebase="git reabse"
+  alias grebase="git rebase"
   alias grb="git rebase"
   alias gtag="git tag"
   alias gfetch="git fetch"
@@ -94,7 +95,7 @@ if [[ $(uname) == Darwin ]]; then
   alias rmdstore='find . -name ".DS_Store" -depth -exec rm {} \;'
   alias fip="ipconfig getifaddr en0"
   alias rmdns="sudo networksetup -setdnsservers Wi-Fi Empty"
-  alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.96.69 115.159.157.26 115.159.158.38 115.159.220.214"
+  alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.157.26 115.159.158.38 115.159.96.69 115.159.220.214"
   alias cfluw="cf login -o https://api.system.aws-usw02-pr.ice.predix.io"
   alias cflja="cf login -o https://api.system.aws-jp01-pr.ice.predix.io"
 fi

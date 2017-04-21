@@ -36,12 +36,16 @@ if [[ $(uname) == Darwin ]]; then
   export WORKON_HOME="$HOME/.envs"
 
   # Java Environments
-  export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_112.jdk/Contents/Home"
+  #export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home"
 
   # Path
   export PATH="$GNU_BIN:$PATH:$BREW_SBIN:$LOCAL_BIN:$HASKELL_HOME/bin:$PYTHON_HOME/bin:$SQLITE_HOME/bin"
 
   # Man Pages
   export MANPTH="$GNU_MAN:$MANPATH"
+
+  # brew settings
+  export HOMEBREW_GITHUB_API_TOKEN="f746d2b3c2f6b587337bc284a37557217356dea3"
+  export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
 fi
 
