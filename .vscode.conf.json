@@ -1,0 +1,26 @@
+{
+    //"http.proxy": "http://3.20.128.6:88",
+    "http.proxyStrictSSL": false,
+    "editor.fontSize": 10,
+    "editor.tabSize": 2,
+    "editor.cursorBlinking": "solid",
+    "files.autoSave": "onFocusChange",
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/.DS_Store": true,
+        "**/*.pyc": true
+    },
+    "window.openFilesInNewWindow": "default",
+    "update.channel": "none",
+    "vim.leader": ";",
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.useSystemClipboard": true,
+    "python.formatting.provider": "yapf",
+    "python.linting.pylintEnabled": false,
+    "workbench.colorTheme": "Visual Studio Light",
+    "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home",
+    "java.errors.incompleteClasspath.severity": "ignore"
+}
