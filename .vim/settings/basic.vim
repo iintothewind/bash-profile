@@ -32,20 +32,20 @@ command W w !sudo tee % > /dev/null
 set helplang=cn
 " set encoding
 if has("multi_byte")
-    set encoding=utf-8
-    set termencoding=utf-8
-    set formatoptions+=mM
-    set fencs=utf-8,gbk
-    if v:lang =~? '^/(zh/)/|/(ja/)/|/(ko/)'
-        set ambiwidth=double
-    endif
-    if has("win32")
-        source $VIMRUNTIME/delmenu.vim
-        source $VIMRUNTIME/menu.vim
-        language messages zh_CN.utf-8
-    endif
+  set encoding=utf-8
+  set termencoding=utf-8
+  set formatoptions+=mM
+  set fencs=utf-8,gbk
+  if v:lang =~? '^/(zh/)/|/(ja/)/|/(ko/)'
+    set ambiwidth=double
+  endif
+  if has("win32")
+    source $VIMRUNTIME/delmenu.vim
+    source $VIMRUNTIME/menu.vim
+    language messages zh_CN.utf-8
+  endif
 else
-    echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
+  echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
 endif
 
 " Turn on the WiLd menu
@@ -56,9 +56,9 @@ set wildmode=longest:full,full
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
+  set wildignore+=.git\*,.hg\*,.svn\*
 else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+  set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
 "Always show current position
@@ -110,7 +110,7 @@ set tm=500
 
 " Properly disable sound on errors on MacVim
 if has("gui_macvim")
-    autocmd GUIEnter * set vb t_vb=
+  autocmd GUIEnter * set vb t_vb=
 endif
 
 " Add a bit extra margin to the left
@@ -121,28 +121,28 @@ syntax enable
 
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
-    set t_Co=256
+  set t_Co=256
 endif
 
 set background=dark
 try
-    colorscheme desert
+  colorscheme desert
 catch
 endtry
 
 " Set extra options when running in GUI mode
 if has('gui_running')
-    set guifont=Monospace:bold:h9:cGB2312
-    set guioptions-=m
-    set guioptions-=T
-    set guioptions-=r
-    set guioptions-=L
-    set guicursor=n-v-c:blinkon0
-    set t_Co=256
-    set guitablabel=%M\ %t
-    nnoremap <leader><F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
-    nnoremap <leader><F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
-    nnoremap <leader><F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
+  set guifont=Monospace:bold:h9:cGB2312
+  set guioptions-=m
+  set guioptions-=T
+  set guioptions-=r
+  set guioptions-=L
+  set guicursor=n-v-c:blinkon0
+  set t_Co=256
+  set guitablabel=%M\ %t
+  nnoremap <leader><F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
+  nnoremap <leader><F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
+  nnoremap <leader><F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 endif
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -157,10 +157,10 @@ set directory=~/.vim/swap,/tmp
 " Use spaces instead of tabs
 set expandtab
 
-" Be smart when using tabs ;)
+" Be smart when using tabs
 set smarttab
 
-" 1 tab == 4 spaces
+" 1 tab == 2 spaces
 set shiftwidth=2
 set tabstop=2
 
@@ -304,56 +304,56 @@ noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 
 function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
+  exe "menu Foo.Bar :" . a:str
+  emenu Foo.Bar
+  unmenu Foo
 endfunction 
 
 function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
+  let l:saved_reg = @"
+  execute "normal! vgvy"
 
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+  let l:pattern = escape(@", '\\/.*$^~[]')
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-    if a:direction == 'gv'
-        call CmdLine("Ag \"" . l:pattern . "\" " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
+  if a:direction == 'gv'
+    call CmdLine("Ag \"" . l:pattern . "\" " )
+  elseif a:direction == 'replace'
+    call CmdLine("%s" . '/'. l:pattern . '/')
+  endif
 
-    let @/ = l:pattern
-    let @" = l:saved_reg
+  let @/ = l:pattern
+  let @" = l:saved_reg
 endfunction
 
 
 " Returns true if paste mode is enabled
 function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
+  if &paste
+    return 'PASTE MODE  '
+  endif
+  return ''
 endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
+  let l:currentBufNum = bufnr("%")
+  let l:alternateBufNum = bufnr("#")
 
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
+  if buflisted(l:alternateBufNum)
+    buffer #
+  else
+    bnext
+  endif
 
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
+  if bufnr("%") == l:currentBufNum
+    new
+  endif
 
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
+  if buflisted(l:currentBufNum)
+    execute("bdelete! ".l:currentBufNum)
+  endif
 endfunction
 
 " Make VIM remember position in file after reopen
