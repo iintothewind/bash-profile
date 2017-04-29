@@ -12,7 +12,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'Shougo/neocomplete.vim'
 Plug 'Shougo/vimproc.vim'
 Plug 'Townk/vim-autoclose'
-Plug 'Yggdroot/indentLine'
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'airblade/vim-gitgutter'
 Plug 'eagletmt/neco-ghc'
 Plug 'easymotion/vim-easymotion'
@@ -37,6 +37,8 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
+Plug 'derekwyatt/vim-scala'
+Plug 'ybian/smartim'
 Plug 'w0rp/ale'
 call plug#end()
 
@@ -55,6 +57,8 @@ try
 catch
 endtry
 
+" smartim
+let g:smartim_default = 'com.apple.keylayout.ABC'
 
 map z/ <Plug>(incsearch-easymotion-/)
 map z? <Plug>(incsearch-easymotion-?)
@@ -105,10 +109,21 @@ let g:yankstack_yank_keys = ['y', 'd']
 nmap <silent> <leader>p <Plug>yankstack_substitute_older_paste
 nmap <silent> <leader>P <Plug>yankstack_substitute_newer_paste
 
-" indentLine
-let g:indentLine_setConceal = 0
+" nerdcommenter
 nmap <Leader>/ <Plug>NERDCommenterToggle
 vmap <Leader>/ <Plug>NERDCommenterToggle
+
+" indentGuides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_start_level = 1
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_tab_guides = 1
+let g:indent_guides_space_guides = 1
+let g:indent_guides_indent_levels = 15
+let g:indent_guides_color_change_percent = 7
+set ts=2 sw=2 noet
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=darkgrey
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=black
 
 "  CTRL-P
 let g:ctrlp_working_path_mode = 0
@@ -212,6 +227,9 @@ nnoremap <silent> <leader>d :GitGutterToggle<cr>
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
 
+" vim-scala
+let g:scala_scaladoc_indent = 1
+
 " neco-ghc
 let g:necoghc_enable_detailed_browse = 1
 " Disable haskell-vim omnifunc
@@ -239,13 +257,13 @@ let g:neocomplcache_lock_buffer_name_pattern       = '\*ku\*'
 let g:neocomplcache_same_filetype_lists            = {}
 let g:neocomplcache_same_filetype_lists._          = '_'
 let g:neocomplete#sources#dictionary#dictionaries  = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-    \ }
+		\ 'default' : '',
+		\ 'vimshell' : $HOME.'/.vimshell_hist',
+		\ 'scheme' : $HOME.'/.gosh_completions'
+		\ }
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+		let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 " Plugin key-mappings.
@@ -255,13 +273,13 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  " For no inserting <CR> key.
-  return pumvisible() ? "\<C-y>" : "\<CR>"
+	" For no inserting <CR> key.
+	return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 au CompleteDone * pclose
 " Close popup by <Space>.
@@ -280,7 +298,7 @@ au CompleteDone * pclose
 "autocmd FileType python setlocal omnifunc        = pythoncomplete#Complete
 "autocmd FileType xml setlocal omnifunc           = xmlcomplete#CompleteTags " Enable heavy omni completion.
 if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
+	let g:neocomplete#sources#omni#input_patterns = {}
 endif
 "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
