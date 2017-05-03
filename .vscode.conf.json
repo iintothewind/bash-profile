@@ -6,12 +6,14 @@
   "editor.cursorBlinking": "solid",
   "files.autoSave": "onFocusChange",
   "files.exclude": {
+    "**/.vscode": true,
     "**/.git": true,
     "**/.svn": true,
     "**/.hg": true,
     "**/.DS_Store": true,
     "**/*.pyc": true
   },
+  "window.menuBarVisibility": "hidden",
   "window.openFilesInNewWindow": "default",
   "update.channel": "default",
   "vim.leader": ";",
