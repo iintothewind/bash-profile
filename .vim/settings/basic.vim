@@ -113,8 +113,10 @@ if has("gui_macvim")
   autocmd GUIEnter * set vb t_vb=
 endif
 
-" Add a bit extra margin to the left
-" set foldcolumn=1
+" fold according to indent
+set fdl=1
+set fdls=1
+set fdm=indent
 
 " Enable syntax highlighting
 syntax enable 
@@ -278,8 +280,8 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 "
 "map <leader>cc :botright cope<cr>
 "map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-nmap <silent> <F6> :cn<cr>
-nmap <silent> <F7> :cp<cr>
+"nmap <silent> <F6> :cn<cr>
+"nmap <silent> <F7> :cp<cr>
 
 " Pressing ,ss will toggle and untoggle spell checking
 "map <leader>ss :setlocal spell!<cr>
