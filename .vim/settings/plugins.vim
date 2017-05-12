@@ -7,11 +7,11 @@ call plug#begin('~/.vim/plugged')
 "Plug 'mhinz/vim-signify'
 "Plug 'rking/ag.vim'
 "Plug 'Shougo/neocomplete.vim'
+"Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'Townk/vim-autoclose'
+"Plug 'Townk/vim-autoclose'
 Plug 'Yggdroot/indentLine'
-"Plug 'nathanaelkane/vim-indent-guides'
 Plug 'airblade/vim-gitgutter'
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'easymotion/vim-easymotion'
@@ -114,7 +114,7 @@ let g:indentLine_enabled = 1
 let g:indentLine_setConceal = 1
 let g:indentLine_conceallevel = 2
 "let g:indentLine_char = '│'
-let g:indentLine_concealcursor = 'inc'
+let g:indentLine_concealcursor = ''
 
 " indentGuides
 "let g:indent_guides_enable_on_vim_startup = 1
@@ -174,16 +174,6 @@ let g:ctrlp_prompt_mappings   = {
 let Grep_Skip_Dirs = 'RCS CVS SCCS .svn .git generated'
 set grepprg=/bin/grep\ -nH
 
-"  Nerd Tree
-"let g:NERDTreeWinPos   = "left"
-"let NERDTreeShowHidden = 0
-"let NERDTreeIgnore     = ['\.pyc$', '__pycache__', '\.class$', '\.DS_Store$']
-"let g:NERDTreeWinSize  = 35
-"map <silent> <F9> :NERDTreeMirror<CR>
-"map <silent> <F9> :NERDTreeToggle<CR>
-"let g:nerdtree_tabs_open_on_console_startup = 1
-"let g:nerdtree_tabs_autofind                = 1
-
 "  vim-multiple-cursors
 let g:multi_cursor_next_key="\<C-s>"
 
@@ -193,35 +183,6 @@ vmap Si S(i<esc>f)
 " airline
 let g:airline#extensions#tabline#enabled = 1
 let g:airline_theme                      ='wombat'
-
-""  Syntastic (syntax checker)
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list            = 1
-"let g:syntastic_check_on_open            = 1
-"let g:syntastic_check_on_wq              = 1
-"let g:syntastic_ignore_files             = [".*\.xml$"]
-"" Python
-"let g:syntastic_python_checkers = ['pyflakes']
-
-" Javascript
-"let g:syntastic_javascript_checkers = ['jshint']
-
-" Go
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_go_checkers = ['go', 'golint', 'errcheck']
-
-" Custom CoffeeScript SyntasticCheck
-"func! SyntasticCheckCoffeescript()
-    "let l:filename = substitute(expand("%:p"), '\(\w\+\)\.coffee', '.coffee.\1.js', '')
-    "execute "tabedit " . l:filename
-    "execute "SyntasticCheck"
-    "execute "Errors"
-"endfunc
-"nnoremap <silent> <leader>c :call SyntasticCheckCoffeescript()<cr>
-
-" ale
-"let g:airline#extensions#ale#error_symbol = '⨉'
-"let g:airline#extensions#ale#warning_symbol = '⚠ '
 
 "  Git gutter (Git diff)
 let g:gitgutter_enabled = 1
@@ -238,75 +199,6 @@ let g:necoghc_enable_detailed_browse = 1
 " Disable haskell-vim omnifunc
 let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-"" neocomplete
-"" Disable AutoComplPop.
-"let g:acp_enableAtStartup                          = 0
-"let g:neocomplete#enable_at_startup                = 1
-"let g:neocomplete#enable_auto_close_preview        = 0
-"let g:neocomplete#enable_smart_case                = 1
-"let g:neocomplete#lock_buffer_name_pattern         = '\*ku\*'
-"let g:neocomplcache_enable_ignore_case             = 1
-"let g:neocomplcache_enable_auto_select             = 1
-"let g:neocomplcache_enable_fuzzy_completion        = 1
-"let g:neocomplcache_enable_camel_case_completion   = 1
-"let g:neocomplcache_enable_underbar_completion     = 1
-"let g:neocomplcache_fuzzy_completion_start_length  = 1
-"let g:neocomplcache_auto_completion_start_length   = 1
-"let g:neocomplcache_manual_completion_start_length = 1
-"let g:neocomplcache_min_keyword_length             = 1
-"let g:neocomplcache_min_syntax_length              = 1
-"let g:neocomplcache_lock_buffer_name_pattern       = '\*ku\*'
-"let g:neocomplcache_same_filetype_lists            = {}
-"let g:neocomplcache_same_filetype_lists._          = '_'
-"let g:neocomplete#sources#dictionary#dictionaries  = {
-		"\ 'default' : '',
-		"\ 'vimshell' : $HOME.'/.vimshell_hist',
-		"\ 'scheme' : $HOME.'/.gosh_completions'
-		"\ }
-"" Define keyword.
-"if !exists('g:neocomplete#keyword_patterns')
-		"let g:neocomplete#keyword_patterns = {}
-"endif
-"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
-"" Plugin key-mappings.
-"inoremap <expr><C-g>     neocomplete#undo_completion()
-"inoremap <expr><C-l>     neocomplete#complete_common_string()
-"" Recommended key-mappings.
-"" <CR>: close popup and save indent.
-"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-"function! s:my_cr_function()
-	"" For no inserting <CR> key.
-	"return pumvisible() ? "\<C-y>" : "\<CR>"
-"endfunction
-"" <TAB>: completion.
-"inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-"" <C-h>, <BS>: close popup and delete backword char.
-""inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-"au CompleteDone * pclose
-"" Close popup by <Space>.
-""inoremap <expr><Space> pumvisible() ? "\<C-y>" : "\<Space>"
-"" AutoComplPop like behavior.
-""let g:neocomplete#enable_auto_select = 1
-"" Shell like behavior(not recommended).
-""set completeopt+=longest
-""let g:neocomplete#enable_auto_select = 1
-""let g:neocomplete#disable_auto_complete = 1
-""inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
-"" Enable omni completion.
-""autocmd FileType css setlocal omnifunc           = csscomplete#CompleteCSS
-""autocmd FileType html,markdown setlocal omnifunc = htmlcomplete#CompleteTags
-""autocmd FileType javascript setlocal omnifunc    = javascriptcomplete#CompleteJS
-""autocmd FileType python setlocal omnifunc        = pythoncomplete#Complete
-""autocmd FileType xml setlocal omnifunc           = xmlcomplete#CompleteTags " Enable heavy omni completion.
-"if !exists('g:neocomplete#sources#omni#input_patterns')
-	"let g:neocomplete#sources#omni#input_patterns = {}
-"endif
-""let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-""let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-""let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-""let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " YouCompleteMe
 let g:ycm_complete_in_strings = 1
