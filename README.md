@@ -67,17 +67,17 @@ basic settings
 ### .vim/settings/plugins.vim
 
 ```
-Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'Townk/vim-autoclose'
+Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
+Plug 'derekwyatt/vim-scala', {'for': 'scala'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
-Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'godlygeek/tabular'
+Plug 'haya14busa/incsearch-easymotion.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'haya14busa/incsearch.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kien/ctrlp.vim'
 Plug 'maxbrunsfeld/vim-yankstack'
@@ -92,9 +92,8 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
-Plug 'derekwyatt/vim-scala', {'for': 'scala'}
-Plug 'ybian/smartim'
 Plug 'w0rp/ale'
+Plug 'ybian/smartim'
 ```
 
 ### .vim/settings/types.vim
@@ -108,6 +107,9 @@ extra settings
 
 ### .m2 settings.xml
 maven settings configuration
+
+### .ivy2 ivysettings.xml
+ivy settings
 
 ### .sbt repositories
 scala sbt repositories 
