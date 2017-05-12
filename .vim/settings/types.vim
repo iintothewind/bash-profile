@@ -1,8 +1,6 @@
 " Python
 let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
-au BufNewFile,BufRead *.jinja setl syntax=htmljinja
-au BufNewFile,BufRead *.mako setl ft=mako
 au FileType python inoremap <buffer> $r return 
 au FileType python inoremap <buffer> $i import 
 au FileType python inoremap <buffer> $p print 
@@ -14,18 +12,17 @@ au FileType python map <buffer> <leader>D ?def
 au FileType python setl cindent
 au FileType python setl cinkeys-=0#
 au FileType python setl indentkeys-=0#
+au BufNewFile,BufRead *.jinja setl syntax=htmljinja
+au BufNewFile,BufRead *.mako setl ft=mako
 
 " JavaScript
 au FileType javascript call JavaScriptFold()
 au FileType javascript setl fen
 au FileType javascript setl nocindent
-au FileType javascript imap <c-t> $log();<esc>hi
-au FileType javascript imap <c-a> alert();<esc>hi
-au FileType javascript inoremap <buffer> $r return 
-au FileType javascript inoremap <buffer> $f //--- PH<esc>FP2xi
 
 " Json
-au FileType json setl conceallevel=0 
+au InsertEnter *.json setlocal conceallevel=0 concealcursor=
+au InsertLeave *.json setlocal conceallevel=2 concealcursor=inc
 
 function! JavaScriptFold() 
   setl foldmethod=indent

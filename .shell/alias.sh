@@ -76,6 +76,8 @@ if type git > /dev/null 2>&1 ; then
   alias gph="git push"
   alias ghelp="git help"
   alias ghp="git help"
+	alias grmv="git remote -v"
+	alias gremote="git remote"
 fi
 
 # linux only

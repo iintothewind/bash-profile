@@ -6,6 +6,12 @@ function setLocalProxy {
   export https_proxy=http://localhost:8123
   export HTTP_PROXY=http://localhost:8123
   export HTTPS_PROXY=http://localhost:8123
+  if type networksetup > /dev/null 2>&1; then
+    sudo networksetup -setautoproxystate Wi-Fi off
+    sudo networksetup -setwebproxy Wi-Fi localhost 8123
+    sudo networksetup -setsecurewebproxy Wi-Fi localhost 8123
+    sudo networksetup -setdnsservers Wi-Fi Empty
+  fi
   return 0
 }
 
@@ -85,7 +91,7 @@ if [[ $(uname) == Linux ]]; then
   alias mtproxy=setLocalProxy
   alias mtscproxy=setShadowSocksProxy
   alias rmproxy=removeProxy
-  alias proxystatus=getProxyStatus
+  alias pxys=getProxyStatus
   if [[ $(netstat -tln|grep 1080) == tcp*0.0.0.0*1080*LISTEN* ]]; then 
     export http_proxy=http://localhost:8123
     export https_proxy=http://localhost:8123
@@ -102,16 +108,17 @@ if [[ $(uname) == Linux ]]; then
 fi
 
 if [[ $(uname) == Darwin ]]; then
-  alias mtproxy=setGeProxy
-  alias mtpac=setGePac
+  alias mtlocalproxy=setLocalProxy
+  alias mtgeproxy=setGeProxy
+  alias mtgepac=setGePac
   alias mtscproxy=setShadowSocksProxy
   alias rmproxy=removeProxy
-  alias proxystatus=getProxyStatus
+  alias pxys=getProxyStatus
   if [[ $(ipconfig getifaddr en0) == 10.189* ]]; then 
-      export http_proxy=http://3.20.128.6:88
-      export https_proxy=http://3.20.128.6:88
-      export HTTP_PROXY=http://3.20.128.6:88
-      export HTTPS_PROXY=http://3.20.128.6:88
+    export http_proxy=http://3.20.128.6:88
+    export https_proxy=http://3.20.128.6:88
+    export HTTP_PROXY=http://3.20.128.6:88
+    export HTTPS_PROXY=http://3.20.128.6:88
   fi
 fi
 
