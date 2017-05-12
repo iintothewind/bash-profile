@@ -1,0 +1,22 @@
+<ivy-settings>
+  <property name="local-maven2-pattern" value="${user.home}/.m2/repository/[organisation]/[module]/[revision]/[module]-[revision]" override="false" />
+
+  <settings defaultResolver="main" />
+    <caches repositoryCacheDir="${user.home}/.ivy2/cache">
+    <cache name="nocache" useOrigin="true" />
+    <cache name="default" />
+  </caches>
+
+  <resolvers>
+    <chain name="main">
+      <filesystem name="local-maven-2" m2compatible="true" local="true" cache="nocache">
+        <ivy pattern="${local-maven2-pattern}.pom" />
+        <artifact pattern="${local-maven2-pattern}(-[classifier]).[ext]" />
+      </filesystem>
+      <ibiblio name="aliyun" m2compatible="true" root="http://maven.aliyun.com/nexus/content/groups/public/" cache="default"/>
+      <ibiblio name="typesafe" m2compatible="true" root="https://dl.bintray.com/typesafe/maven-releases" cache="default"/>
+      <ibiblio name="jcenter" m2compatible="true" root="https://jcenter.bintray.com" cache="default"/>
+      <ibiblio name="apache" m2compatible="true" root="https://repository.apache.org/content/repositories/releases" cache="default"/>
+    </chain>
+  </resolvers>
+</ivy-settings>
