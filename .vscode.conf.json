@@ -15,7 +15,7 @@
   },
   "window.menuBarVisibility": "hidden",
   "window.openFilesInNewWindow": "default",
-  "update.channel": "default",
+  "update.channel": "none",
   "vim.leader": ";",
   "vim.easymotion": true,
   "vim.incsearch": true,
@@ -30,7 +30,7 @@
     "replace": "#000000"
   },
   "python.formatting.provider": "yapf",
-  "python.linting.pylintEnabled": true,
+  "python.linting.pylintEnabled": false,
   "workbench.colorTheme": "Default Light+",
   "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home",
   "java.errors.incompleteClasspath.severity": "ignore"
