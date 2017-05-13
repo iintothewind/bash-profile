@@ -16,23 +16,31 @@ fi
 if [ -f $HOME/.shell/prompt.sh ]; then
   . $HOME/.shell/prompt.sh;
 fi
-# completion
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion;
-fi
-# autojump
-if [ -f $(brew --prefix)/etc/profile.d/autojump.sh ]; then 
-  . $(brew --prefix)/etc/profile.d/autojump.sh;
-fi
-# ls color
-if brew list | grep coreutils > /dev/null ; then
-  PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-  alias ls='ls -F --show-control-chars --color=auto'
-  eval `gdircolors -b $HOME/.dir_colors`
-fi
 
-#[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
+# linux only
+#if [[ $(uname) == Linux ]]; then
 
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+#fi
 
+# mac only
+if [[ $(uname) == Darwin ]]; then
+  # completion
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion;
+  fi
+  # autojump
+  if [ -f $(brew --prefix)/etc/profile.d/autojump.sh ]; then
+    . $(brew --prefix)/etc/profile.d/autojump.sh;
+  fi
+  # ls color
+  if brew list | grep coreutils > /dev/null ; then
+    PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+    alias ls='ls -F --show-control-chars --color=auto'
+    eval `gdircolors -b $HOME/.dir_colors`
+  fi
+
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+  test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+fi
 
