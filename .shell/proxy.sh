@@ -10,6 +10,8 @@ function setLocalProxy {
     sudo networksetup -setautoproxystate Wi-Fi off
     sudo networksetup -setwebproxy Wi-Fi localhost 8123
     sudo networksetup -setsecurewebproxy Wi-Fi localhost 8123
+    sudo networksetup -setwebproxy 'Thunderbolt Ethernet' localhost 8123
+    sudo networksetup -setsecurewebproxy 'Thunderbolt Ethernet' localhost 8123
     sudo networksetup -setdnsservers Wi-Fi Empty
   fi
   return 0
@@ -25,6 +27,8 @@ function setGeProxy {
     sudo networksetup -setautoproxystate Wi-Fi off
     sudo networksetup -setwebproxy Wi-Fi 3.20.128.6 88
     sudo networksetup -setsecurewebproxy Wi-Fi 3.20.128.6 88
+    sudo networksetup -setwebproxy 'Thunderbolt Ethernet' 3.20.128.6 88
+    sudo networksetup -setsecurewebproxy 'Thunderbolt Ethernet' 3.20.128.6 88
     sudo networksetup -setdnsservers Wi-Fi Empty
   fi
   return 0
@@ -37,6 +41,7 @@ function setGePac {
   export HTTPS_PROXY=http://3.20.128.6:88
   if type networksetup > /dev/null 2>&1; then
     sudo networksetup -setautoproxyurl Wi-Fi "https://cloudproxy.setpac.ge.com/pac.pac"
+    sudo networksetup -setautoproxyurl 'Thunderbolt Ethernet' "https://cloudproxy.setpac.ge.com/pac.pac"
     sudo networksetup -setwebproxystate Wi-Fi off
     sudo networksetup -setsecurewebproxystate Wi-Fi off
     sudo networksetup -setdnsservers Wi-Fi Empty
