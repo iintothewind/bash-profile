@@ -1,14 +1,10 @@
 " Load plug
 call plug#begin('~/.vim/plugged')
 "Plug 'Shougo/neocomplete.vim'
-"Plug 'Townk/vim-autoclose'
-"Plug 'mhinz/vim-signify'
 "Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'rking/ag.vim'
 "Plug 'scrooloose/syntastic'
 "Plug 'tpope/vim-fugitive'
-"Plug 'vim-scripts/Align'
-"Plug 'vim-scripts/AutoAlign'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'Yggdroot/indentLine'
@@ -36,7 +32,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
 Plug 'w0rp/ale'
 Plug 'ybian/smartim'
-Plug 'klen/python-mode', {'for': 'python'}
 call plug#end()
 
 "  Load pathogen paths

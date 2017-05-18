@@ -11,6 +11,9 @@ set nocompatible
 filetype plugin on
 filetype indent on
 
+"set splitbelow
+set splitright
+
 " Set to auto read when a file is changed from the outside
 set autoread
 set autowrite
@@ -114,7 +117,7 @@ if has("gui_macvim")
 endif
 
 " fold according to indent
-set fdl=1
+set fdl=99
 set fdls=1
 set fdm=indent
 
