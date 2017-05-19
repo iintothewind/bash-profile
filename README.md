@@ -111,6 +111,9 @@ maven settings configuration
 ### .ivy2 ivysettings.xml
 ivy settings
 
+### .gradle
+gradle settings
+
 ### .sbt repositories
 scala sbt repositories 
 
