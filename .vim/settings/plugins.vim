@@ -5,6 +5,7 @@ call plug#begin('~/.vim/plugged')
 "Plug 'rking/ag.vim'
 "Plug 'scrooloose/syntastic'
 "Plug 'tpope/vim-fugitive'
+Plug 'Chiel92/vim-autoformat'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'Yggdroot/indentLine'
@@ -18,6 +19,7 @@ Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kien/ctrlp.vim'
+Plug 'luochen1990/rainbow'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
@@ -30,7 +32,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', {'tag': 'v1.3.0'}
 Plug 'ybian/smartim'
 call plug#end()
 
@@ -48,6 +50,9 @@ try
   colorscheme lucius
 catch
 endtry
+
+" rainbow
+let g:rainbow_active = 1
 
 " smartim
 let g:smartim_default = 'com.apple.keylayout.ABC'
@@ -194,7 +199,7 @@ let g:scala_scaladoc_indent = 1
 let g:necoghc_enable_detailed_browse = 1
 " Disable haskell-vim omnifunc
 let g:haskellmode_completion_ghc = 0
-autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
+autocmd FileType haskell setl omnifunc=necoghc#omnifunc
 
 " YouCompleteMe
 let g:ycm_complete_in_strings = 1
@@ -207,6 +212,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_global_ycm_extra_conf = ''
+let g:ycm_semantic_triggers = {'haskell' : ['.']}
 let g:ycm_filetype_specific_completion_to_disable = {
     \ 'gitcommit': 1
     \}
