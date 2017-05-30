@@ -51,6 +51,12 @@ try
 catch
 endtry
 
+" ale
+"nmap <silent> <F9> <Plug>(ale_previous_wrap)
+"nmap <silent> <F10> <Plug>(ale_next_wrap)
+nmap <silent> <F9> :lop<cr>
+nmap <silent> <F10> :lcl<cr>
+
 " rainbow
 let g:rainbow_active = 1
 
