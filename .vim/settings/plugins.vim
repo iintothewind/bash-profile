@@ -5,10 +5,10 @@ call plug#begin('~/.vim/plugged')
 "Plug 'rking/ag.vim'
 "Plug 'scrooloose/syntastic'
 "Plug 'tpope/vim-fugitive'
+"Plug 'Yggdroot/indentLine'
 Plug 'Chiel92/vim-autoformat'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
-Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
@@ -32,7 +32,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale', {'tag': 'v1.3.0'}
+Plug 'w0rp/ale', {'tag': 'v1.4.0'}
 Plug 'ybian/smartim'
 call plug#end()
 
@@ -50,6 +50,7 @@ try
   colorscheme lucius
 catch
 endtry
+
 
 " ale
 "nmap <silent> <F9> <Plug>(ale_previous_wrap)
@@ -117,11 +118,11 @@ nmap <Leader>/ <Plug>NERDCommenterToggle
 vmap <Leader>/ <Plug>NERDCommenterToggle
 
 " indentLine
-let g:indentLine_enabled = 1
-let g:indentLine_setConceal = 1
-let g:indentLine_conceallevel = 2
-"let g:indentLine_char = '│'
-let g:indentLine_concealcursor = ''
+"let g:indentLine_enabled = 1
+"let g:indentLine_setConceal = 1
+"let g:indentLine_conceallevel = 2
+""let g:indentLine_char = '│'
+"let g:indentLine_concealcursor = ''
 
 " indentGuides
 "let g:indent_guides_enable_on_vim_startup = 1
@@ -183,11 +184,11 @@ set grepprg=/bin/grep\ -nH
 
 "  vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=0
-let g:multi_cursor_start_key='<C-m>'
-let g:multi_cursor_start_word_key='g<C-m>'
-let g:multi_cursor_next_key='<C-m>'
-let g:multi_cursor_prev_key='<C-p>'
-let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_start_key='<c-g>'
+let g:multi_cursor_start_word_key='w<c-g>'
+let g:multi_cursor_next_key='<c-g>'
+let g:multi_cursor_prev_key='<c-p>'
+let g:multi_cursor_skip_key='<c-x>'
 let g:multi_cursor_quit_key='<Esc>'
 
 "  surround.vim config

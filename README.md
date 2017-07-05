@@ -67,9 +67,9 @@ basic settings
 ### .vim/settings/plugins.vim
 
 ```
+Plug 'Chiel92/vim-autoformat'
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
-Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
@@ -80,6 +80,7 @@ Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kien/ctrlp.vim'
+Plug 'luochen1990/rainbow'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
@@ -92,7 +93,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', {'tag': 'v1.4.0'}
 Plug 'ybian/smartim'
 ```
 

@@ -15,7 +15,11 @@ au FileType javascript setl nocindent
 
 " Json
 au InsertEnter *.json setlocal conceallevel=0 concealcursor=
-au InsertLeave *.json setlocal conceallevel=2 concealcursor=inc
+au InsertLeave *.json setlocal conceallevel=0 concealcursor=inc
+
+" Markdown
+au InsertEnter *.md setlocal conceallevel=0 concealcursor=
+au InsertLeave *.md setlocal conceallevel=0 concealcursor=inc
 
 function! JavaScriptFold() 
   setl foldmethod=indent
