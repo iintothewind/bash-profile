@@ -38,9 +38,7 @@ cnoremap <C-A>		<Home>
 cnoremap <C-E>		<End>
 cnoremap <C-K>		<C-U>
 
-" use j k to scroll screen
 nnoremap <C-N> <C-D>
-"nnoremap <C-M> <C-U>
 
 " use ctrl-i to insert abbreviations
 " disabled, it does not work with neocomplete
