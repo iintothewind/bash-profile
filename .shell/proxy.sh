@@ -27,6 +27,7 @@ function setGeProxy {
     sudo networksetup -setautoproxystate Wi-Fi off
     sudo networksetup -setwebproxy Wi-Fi 3.20.128.6 88
     sudo networksetup -setsecurewebproxy Wi-Fi 3.20.128.6 88
+    sudo networksetup -setautoproxystate 'Thunderbolt Ethernet' off
     sudo networksetup -setwebproxy 'Thunderbolt Ethernet' 3.20.128.6 88
     sudo networksetup -setsecurewebproxy 'Thunderbolt Ethernet' 3.20.128.6 88
     sudo networksetup -setdnsservers Wi-Fi Empty
@@ -73,8 +74,11 @@ function removeProxy {
   fi
   if type networksetup > /dev/null 2>&1; then
     sudo networksetup -setautoproxystate Wi-Fi off
+    sudo networksetup -setautoproxystate 'Thunderbolt Ethernet' off
     sudo networksetup -setwebproxystate Wi-Fi off
+    sudo networksetup -setwebproxystate 'Thunderbolt Ethernet' off
     sudo networksetup -setsecurewebproxystate Wi-Fi off
+    sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off
   fi
   return 0
 }
@@ -127,5 +131,5 @@ if [[ $(uname) == Darwin ]]; then
   fi
 fi
 
-export no_proxy=localhost,*.ge.com,10/8,127/8,192/8
-export NO_PROXY=localhost,*.ge.com,10/8,127/8,192/8
+export no_proxy="localhost,*.ge.com,192.168.99.100"
+export NO_PROXY="localhost,*.ge.com,192.168.99.100"

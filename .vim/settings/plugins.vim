@@ -1,18 +1,21 @@
 " Load plug
 call plug#begin('~/.vim/plugged')
 "Plug 'Shougo/neocomplete.vim'
+"Plug 'Yggdroot/indentLine'
 "Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'rking/ag.vim'
 "Plug 'scrooloose/syntastic'
 "Plug 'tpope/vim-fugitive'
-"Plug 'Yggdroot/indentLine'
-Plug 'Chiel92/vim-autoformat'
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
+"Plug 'Chiel92/vim-autoformat'
+Plug 'FelikZ/ctrlp-py-matcher'
+Plug 'Shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
+"Plug 'Valloric/YouCompleteMe', {'do': './install.py', 'for':'nothing'}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'easymotion/vim-easymotion'
+Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'godlygeek/tabular'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
@@ -32,7 +35,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale', {'tag': 'v1.4.0'}
+Plug 'w0rp/ale', {'tag': 'v1.4.1'}
 Plug 'ybian/smartim'
 call plug#end()
 
@@ -137,6 +140,7 @@ vmap <Leader>/ <Plug>NERDCommenterToggle
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=black
 
 "  CTRL-P
+let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_map               = '<f11>'
 let g:ctrlp_max_height        = 20
@@ -215,6 +219,7 @@ let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setl omnifunc=necoghc#omnifunc
 
 " YouCompleteMe
+"let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
 let g:ycm_complete_in_strings = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_auto_trigger = 1

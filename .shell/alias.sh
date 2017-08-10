@@ -100,6 +100,9 @@ if [[ $(uname) == Darwin ]]; then
   alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.157.26 115.159.158.38 115.159.96.69 115.159.220.214"
   alias cfluw="cf login -o https://api.system.aws-usw02-pr.ice.predix.io"
   alias cflja="cf login -o https://api.system.aws-jp01-pr.ice.predix.io"
+  alias plpon="brew services start polipo"
+  alias plpoff="brew services stop polipo && killall ShadowsocksX"
+  alias vwrapper="source /usr/local/bin/virtualenvwrapper.sh"
 fi
 
 
