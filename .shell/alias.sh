@@ -21,10 +21,10 @@ alias fgrep='fgrep --color'
 
 # utils
 alias sudo="sudo "
-alias l="ls -thF"
-alias ll="ls -lthF"
-alias la="ls -lthFA"
-alias lx="ls -lXB"
+alias l="ls --color=auto -thF"
+alias ll="ls --color=auto -lthF"
+alias la="ls --color=auto -lthFA"
+alias lx="ls --color=auto -lXB"
 alias md="mkdir "
 alias rm="rm -i"
 alias h="history 50"

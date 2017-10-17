@@ -49,7 +49,6 @@ if [[ $(uname) == Darwin ]]; then
   export MANPTH="$GNU_MAN:$MANPATH"
 
   # brew settings
-  export HOMEBREW_GITHUB_API_TOKEN="ed7a660beeb3b02ab5cd3bc7c55934185f2e6052"
   export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
 fi
 
