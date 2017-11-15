@@ -14,6 +14,12 @@ function setJavaProxy {
   fi
 }
 
+# cd
+alias u='cd ..'
+alias uu='cd ../../'
+alias uuu='cd ../../../'
+alias uuuu='cd ../../../../'
+
 # greps
 alias grep='grep --color'
 alias egrep='egrep --color'
@@ -22,12 +28,13 @@ alias fgrep='fgrep --color'
 # utils
 alias sudo="sudo "
 alias l="ls --color=auto -thF"
+alias h="cd ~"
 alias ll="ls --color=auto -lthF"
 alias la="ls --color=auto -lthFA"
 alias lx="ls --color=auto -lXB"
 alias md="mkdir "
 alias rm="rm -i"
-alias h="history 50"
+alias his="history 50"
 alias fdperm='find . -type d -exec chmod 755 {} \;'
 alias ffperm='find . -type f -exec chmod 644 {} \;'
 alias dte="date \"+%Y-%m-%d %H:%M:%S\""
@@ -80,6 +87,11 @@ if type git > /dev/null 2>&1 ; then
 	alias gremote="git remote"
 fi
 
+
+if type aria2c > /dev/null 2>&1 ; then
+  alias aria="aria2c --conf-path=$HOME/.config/aria2/aria2.conf -D"
+fi
+
 # linux only
 if [[ $(uname) == Linux ]]; then
   alias vim="gvim -v"
@@ -99,7 +111,7 @@ if [[ $(uname) == Darwin ]]; then
   alias rmdns="sudo networksetup -setdnsservers Wi-Fi Empty"
   alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.157.26 115.159.158.38 115.159.96.69 115.159.220.214"
   alias cfluw="cf login -o https://api.system.aws-usw02-pr.ice.predix.io"
-  alias cflja="cf login -o https://api.system.aws-jp01-pr.ice.predix.io"
+  alias cflja="cf l -a https://api.system.aws-jp01-pr.ice.predix.io -o ivar.chen@ge.com -s dev -u ivar.chen@ge.com -p ivar2017@GE"
   alias plpon="brew services start polipo"
   alias plpoff="brew services stop polipo && killall ShadowsocksX"
   alias vwrapper="source /usr/local/bin/virtualenvwrapper.sh"
