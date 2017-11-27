@@ -19,7 +19,7 @@ fi
 
 # linux only
 #if [[ $(uname) == Linux ]]; then
-
+  
 #fi
 
 # mac only
@@ -29,17 +29,17 @@ if [[ $(uname) == Darwin ]]; then
     . $(brew --prefix)/etc/bash_completion;
   fi
   # autojump
-  if [ -f $(brew --prefix)/etc/profile.d/autojump.sh ]; then
+  if [ -f $(brew --prefix)/etc/profile.d/autojump.sh ]; then 
     . $(brew --prefix)/etc/profile.d/autojump.sh;
   fi
   # ls color
-  if brew list | grep coreutils > /dev/null ; then
-    PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-    alias ls='ls -F --show-control-chars --color=auto'
-    eval `gdircolors -b $HOME/.dir_colors`
-  fi
+  #if brew list | grep coreutils > /dev/null ; then
+    #PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+    #alias ls='ls -F --show-control-chars --color=auto'
+    #eval `gdircolors -b $HOME/.dir_colors`
+  #fi
 
-  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
 
   test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 fi
