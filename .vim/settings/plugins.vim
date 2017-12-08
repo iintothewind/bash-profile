@@ -40,8 +40,8 @@ Plug 'ybian/smartim'
 call plug#end()
 
 "  Load pathogen paths
-call pathogen#infect('~/.vim/infected/{}')
-call pathogen#helptags()
+"call pathogen#infect('~/.vim/infected/{}')
+"call pathogen#helptags()
 
 " color scheme
 let g:lucius_style          = 'dark'
