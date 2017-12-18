@@ -110,7 +110,7 @@ if [[ $(uname) == Darwin ]]; then
   alias fip="ipconfig getifaddr en0"
   alias rmdns="sudo networksetup -setdnsservers Wi-Fi Empty"
   alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.157.26 115.159.158.38 115.159.96.69 115.159.220.214"
-  alias cfluw="cf login -o https://api.system.aws-usw02-pr.ice.predix.io"
+  alias cfluw="cf login -a https://api.system.aws-usw02-pr.ice.predix.io"
   alias cflja="cf l -a https://api.system.aws-jp01-pr.ice.predix.io -o ivar.chen@ge.com -s dev -u ivar.chen@ge.com -p ivar2017@GE"
   alias plpon="brew services start polipo"
   alias plpoff="brew services stop polipo && killall ShadowsocksX"
