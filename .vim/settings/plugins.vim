@@ -13,6 +13,7 @@ Plug 'Shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
+Plug 'ensime/ensime-vim', {'for': 'scala'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -35,7 +36,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale', {'tag': 'v1.6.2'}
+Plug 'w0rp/ale', {'tag': 'v1.7.0'}
 Plug 'ybian/smartim'
 call plug#end()
 
