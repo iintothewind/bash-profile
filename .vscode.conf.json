@@ -51,6 +51,8 @@
   "python.linting.pylintEnabled": false,
   "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home",
   "java.errors.incompleteClasspath.severity": "ignore",
+  "scalaLanguageServer.logLevel" : "DEBUG",
+  "scalaLanguageServer.heapSize" : "4G",
   "workbench.iconTheme": "vscode-icons",
   "vsicons.dontShowNewVersionMessage": true,
   "workbench.colorCustomizations": {
