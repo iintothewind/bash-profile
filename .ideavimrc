@@ -1,0 +1,19 @@
+" source ~/.vimrc
+let mapleader = ";"
+let g:mapleader = ";"
+
+" ideavim
+" https://plugins.jetbrains.com/plugin/164-ideavim
+
+" acejum
+" https://plugins.jetbrains.com/plugin/7086-acejump
+"
+" Press `f` to activate AceJump
+map <leader>f :action AceAction<CR>
+" Press `F` to activate Target Mode
+map <leader>t :action AceTargetAction<CR>
+" Press `g` to activate Line Mode
+map <leader>l :action AceLineAction<CR>
+
+
+
