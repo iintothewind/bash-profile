@@ -1,0 +1,1 @@
+:def hg \x -> return $ ":!~/.cabal/bin/hoogle " ++ x
