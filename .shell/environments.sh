@@ -8,7 +8,7 @@ export LC_ALL=zh_CN.UTF-8
 
 # linux only
 #if [[ $(uname) == Linux ]]; then
-  
+
 #fi
 
 # mac only
@@ -28,6 +28,7 @@ if [[ $(uname) == Darwin ]]; then
   export GROOVY_HOME=/usr/local/opt/groovy/libexec
   # Haskell Environments
   export HASKELL_HOME="$HOME/Library/Haskell"
+  export CABAL_HOME="$HOME/.cabal"
 
   # Sqlite Environments
   export SQLITE_HOME="$(brew --prefix sqlite)"
@@ -40,10 +41,11 @@ if [[ $(uname) == Darwin ]]; then
   export WORKON_HOME="$HOME/.envs"
 
   # Java Environments
-  #export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home"
+  export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home"
+  export SBT_OPTS="-Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
 
   # Path
-  export PATH="$GNU_BIN:$PATH:$BREW_SBIN:$LOCAL_BIN:$HASKELL_HOME/bin:$SQLITE_HOME/bin"
+  export PATH="$GNU_BIN:$PATH:$BREW_SBIN:$LOCAL_BIN:$HASKELL_HOME/bin:$CABAL_HOME/bin:$SQLITE_HOME/bin"
 
   # Man Pages
   export MANPTH="$GNU_MAN:$MANPATH"
