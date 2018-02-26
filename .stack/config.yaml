@@ -8,10 +8,11 @@
 # See https://docs.haskellstack.org/en/stable/yaml_configuration/#templates
 templates:
   params:
-#    author-name:
-#    author-email:
-#    copyright:
-#    github-username:
+    author-name: iintothewind
+    author-email: ivarchen@live.cn
+    copyright: iintothewind
+    category: learn
+    github-username: iintothewind
 package-indices:
   - name: USTC
     download-prefix: https://mirrors.ustc.edu.cn/hackage/package/
