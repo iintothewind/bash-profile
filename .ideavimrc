@@ -1,7 +1,12 @@
 " source ~/.vimrc
 let mapleader = ";"
 let g:mapleader = ";"
+set clipboard=unnamed
 
+noremap <Leader>q q
+noremap q <Nop>
+
+nnoremap <C-N> <C-D>
 " ideavim
 " https://plugins.jetbrains.com/plugin/164-ideavim
 
@@ -14,6 +19,5 @@ map <leader>f :action AceAction<CR>
 map <leader>t :action AceTargetAction<CR>
 " Press `g` to activate Line Mode
 map <leader>l :action AceLineAction<CR>
-
 
 
