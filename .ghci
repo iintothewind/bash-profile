@@ -1,1 +1,1 @@
-:def hg \x -> return $ ":!~/.cabal/bin/hoogle " ++ x
+:def hg \x -> return $ ":!~/.local/bin/hoogle " ++ x
