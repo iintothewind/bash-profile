@@ -36,7 +36,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale', {'tag': 'v1.7.0'}
+Plug 'w0rp/ale', {'tag': 'v1.7.1'}
 Plug 'ybian/smartim'
 call plug#end()
 

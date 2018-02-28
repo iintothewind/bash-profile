@@ -1,5 +1,5 @@
 {
-  //"http.proxy": "http://3.20.128.6:88",
+  "http.proxy": "http://3.20.128.6:88",
   "http.proxyStrictSSL": false,
   "editor.fontSize": 10,
   "editor.tabSize": 2,
@@ -20,16 +20,18 @@
     "**/node_modules": true,
     "**/bower_components": true,
     "**/dist": true,
-    "**/.ensime*":true
+    "**/.ensime*":true,
+    "**/*.sock":true
   },
   "files.watcherExclude": {
-      "**/.git/objects/**": true,
-      "**/.git/subtree-cache/**": true,
-      "**/node_modules/**": true,
-      "**/tmp/**": true,
-      "**/bower_components/**": true,
-      "**/dist/**": true,
-      "**/.ensime*":true
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
+    "**/bower_components/**": true,
+    "**/dist/**": true,
+    "**/.ensime*":true,
+    "**/*.sock":true
   },
   "window.menuBarVisibility": "hidden",
   "window.openFilesInNewWindow": "default",
@@ -46,6 +48,12 @@
     "visualline": "#005f87",
     "visualblock": "#86592d",
     "replace": "#000000"
+  },
+  "markdown.preview.linkify":false,
+  "markdownlint.config": {
+    "MD030":false,
+    "MD034":false,
+    "MD012":false
   },
   "python.formatting.provider": "yapf",
   "python.linting.pylintEnabled": false,
@@ -65,8 +73,5 @@
   "python.venvPath": "~/.envs",
   "workbench.colorTheme": "Visual Studio Light",
   "explorer.confirmDelete": false,
-  "python.disablePromptForFeatures": [
-    "nosetest"
-  ],
   "window.zoomLevel": 0
 }
