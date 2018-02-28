@@ -32,6 +32,10 @@ if [[ $(uname) == Darwin ]]; then
   if [ -f $(brew --prefix)/etc/profile.d/autojump.sh ]; then 
     . $(brew --prefix)/etc/profile.d/autojump.sh;
   fi
+  # jump
+  if type jump > /dev/null 2>&1; then
+    eval "$(jump shell --bind=z)"
+  fi
   # ls color
   #if brew list | grep coreutils > /dev/null ; then
     #PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
