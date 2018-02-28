@@ -8,7 +8,7 @@ export LC_ALL=zh_CN.UTF-8
 
 # linux only
 #if [[ $(uname) == Linux ]]; then
-
+  
 #fi
 
 # mac only

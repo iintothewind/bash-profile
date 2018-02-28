@@ -1,6 +1,6 @@
 [user]
-	name = Ivar
-	email = ivar.chen@ge.com
+	name = iintothewind
+	email = iintothewind@yeah.net
 [core]
 	excludesfile = ~/.gitignore
   autocrlf = input
@@ -12,7 +12,7 @@
   status = auto
   branch = auto
   interactive = auto
-[credential]
+[credential
 	helper = cache --timeout 7200
 [alias]
   cm       = commit

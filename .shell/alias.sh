@@ -106,6 +106,7 @@ fi
 if [[ $(uname) == Darwin ]]; then
   alias perf="top -l 1 -s 0 | awk ' /Processes/ || /PhysMem/ || /Load Avg/{print}'"
   alias fixbrew="sudo chown -R \"$USER\":admin /usr/local"
+  alias bru="brew update && brew upgrade && brew prune"
   alias rmdstore='find . -name ".DS_Store" -depth -exec rm {} \;'
   alias fip="ipconfig getifaddr en0"
   alias rmdns="sudo networksetup -setdnsservers Wi-Fi Empty"
