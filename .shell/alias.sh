@@ -91,6 +91,9 @@ fi
 if type aria2c > /dev/null 2>&1 ; then
   alias aria="aria2c --conf-path=$HOME/.config/aria2/aria2.conf -D"
 fi
+if type ssh-keygen > /dev/null 2>&1 ; then
+  alias sshkeygen="rm -f $HOME/ssh/id_rsa && ssh-keygen -q -t rsa -P "" -N "" -f ~/.ssh/id_rsa"
+fi
 
 # linux only
 if [[ $(uname) == Linux ]]; then

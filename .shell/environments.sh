@@ -42,7 +42,7 @@ if [[ $(uname) == Darwin ]]; then
 
   # Java Environments
   export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home"
-  export SBT_OPTS="-Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxPermSize=256M"
+  export SBT_OPTS="-Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
 
   # Path
   export PATH="$GNU_BIN:$PATH:$BREW_SBIN:$LOCAL_BIN:$HASKELL_HOME/bin:$CABAL_HOME/bin:$SQLITE_HOME/bin"
