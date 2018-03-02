@@ -13,42 +13,50 @@ export LC_ALL=zh_CN.UTF-8
 
 # mac only
 if [[ $(uname) == Darwin ]]; then
-  # ./local/bin
-  export LOCAL_BIN="$HOME/.local/bin"
-
   # gnubin
-  export GNU_BIN="$(brew --prefix coreutils)/libexec/gnubin";
+  if test -d $BREW_PREFIX/coreutils/libexec/gnubin; then
+    export PATH="$BREW_PREFIX/coreutils/libexec/gnubin:$PATH"
+  fi
 
-  # gnuman
-  export GNU_MAN="$(brew --prefix coreutils)/libexec/gnuman";
+  # ./local/bin
+  if test -d $HOME/.local/bin; then
+    export PATH="$PATH:$HOME/.local/bin"
+  fi
 
   # brew sbin
-  export BREW_SBIN="/usr/local/sbin"
-  # groovy home
-  export GROOVY_HOME=/usr/local/opt/groovy/libexec
-  # Haskell Environments
-  export HASKELL_HOME="$HOME/Library/Haskell"
-  export CABAL_HOME="$HOME/.cabal"
+  if test -d /usr/local/sbin; then
+    export BREW_SBIN="/usr/local/sbin"
+    export PATH="$PATH:$BREW_SBIN"
+  fi
 
   # Sqlite Environments
-  export SQLITE_HOME="$(brew --prefix sqlite)"
+  #if test -d $BREW_PREFIX/sqlite; then
+    #export PATH="$PATH:$BREW_PREFIX/sqlite/bin"
+  #fi
 
   # H2 drivers
-  export H2DRIVERS="$HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar"
+  if test -d $BREW_PREFIX/h2; then 
+    if test -f $HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar; then
+      export H2DRIVERS="$HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar"
+    fi
+  fi
 
   # Python Environments
-  export VIRTUALENVWRAPPER_PYTHON="/usr/local/bin/python2"
-  export WORKON_HOME="$HOME/.envs"
+  if test -d $BREW_PREFIX/python && test -f /usr/local/bin/virtualenvwrapper.sh; then
+    export VIRTUALENVWRAPPER_PYTHON="$BREW_PREFIX/python/bin/python"
+    export WORKON_HOME="$HOME/.envs"
+  fi
 
   # Java Environments
-  export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home"
-  export SBT_OPTS="-Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
+  if test -f /usr/bin/java; then
+    export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home"
+    export SBT_OPTS="-Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
+  fi
 
-  # Path
-  export PATH="$GNU_BIN:$PATH:$BREW_SBIN:$LOCAL_BIN:$HASKELL_HOME/bin:$CABAL_HOME/bin:$SQLITE_HOME/bin"
-
-  # Man Pages
-  export MANPTH="$GNU_MAN:$MANPATH"
+  # gnuman
+  if test -d $BREW_PREFIX/coreutils/libexec/gnuman; then
+    export MANPTH="$BREW_PREFIX/coreutils/libexec/gnuman:$MANPATH"
+  fi
 
   # brew settings
   export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
