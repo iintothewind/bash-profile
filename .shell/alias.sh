@@ -114,8 +114,11 @@ if [[ $(uname) == Darwin ]]; then
   alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.157.26 115.159.158.38 115.159.96.69 115.159.220.214"
   alias fixbrew="sudo chown -R \"$USER\":admin /usr/local"
   alias bru="brew update && brew upgrade && brew prune"
-  alias plpon="brew services start polipo"
-  alias plpoff="brew services stop polipo && killall ShadowsocksX"
+  
+  if test -d $BREW_PREFIX/polipo; then
+    alias plpon="brew services start polipo"
+    alias plpoff="brew services stop polipo && killall ShadowsocksX"
+  fi
   
   if test -f $BREW_BIN/virtualenvwrapper.sh; then
     alias vwrapper="source /usr/local/bin/virtualenvwrapper.sh"
