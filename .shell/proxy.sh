@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # local proxy settings
-function setLocalProxy {
+function setLocalProxy() {
   export http_proxy=http://localhost:8123
   export https_proxy=http://localhost:8123
   export HTTP_PROXY=http://localhost:8123
@@ -13,6 +13,11 @@ function setLocalProxy {
     sudo networksetup -setwebproxy 'Thunderbolt Ethernet' localhost 8123
     sudo networksetup -setsecurewebproxy 'Thunderbolt Ethernet' localhost 8123
     sudo networksetup -setdnsservers Wi-Fi Empty
+  fi
+  if [[ "$http_proxy" == http* ]]; then
+	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
+	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
+	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
   fi
   return 0
 }
@@ -32,6 +37,11 @@ function setGeProxy {
     sudo networksetup -setsecurewebproxy 'Thunderbolt Ethernet' 3.20.128.6 88
     sudo networksetup -setdnsservers Wi-Fi Empty
   fi
+  if [[ "$http_proxy" == http* ]]; then
+	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
+	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
+	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
+  fi
   return 0
 }
 
@@ -50,6 +60,11 @@ function setGePac {
     sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off
     sudo networksetup -setdnsservers Wi-Fi Empty
   fi
+  if [[ "$http_proxy" == http* ]]; then
+	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
+	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
+	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
+  fi
   return 0
 }
 
@@ -63,6 +78,11 @@ function setShadowSocksProxy {
     sudo networksetup -setautoproxystate Wi-Fi off
     sudo networksetup -setwebproxy Wi-Fi 192.168.0.161 8123
     sudo networksetup -setsecurewebproxy Wi-Fi 192.168.0.161 8123
+  fi
+  if [[ "$http_proxy" == http* ]]; then
+	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
+	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
+	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
   fi
   return 0
 }
@@ -132,7 +152,12 @@ if [[ $(uname) == Darwin ]]; then
     export HTTP_PROXY=http://3.20.128.6:88
     export HTTPS_PROXY=http://3.20.128.6:88
   fi
+  if [[ "$http_proxy" == http* ]]; then
+	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
+	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
+	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
+  fi
 fi
 
-export no_proxy="localhost,*.ge.com,192.168.99.100"
-export NO_PROXY="localhost,*.ge.com,192.168.99.100"
+export no_proxy="localhost,127.0.0.1,*.ge.com,192.168.99.100"
+export NO_PROXY="localhost,127.0.0.1,*.ge.com,192.168.99.100"

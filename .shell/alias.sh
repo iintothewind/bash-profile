@@ -6,10 +6,10 @@ function genv() { env | fgrep "$@" ;}
 function gps() { ps -ef | fgrep "$@" | fgrep -v fgrep ;}
 function ghs() { history | fgrep "$@" | fgrep -v fgrep ;}
 
-function setJavaProxy {
-  if [[ "$HTTP_PROXY" == http* ]]; then
-	    host=$(echo $HTTP_PROXY | cut -d'/' -f3 | cut -d':' -f1)
-	    port=$(echo $HTTP_PROXY | cut -d'/' -f3 | cut -d':' -f2)
+function setJavaProxy() {
+  if [[ "$http_proxy" == http* ]]; then
+	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
+	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
 	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
   fi
 }
