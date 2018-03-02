@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
+BREW_BIN="/usr/local/bin"
+BREW_PREFIX="/usr/local/opt"
+
 
 # environments
-if [ -f $HOME/.shell/environments.sh ]; then
-  . $HOME/.shell/environments.sh;
+if test -f $HOME/.shell/environments.sh; then
+  . $HOME/.shell/environments.sh
 fi
 # proxy
-if [ -f $HOME/.shell/proxy.sh ]; then
-  . $HOME/.shell/proxy.sh;
+if test -f $HOME/.shell/proxy.sh; then
+  . $HOME/.shell/proxy.sh
 fi
 # alias
-if [ -f $HOME/.shell/alias.sh ]; then
-  . $HOME/.shell/alias.sh;
+if test -f $HOME/.shell/alias.sh; then
+  . $HOME/.shell/alias.sh
 fi
 # prompt
-if [ -f $HOME/.shell/prompt.sh ]; then
-  . $HOME/.shell/prompt.sh;
+if test -f $HOME/.shell/prompt.sh; then
+  . $HOME/.shell/prompt.sh
 fi
 
 # linux only
@@ -24,27 +27,29 @@ fi
 
 # mac only
 if [[ $(uname) == Darwin ]]; then
+  if test -f $BREW_BIN/gls; then 
+    alias ls="gls -F --show-control-chars --color=auto"
+  fi
+
   # completion
-  if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion;
+  if test -f $BREW_PREFIX/etc/bash_completion; then
+    . $BREW_PREFIX/etc/bash_completion;
   fi
   # autojump
-  if [ -f $(brew --prefix)/etc/profile.d/autojump.sh ]; then 
-    . $(brew --prefix)/etc/profile.d/autojump.sh;
+  if test -f $BREW_PREFIX/etc/profile.d/autojump.sh; then 
+    . $BREW_PREFIX/etc/profile.d/autojump.sh;
   fi
   # jump
   if type jump > /dev/null 2>&1; then
     eval "$(jump shell --bind=z)"
   fi
-  # ls color
-  #if brew list | grep coreutils > /dev/null ; then
-    #PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-    #alias ls='ls -F --show-control-chars --color=auto'
-    #eval `gdircolors -b $HOME/.dir_colors`
-  #fi
 
-  [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" 
+  if test -s $HOME/.rvm/scripts/rvm; then
+    . $HOME/.rvm/scripts/rvm 
+  fi
 
-  test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+  if test -f $HOME/.iterm2_shell_integration.bash; then
+    . $HOME/.iterm2_shell_integration.bash
+  fi
 fi
 

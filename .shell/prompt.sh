@@ -28,7 +28,7 @@ if tput setaf 1 &> /dev/null; then
   fi
   BOLD=$(tput bold)
   RESET=$(tput sgr0)
-else
+  else
   MAGENTA="\033[1;31m"
   ORANGE="\033[1;33m"
   GREEN="\033[1;32m"
@@ -56,7 +56,7 @@ function parse_git_branch() {
 
 if type git > /dev/null 2>&1 ; then
   export PS1="\[${BOLD}${MAGENTA}\]\u\[$WHITE\] at \[$ORANGE\]\h\[$WHITE\] in \[$GREEN\]\W\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(if type parse_git_branch > /dev/null 2>&1; then parse_git_branch; else echo 'gitbranch'; fi)\[$WHITE\]\n\$ \[$RESET\]"
-else
+  else
   export PS1="[\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]]\$ "
 fi
 
