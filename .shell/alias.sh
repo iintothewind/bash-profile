@@ -108,7 +108,7 @@ fi
 # mac only
 if [[ $(uname) == Darwin ]]; then
   alias perf="top -l 1 -s 0 | awk ' /Processes/ || /PhysMem/ || /Load Avg/{print}'"
-  alias rmdstore='find . -name ".DS_Store" -depth -exec rm {} \;'
+  alias rmdstore='sudo find / -name ".DS_Store" -depth -exec rm {} \;'
   alias fip="ipconfig getifaddr en0"
   alias rmdns="sudo networksetup -setdnsservers Wi-Fi Empty"
   alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.157.26 115.159.158.38 115.159.96.69 115.159.220.214"
