@@ -13,7 +13,7 @@ Plug 'Shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
-Plug 'ensime/ensime-vim', {'for': 'scala'}
+"Plug 'ensime/ensime-vim', {'for': 'scala'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', {'for': 'go'}
