@@ -5,6 +5,7 @@ function qf() { find . -name "$@" -print ;}
 function genv() { env | fgrep "$@" ;}
 function gps() { ps -ef | fgrep "$@" | fgrep -v fgrep ;}
 function ghs() { history | fgrep "$@" | fgrep -v fgrep ;}
+function gals() { alias | fgrep "$@" | fgrep -v fgrep ;}
 
 function setJavaProxy() {
   if [[ "$http_proxy" == http* ]]; then
@@ -110,6 +111,7 @@ if [[ $(uname) == Darwin ]]; then
   alias perf="top -l 1 -s 0 | awk ' /Processes/ || /PhysMem/ || /Load Avg/{print}'"
   alias rmdstore='sudo find / -name ".DS_Store" -depth -exec rm {} \;'
   alias fip="ipconfig getifaddr en0"
+  alias fips="ifconfig | grep -e 'UP' -e 'inet '"
   alias rmdns="sudo networksetup -setdnsservers Wi-Fi Empty"
   alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.157.26 115.159.158.38 115.159.96.69 115.159.220.214"
   alias fixbrew="sudo chown -R \"$USER\":admin /usr/local"
