@@ -127,8 +127,8 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   if type cf > /dev/null 2>&1 ; then
-    alias cfluw="cf login -a https://api.system.aws-usw02-pr.ice.predix.io"
-    alias cflja="cf l -a https://api.system.aws-jp01-pr.ice.predix.io -o ivar.chen@ge.com -s dev -u ivar.chen@ge.com -p ivar2017@GE"
+    alias cfluw="cf login -a https://api.system.aws-usw02-pr.ice.predix.io --sso"
+    alias cflja="cf l -a https://api.system.aws-usw02-pr.ice.predix.io -o ivar.chen@ge.com -s dev -u ivar.chen@ge.com -p ivar2018@GE --sso"
   fi
 fi
 
