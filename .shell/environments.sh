@@ -25,14 +25,19 @@ if [[ $(uname) == Darwin ]]; then
 
   # brew sbin
   if test -d /usr/local/sbin; then
-    export BREW_SBIN="/usr/local/sbin"
-    export PATH="$PATH:$BREW_SBIN"
+    export PATH="$PATH:/usr/local/sbin"
   fi
 
   # Sqlite Environments
   #if test -d $BREW_PREFIX/sqlite; then
     #export PATH="$PATH:$BREW_PREFIX/sqlite/bin"
   #fi
+
+  # haskell-platform
+  if test -d $HOME/Library/Haskell; then
+    export PATH="$PATH:$HOME/Library/Haskell/bin"
+  fi
+  
 
   # H2 drivers
   if test -d $BREW_PREFIX/h2; then 
