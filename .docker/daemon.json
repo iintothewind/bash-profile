@@ -1,0 +1,5 @@
+{
+  "debug" : false,
+  "experimental" : false,
+  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
+}
