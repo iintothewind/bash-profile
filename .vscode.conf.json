@@ -1,5 +1,5 @@
 {
-  "http.proxy": "http://3.20.128.6:88",
+  // "http.proxy": "http://3.20.128.6:88",
   "http.proxyStrictSSL": false,
   "editor.fontSize": 10,
   "editor.tabSize": 2,
@@ -24,23 +24,26 @@
     "**/*.sock":true
   },
   "files.watcherExclude": {
-    "**/.git/objects/**": true,
-    "**/.git/subtree-cache/**": true,
-    "**/node_modules/**": true,
-    "**/tmp/**": true,
-    "**/bower_components/**": true,
-    "**/dist/**": true,
-    "**/.ensime*":true,
-    "**/*.sock":true
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/node_modules/**": true,
+      "**/tmp/**": true,
+      "**/bower_components/**": true,
+      "**/dist/**": true,
+      "**/.ensime*":true,
+      "**/*.sock":true
   },
   "window.menuBarVisibility": "hidden",
   "window.openFilesInNewWindow": "default",
   "update.channel": "none",
   "vim.leader": ";",
   "vim.easymotion": true,
+  "vim.sneak": true,
+  "vim.visualstar": true,
   "vim.incsearch": true,
   "vim.useSystemClipboard": true,
   "vim.statusBarColorControl": true,
+  "vim.disableAnnoyingNeovimMessage": true,
   "vim.statusBarColors": {
     "normal": "#0A68CC",
     "insert": "#5f0000",
@@ -61,6 +64,7 @@
   "java.errors.incompleteClasspath.severity": "ignore",
   "scalaLanguageServer.logLevel" : "DEBUG",
   "scalaLanguageServer.heapSize" : "4G",
+  // "scalafmt.configFilePath": "${env:HOME}/.sbt/1.0/.scalafmt.conf",
   "workbench.iconTheme": "vscode-icons",
   "vsicons.dontShowNewVersionMessage": true,
   "workbench.colorCustomizations": {
@@ -68,7 +72,6 @@
     "statusBar.noFolderBackground": "#005f87",
     "statusBar.debuggingBackground": "#005f87"
   },
-  "vim.disableAnnoyingNeovimMessage": true,
   "extensions.ignoreRecommendations": true,
   "python.venvPath": "~/.envs",
   "workbench.colorTheme": "Visual Studio Light",
