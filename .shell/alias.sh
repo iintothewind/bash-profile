@@ -58,7 +58,6 @@ if type git > /dev/null 2>&1 ; then
   alias glast="git last"
   alias glst="git last"
   alias gshow="git show"
-  alias gstatus="git status"
   alias gst="git status"
   alias gstash="git stash"
   alias gas="git stash"
@@ -83,8 +82,8 @@ if type git > /dev/null 2>&1 ; then
   alias gph="git push"
   alias ghelp="git help"
   alias ghp="git help"
+	alias grm="git remote"
 	alias grmv="git remote -v"
-	alias gremote="git remote"
 fi
 
 
