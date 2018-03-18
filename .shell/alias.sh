@@ -6,6 +6,7 @@ function genv() { env | fgrep "$@" ;}
 function gps() { ps -ef | fgrep "$@" | fgrep -v fgrep ;}
 function ghs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function gals() { alias | fgrep "$@" | fgrep -v fgrep ;}
+function fftop() { find . -size +"$@" -exec ls -lhs {} \+ | sort -nr ;} 
 
 function setJavaProxy() {
   if [[ "$http_proxy" == http* ]]; then
