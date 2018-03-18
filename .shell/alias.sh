@@ -103,6 +103,9 @@ if [[ $(uname) == Linux ]]; then
   alias rmrtlan="sudo route del default enp0s31f6"
   alias scrnoff="xset dpms force off "
   alias ssup="nohup sslocal -c ~/.shadow.json 2>&1 &"
+  if test -f $HOME/.local/bin/virtualenvwrapper.sh; then
+    alias vwrapper="source $HOME/.local/bin/virtualenvwrapper.sh"
+  fi
 fi
 
 # mac only
