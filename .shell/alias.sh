@@ -6,6 +6,7 @@ function genv() { env | fgrep "$@" ;}
 function gps() { ps -ef | fgrep "$@" | fgrep -v fgrep ;}
 function ghs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function gals() { alias | fgrep "$@" | fgrep -v fgrep ;}
+function fftop() { find . -size +"$@" -exec ls -lhs {} \+ | sort -nr ;} 
 
 function setJavaProxy() {
   if [[ "$http_proxy" == http* ]]; then
@@ -103,6 +104,9 @@ if [[ $(uname) == Linux ]]; then
   alias rmrtlan="sudo route del default enp0s31f6"
   alias scrnoff="xset dpms force off "
   alias ssup="nohup sslocal -c ~/.shadow.json 2>&1 &"
+  if test -f $HOME/.local/bin/virtualenvwrapper.sh; then
+    alias vwrapper="source $HOME/.local/bin/virtualenvwrapper.sh"
+  fi
 fi
 
 # mac only

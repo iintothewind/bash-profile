@@ -7,9 +7,22 @@ export LC_CTYPE=zh_CN.UTF-8
 export LC_ALL=zh_CN.UTF-8
 
 # linux only
-#if [[ $(uname) == Linux ]]; then
-  
-#fi
+if [[ $(uname) == Linux ]]; then
+  # haskell-platform
+  if test -d $HOME/.cabal; then
+    export PATH="$PATH:$HOME/.cabal/bin"
+  fi
+  # Java Environments
+  if test -f /usr/bin/java; then
+    export JAVA_HOME="/usr/java/jdk1.8.0_162"
+    export SBT_OPTS="-Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
+  fi
+  # Python Environments
+  if test -f $HOME/.local/bin/virtualenvwrapper.sh; then
+    #export VIRTUALENVWRAPPER_PYTHON="$BREW_PREFIX/python/bin/python"
+    export WORKON_HOME="$HOME/.envs"
+  fi
+fi
 
 # mac only
 if [[ $(uname) == Darwin ]]; then
