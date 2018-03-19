@@ -21,9 +21,12 @@ if test -f $HOME/.shell/prompt.sh; then
 fi
 
 # linux only
-#if [[ $(uname) == Linux ]]; then
-  
-#fi
+if [[ $(uname) == Linux ]]; then
+  # jump
+  if type jump > /dev/null 2>&1; then
+    eval "$(jump shell --bind=z)"
+  fi
+fi
 
 # mac only
 if [[ $(uname) == Darwin ]]; then
