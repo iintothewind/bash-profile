@@ -8,6 +8,24 @@ function ghs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function gals() { alias | fgrep "$@" | fgrep -v fgrep ;}
 function fftop() { find . -size +"$@" -exec ls -lhs {} \+ | sort -nr ;} 
 
+function md() {
+  if [ ! -n "$1" ]; then
+    echo "enter a name for this folder"
+  elif [ -d $1 ]; then
+    echo "$1 already exists"
+  else
+    mkdir -p $1 && cd $1
+  fi
+}
+
+function bu() {
+  if test -f $1; then 
+    cp $1 $1.`date +%Y%m%d%H%M%S`.backup;
+  else
+    echo "$1 does not exist"
+  fi
+}
+
 function setJavaProxy() {
   if [[ "$http_proxy" == http* ]]; then
 	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
@@ -16,11 +34,22 @@ function setJavaProxy() {
   fi
 }
 
+function fips() {
+  if type ip > /dev/null 2>&1 ; then
+    local list=$(ip -o -4 addr list | awk '{print $4}' | cut -d'/' -f1 | tr '\n' ',')
+  fi
+  if type ifconfig > /dev/null 2>&1 ; then
+    local list=$(ifconfig | grep "inet " | awk '{print $2}' | sed 's/addr://' | tr '\n' ',')
+  fi
+  echo ${list%,}
+}
+
 # cd
 alias u='cd ..'
 alias uu='cd ../../'
 alias uuu='cd ../../../'
 alias uuuu='cd ../../../../'
+alias uuuuu='cd ../../../../../'
 
 # greps
 alias grep='grep --color'
@@ -33,12 +62,11 @@ alias h="cd ~"
 alias l="ls -thF"
 alias ll="ls -lthF"
 alias la="ls -lthFA"
-alias md="mkdir "
 alias rm="rm -i"
 alias his="history 50"
 alias fdperm='find . -type d -exec chmod 755 {} \;'
 alias ffperm='find . -type f -exec chmod 644 {} \;'
-alias dte="date \"+%Y-%m-%d %H:%M:%S\""
+alias dte='date "+%Y-%m-%d %H:%M:%S"'
 alias pth="echo $PATH | tr : \\\\n"
 alias lstcp="lsof -i -n -P | grep TCP"
 alias mjp=setJavaProxy
@@ -85,6 +113,13 @@ if type git > /dev/null 2>&1 ; then
   alias ghp="git help"
 	alias grm="git remote"
 	alias grmv="git remote -v"
+  function gcmm(){  
+    if [ -n "$1" ]; then
+      git pull && git add --all && git commit -m "$1" && git push
+    else
+      echo 'Could not run command, please add a commit message! e.g. gcmm "commit message"';
+    fi
+  }
 fi
 
 
@@ -96,16 +131,26 @@ if type ssh-keygen > /dev/null 2>&1 ; then
   alias sshkeygen="rm -f $HOME/ssh/id_rsa && ssh-keygen -q -t rsa -P "" -N "" -f ~/.ssh/id_rsa"
 fi
 
+if type sslocal > /dev/null 2>&1 ; then
+  alias ssup="nohup sslocal -c ~/.shadow.json 2>&1 &"
+fi
+
+
 # linux only
 if [[ $(uname) == Linux ]]; then
-  alias vim="gvim -v"
-  alias xcp="xclip -selection clipboard"
-  alias xcv="xclip -o"
   alias rmrtlan="sudo route del default enp0s31f6"
   alias scrnoff="xset dpms force off "
-  alias ssup="nohup sslocal -c ~/.shadow.json 2>&1 &"
+  if type gvim > /dev/null 2>&1 ; then
+    alias vim="gvim -v"
+  fi
+
   if test -f $HOME/.local/bin/virtualenvwrapper.sh; then
     alias vwrapper="source $HOME/.local/bin/virtualenvwrapper.sh"
+  fi
+
+  if type xclip > /dev/null 2>&1 ; then
+    alias xcp="xclip -selection clipboard"
+    alias xcv="xclip -o"
   fi
 fi
 
@@ -114,7 +159,6 @@ if [[ $(uname) == Darwin ]]; then
   alias perf="top -l 1 -s 0 | awk ' /Processes/ || /PhysMem/ || /Load Avg/{print}'"
   alias rmdstore='sudo find / -name ".DS_Store" -depth -exec rm {} \;'
   alias fip="ipconfig getifaddr en0"
-  alias fips="ifconfig | grep -e 'UP' -e 'inet '"
   alias rmdns="sudo networksetup -setdnsservers Wi-Fi Empty"
   alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.157.26 115.159.158.38 115.159.96.69 115.159.220.214"
   alias fixbrew="sudo chown -R \"$USER\":admin /usr/local"
