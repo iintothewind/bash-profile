@@ -44,6 +44,20 @@ function fips() {
   echo ${list%,}
 }
 
+function ags() {
+  if type ag > /dev/null 2>&1; then
+    echo "ag [--support-type] pattern [path]"
+    ag --list-file-types | grep $@
+  fi
+}
+
+function rgs() {
+  if type rg > /dev/null 2>&1; then
+    echo "rg [-t support-type] pattern [path]"
+    rg --type-list | grep $@
+  fi
+}
+
 # cd
 alias u='cd ..'
 alias uu='cd ../../'
@@ -134,7 +148,6 @@ fi
 if type sslocal > /dev/null 2>&1 ; then
   alias ssup="nohup sslocal -c ~/.shadow.json 2>&1 &"
 fi
-
 
 # linux only
 if [[ $(uname) == Linux ]]; then
