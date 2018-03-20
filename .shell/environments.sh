@@ -8,6 +8,10 @@ export LC_ALL=zh_CN.UTF-8
 
 # linux only
 if [[ $(uname) == Linux ]]; then
+  # ./local/bin
+  if test -d $HOME/.local/bin; then
+    export PATH="$PATH:$HOME/.local/bin"
+  fi
   # haskell-platform
   if test -d $HOME/.cabal; then
     export PATH="$PATH:$HOME/.cabal/bin"
