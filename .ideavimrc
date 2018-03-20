@@ -5,6 +5,9 @@ set clipboard=unnamed
 
 noremap <Leader>q q
 noremap q <Nop>
+" map redo C-r to r
+map <silent> r :red<cr>
+
 " ideavim
 " https://plugins.jetbrains.com/plugin/164-ideavim
 
