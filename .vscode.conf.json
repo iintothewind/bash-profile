@@ -56,7 +56,8 @@
   "markdownlint.config": {
     "MD030":false,
     "MD034":false,
-    "MD012":false
+    "MD012":false,
+    "MD025":false
   },
   "python.formatting.provider": "yapf",
   "python.linting.pylintEnabled": false,
