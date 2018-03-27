@@ -22,6 +22,10 @@ fi
 
 # linux only
 if [[ $(uname) == Linux ]]; then
+  if test -f /etc/bashrc; then
+    . /etc/bashrc
+  fi
+
   # jump
   if type jump > /dev/null 2>&1; then
     eval "$(jump shell --bind=z)"
