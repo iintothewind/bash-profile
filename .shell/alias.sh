@@ -149,6 +149,29 @@ if type sslocal > /dev/null 2>&1 ; then
   alias ssup="nohup sslocal -c ~/.shadow.json 2>&1 &"
 fi
 
+if test -d ~/Documents/code/shell/bash-profile; then
+  function sync_cfg() {
+    cp -R ~/Documents/code/shell/bash-profile/.shell ~/
+    cp -R ~/Documents/code/shell/bash-profile/.vim ~/
+    cp -R ~/Documents/code/shell/bash-profile/.m2 ~/
+    cp -R ~/Documents/code/shell/bash-profile/.gradle ~/
+    cp -R ~/Documents/code/shell/bash-profile/.ivy2 ~/
+    cp -R ~/Documents/code/shell/bash-profile/.sbt ~/
+    cp -R ~/Documents/code/shell/bash-profile/.ammonite ~/
+    cp -R ~/Documents/code/shell/bash-profile/.cabal ~/
+    cp -R ~/Documents/code/shell/bash-profile/.stack ~/
+    cp -R ~/Documents/code/shell/bash-profile/.config ~/
+    cp -R ~/Documents/code/shell/bash-profile/.docker ~/
+    cp ~/Documents/code/shell/bash-profile/.vimrc ~/
+    cp ~/Documents/code/shell/bash-profile/.gitconfig ~/
+    cp ~/Documents/code/shell/bash-profile/.gitignore ~/
+    cp ~/Documents/code/shell/bash-profile/.gemrc ~/
+    cp ~/Documents/code/shell/bash-profile/.ghci ~/
+    cp ~/Documents/code/shell/bash-profile/.polipo ~/
+    cp ~/Documents/code/shell/bash-profile/.tmux.conf ~/
+  }
+fi
+
 # linux only
 if [[ $(uname) == Linux ]]; then
   alias rmrtlan="sudo route del default enp0s31f6"
