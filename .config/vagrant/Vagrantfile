@@ -1,0 +1,40 @@
+Vagrant.configure("2") do |config|
+  config.vm.define "fedora" do |fdr|
+    fdr.vm.box = "fedora25"
+    fdr.vm.box_version = "0"
+    fdr.vm.box_check_update = false
+
+    fdr.vm.network "private_network", ip: "192.168.2.10"
+    #fdr.vm.network "forwarded_port", guest: 80, host:10080
+
+    fdr.vm.provider "virtualbox" do |vb|
+      #vb.gui = true
+      vb.cpus = 4
+      vb.memory = "4096"
+    end
+
+    fdr.vm.provision "shell", inline: <<-SHELL
+if test -d /vagrant/config/bash-profile; then
+  cp -R /vagrant/config/bash-profile/.shell ~/
+  cp -R /vagrant/config/bash-profile/.vim ~/
+  cp -R /vagrant/config/bash-profile/.m2 ~/
+  cp -R /vagrant/config/bash-profile/.gradle ~/
+  cp -R /vagrant/config/bash-profile/.ivy2 ~/
+  cp -R /vagrant/config/bash-profile/.sbt ~/
+  cp -R /vagrant/config/bash-profile/.ammonite ~/
+  cp -R /vagrant/config/bash-profile/.cabal ~/
+  cp -R /vagrant/config/bash-profile/.stack ~/
+  cp -R /vagrant/config/bash-profile/.config ~/
+  cp -R /vagrant/config/bash-profile/.docker ~/
+  cp /vagrant/config/bash-profile/.bash_profile ~/.bashrc
+  cp /vagrant/config/bash-profile/.vimrc ~/
+  cp /vagrant/config/bash-profile/.gitconfig ~/
+  cp /vagrant/config/bash-profile/.gitignore ~/
+  cp /vagrant/config/bash-profile/.gemrc ~/
+  cp /vagrant/config/bash-profile/.ghci ~/
+  cp /vagrant/config/bash-profile/.polipo ~/
+  cp /vagrant/config/bash-profile/.tmux.conf ~/
+fi
+    SHELL
+  end
+end
