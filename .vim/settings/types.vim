@@ -32,8 +32,8 @@ au InsertLeave *.md setlocal conceallevel=0 concealcursor=inc
 
 " Scala
 au BufWritePost *.scala silent :EnTypeCheck
-au BufLeave *.java,*.scala try | call ensime#au_buf_leave(expand("<afile>")) | catch | endtry
-au VimLeave *.java,*.scala try | call ensime#au_vim_leave(expand("<afile>")) | catch | endtry
+"au BufLeave *.java,*.scala try | call ensime#au_buf_leave(expand("<afile>")) | catch | endtry
+"au VimLeave *.java,*.scala try | call ensime#au_vim_leave(expand("<afile>")) | catch | endtry
 nnoremap <localleader>t :EnType<CR>
 
 function! JavaScriptFold() 
