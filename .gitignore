@@ -48,7 +48,7 @@
 .idea_modules/
 *.iml
 .idea
-
+.DS_Store
 # JIRA plugin
 atlassian-ide-plugin.xml
 
@@ -60,4 +60,4 @@ fabric.properties
 .ensime_cache
 .ensime*
 .sock
-
+target/*
