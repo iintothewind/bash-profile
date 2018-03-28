@@ -19,7 +19,7 @@ if [[ $(uname) == Linux ]]; then
   # Java Environments
   if test -f /usr/bin/java; then
     export JAVA_HOME="/usr/java/jdk1.8.0_162"
-    export SBT_OPTS="-Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
+    export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
   fi
   # Python Environments
   if test -f $HOME/.local/bin/virtualenvwrapper.sh; then
@@ -72,7 +72,7 @@ if [[ $(uname) == Darwin ]]; then
   # Java Environments
   if test -f /usr/bin/java; then
     export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home"
-    export SBT_OPTS="-Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
+    export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
   fi
 
   # gnuman
