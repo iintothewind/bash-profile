@@ -149,6 +149,26 @@ if type sslocal > /dev/null 2>&1 ; then
   alias ssup="nohup sslocal -c ~/.shadow.json 2>&1 &"
 fi
 
+if type vagrant > /dev/null 2>&1 ; then
+  alias vinit="vagrant init"
+  alias vup="vagrant up"
+  alias vssh="vagrant ssh"
+  alias vsuspend="vagrant suspend"
+  alias vresume="vagrant resume"
+  alias vreload="vagrant load"
+  alias vhalt="vagrant halt"
+  alias vport="vagrant port"
+  alias vbox="vagrant box"
+  alias vdestroy="vagrant destroy"
+  alias vpackage="vagrant package"
+  alias vpush="vagrant push"
+fi
+
+if type VBoxManage > /dev/null 2>&1 ; then
+  alias vlsvm="VBoxManage list vms"
+  alias vvminfo="VBoxManage showvminfo"
+fi
+
 # linux only
 if [[ $(uname) == Linux ]]; then
   alias rmrtlan="sudo route del default enp0s31f6"
@@ -176,6 +196,8 @@ if [[ $(uname) == Darwin ]]; then
   alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.157.26 115.159.158.38 115.159.96.69 115.159.220.214"
   alias fixbrew="sudo chown -R \"$USER\":admin /usr/local"
   alias bru="brew update && brew upgrade && brew prune"
+  alias clean-cask="pushd /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask && git prune && popd"
+  alias clean-versions="pushd /usr/local/Homebrew/Library/Taps/caskroom/homebrew-versions && git prune && popd"
   
   if test -d $BREW_PREFIX/polipo; then
     alias plpon="brew services start polipo"
