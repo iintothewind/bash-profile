@@ -18,9 +18,9 @@ Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'godlygeek/tabular'
-Plug 'haya14busa/incsearch-easymotion.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kien/ctrlp.vim'
 Plug 'luochen1990/rainbow'
