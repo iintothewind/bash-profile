@@ -25,6 +25,7 @@ if [[ $(uname) == Linux ]]; then
   # Go Environments
   if type go > /dev/null 2>&1 ; then
     export GOPATH="$HOME/.go"
+    export PATH="$PATH:$GOPATH/bin"
   fi
 
   # Python Environments
@@ -84,6 +85,7 @@ if [[ $(uname) == Darwin ]]; then
   # Go Environments
   if type go > /dev/null 2>&1 ; then
     export GOPATH="$HOME/.go"
+    export PATH="$PATH:$GOPATH/bin"
   fi
 
 
