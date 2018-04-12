@@ -21,6 +21,12 @@ if [[ $(uname) == Linux ]]; then
     export JAVA_HOME="/usr/java/jdk1.8.0_162"
     export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
   fi
+
+  # Go Environments
+  if type go > /dev/null 2>&1 ; then
+    export GOPATH="$HOME/.go"
+  fi
+
   # Python Environments
   if test -f $HOME/.local/bin/virtualenvwrapper.sh; then
     #export VIRTUALENVWRAPPER_PYTHON="$BREW_PREFIX/python/bin/python"
@@ -74,6 +80,12 @@ if [[ $(uname) == Darwin ]]; then
     export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home"
     export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
   fi
+
+  # Go Environments
+  if type go > /dev/null 2>&1 ; then
+    export GOPATH="$HOME/.go"
+  fi
+
 
   # gnuman
   if test -d $BREW_PREFIX/coreutils/libexec/gnuman; then
