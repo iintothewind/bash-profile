@@ -17,6 +17,8 @@
     "**/*.pyc": true,
     "**/*.swp": true,
     "**/tmp": true,
+    "**/.idea": true,
+    "**/target": true,
     "**/node_modules": true,
     "**/bower_components": true,
     "**/dist": true,
@@ -26,6 +28,7 @@
   "files.watcherExclude": {
       "**/.git/objects/**": true,
       "**/.git/subtree-cache/**": true,
+      "**/.DS_Store": true,
       "**/node_modules/**": true,
       "**/tmp/**": true,
       "**/bower_components/**": true,
@@ -56,7 +59,9 @@
   "markdownlint.config": {
     "MD030":false,
     "MD034":false,
+    "MD024":false,
     "MD012":false,
+    "MD032":false,
     "MD025":false
   },
   "python.formatting.provider": "yapf",
@@ -77,5 +82,7 @@
   "python.venvPath": "~/.envs",
   "workbench.colorTheme": "Visual Studio Light",
   "explorer.confirmDelete": false,
-  "window.zoomLevel": 0
+  "window.zoomLevel": 0,
+  "git.enableSmartCommit": true,
+  "git.autofetch": true
 }
