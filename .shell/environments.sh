@@ -71,9 +71,21 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   # Python Environments
-  if test -d $BREW_PREFIX/python && test -f /usr/local/bin/virtualenvwrapper.sh; then
-    export VIRTUALENVWRAPPER_PYTHON="$BREW_PREFIX/python/bin/python"
-    export WORKON_HOME="$HOME/.envs"
+  if test -d $HOME/Library/Python/2.7/bin; then
+    export PATH="$PATH:$HOME/Library/Python/2.7/bin"
+  fi
+
+  pyversion=$(python --version 2>&1)
+  if [[ "$pyversion" == *2.7* ]]; then
+    if test -f /usr/local/bin/virtualenvwrapper.sh && test -f $BREW_BIN/python; then
+      export VIRTUALENVWRAPPER_PYTHON="$BREW_BIN/python"
+      export WORKON_HOME="$HOME/.envs"
+    fi
+  else
+    if test -f /usr/local/bin/virtualenvwrapper.sh && test -f $BREW_BIN/python3; then
+      export VIRTUALENVWRAPPER_PYTHON="$BREW_BIN/python3"
+      export WORKON_HOME="$HOME/.envs"
+    fi
   fi
 
   # Java Environments

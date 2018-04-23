@@ -1,0 +1,15 @@
+{
+  "localaddr": ":17626",
+  "remoteaddr": "207.148.92.115:29900",
+  "key": "very fast",
+  "crypt": "aes",
+  "mode": "fast",
+  "mtu": 1350,
+  "sndwnd": 512,
+  "rcvwnd": 512,
+  "datashard": 10,
+  "parityshard": 3,
+  "dscp": 0,
+  "nocomp": false,
+  "quiet": false
+}

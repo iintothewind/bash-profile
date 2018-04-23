@@ -146,7 +146,10 @@ if type ssh-keygen > /dev/null 2>&1 ; then
 fi
 
 if type sslocal > /dev/null 2>&1 ; then
-  alias ssup="nohup sslocal -c ~/.shadow.json 2>&1 &"
+  alias ssvrup="ssserver -c $HOME/.shadowsocks_server.json -d start"
+  alias ssvrdown="ssserver -c $HOME/.shadowsocks_server.json -d stop"
+  alias sslcup="sslocal -c $HOME/.shadowsocks_client.json -d start"
+  alias sslcdown="sslocal -c $HOME/.shadowsocks_client.json -d stop"
 fi
 
 if type vagrant > /dev/null 2>&1 ; then
@@ -206,6 +209,11 @@ if [[ $(uname) == Darwin ]]; then
   
   if test -f $BREW_BIN/virtualenvwrapper.sh; then
     alias vwrapper="source /usr/local/bin/virtualenvwrapper.sh"
+  fi
+
+  if type supervisorctl > /dev/null 2>&1 ; then
+    alias spup="supervisord -c .supervisord.conf && supervisorctl status"
+    alias spdown="supervisorctl shutdown && supervisorctl status"
   fi
 
   if type cf > /dev/null 2>&1 ; then
