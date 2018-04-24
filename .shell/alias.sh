@@ -223,25 +223,25 @@ if [[ $(uname) == Darwin ]]; then
 
   if test -d ~/Documents/code/shell/bash-profile; then
     function sync_cfg() {
-      cp -ru ~/Documents/code/shell/bash-profile/.shell ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.vim ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.m2 ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.gradle ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.ivy2 ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.sbt ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.ammonite ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.cabal ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.stack ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.config ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.docker ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.bash_profile ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.vimrc ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.gitconfig ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.gitignore ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.gemrc ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.ghci ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.polipo ~/
-      cp -ru ~/Documents/code/shell/bash-profile/.tmux.conf ~/
+      cp -r .shell ~/
+      cp -r .vim ~/
+      cp -r .m2 ~/
+      cp -r .gradle ~/
+      cp -r .ivy2 ~/
+      cp -r .sbt ~/
+      cp -r .ammonite ~/
+      cp -r .cabal ~/
+      cp -r .stack ~/
+      cp -r .config ~/
+      cp -r .docker ~/
+      cp -r .bash_profile ~/
+      cp -r .vimrc ~/
+      cp -r .gitconfig ~/
+      cp -r .gitignore ~/
+      cp -r .gemrc ~/
+      cp -r .ghci ~/
+      cp -r .polipo ~/
+      cp -r .tmux.conf ~/
     }
   fi
 fi
