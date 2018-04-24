@@ -146,10 +146,10 @@ if type ssh-keygen > /dev/null 2>&1 ; then
 fi
 
 if type sslocal > /dev/null 2>&1 ; then
-  alias ssvrup="ssserver -c $HOME/.shadowsocks_server.json -d start"
-  alias ssvrdown="ssserver -c $HOME/.shadowsocks_server.json -d stop"
-  alias sslcup="sslocal -c $HOME/.shadowsocks_client.json -d start"
-  alias sslcdown="sslocal -c $HOME/.shadowsocks_client.json -d stop"
+  alias ssvrup="ssserver -c $HOME/.shadowsocks.json -d start"
+  alias ssvrdown="ssserver -c $HOME/.shadowsocks.json -d stop"
+  alias sslcup="sslocal -c $HOME/.shadowsocks.json -d start"
+  alias sslcdown="sslocal -c $HOME/.shadowsocks.json -d stop"
 fi
 
 if type vagrant > /dev/null 2>&1 ; then
@@ -213,7 +213,7 @@ if [[ $(uname) == Darwin ]]; then
 
   if type supervisorctl > /dev/null 2>&1 ; then
     alias spup="supervisord -c .supervisord.conf && supervisorctl status"
-    alias spdown="supervisorctl shutdown && supervisorctl status"
+    alias spdown="supervisorctl shutdown && killall ShadowsocksX"
   fi
 
   if type cf > /dev/null 2>&1 ; then
