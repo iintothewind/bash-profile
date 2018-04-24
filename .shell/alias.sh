@@ -58,6 +58,30 @@ function rgs() {
   fi
 }
 
+function sync_cfg() {
+  if [[ $(pwd) == *bash-profile ]]; then
+    cp -r .shell ~/
+    cp -r .vim ~/
+    cp -r .m2 ~/
+    cp -r .gradle ~/
+    cp -r .ivy2 ~/
+    cp -r .sbt ~/
+    cp -r .ammonite ~/
+    cp -r .cabal ~/
+    cp -r .stack ~/
+    cp -r .config ~/
+    cp -r .docker ~/
+    cp -r .bash_profile ~/
+    cp -r .vimrc ~/
+    cp -r .gitconfig ~/
+    cp -r .gitignore ~/
+    cp -r .gemrc ~/
+    cp -r .ghci ~/
+    cp -r .polipo ~/
+    cp -r .tmux.conf ~/
+  fi
+}
+
 # cd
 alias u='cd ..'
 alias uu='cd ../../'
@@ -219,30 +243,6 @@ if [[ $(uname) == Darwin ]]; then
   if type cf > /dev/null 2>&1 ; then
     alias cfluw="cf login -a https://api.system.aws-usw02-pr.ice.predix.io --sso"
     alias cflja="cf l -a https://api.system.aws-usw02-pr.ice.predix.io -o ivar.chen@ge.com -s dev -u ivar.chen@ge.com -p ivar2018@GE --sso"
-  fi
-
-  if test -d ~/Documents/code/shell/bash-profile; then
-    function sync_cfg() {
-      cp -r .shell ~/
-      cp -r .vim ~/
-      cp -r .m2 ~/
-      cp -r .gradle ~/
-      cp -r .ivy2 ~/
-      cp -r .sbt ~/
-      cp -r .ammonite ~/
-      cp -r .cabal ~/
-      cp -r .stack ~/
-      cp -r .config ~/
-      cp -r .docker ~/
-      cp -r .bash_profile ~/
-      cp -r .vimrc ~/
-      cp -r .gitconfig ~/
-      cp -r .gitignore ~/
-      cp -r .gemrc ~/
-      cp -r .ghci ~/
-      cp -r .polipo ~/
-      cp -r .tmux.conf ~/
-    }
   fi
 fi
 
