@@ -112,7 +112,7 @@ if [[ $(uname) == Linux ]]; then
   alias mtscproxy=setShadowSocksProxy
   alias rmproxy=removeProxy
   alias pxys=getProxyStatus
-  if [[ $(netstat -tln|grep 1080) == tcp*0.0.0.0*1080*LISTEN* ]]; then 
+  if type netstat > /dev/null 2>&1 && [[ $(netstat -tln|grep 1080) == tcp*0.0.0.0*1080*LISTEN* ]]; then 
     export http_proxy=http://localhost:8123
     export https_proxy=http://localhost:8123
   fi
