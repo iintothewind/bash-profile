@@ -257,7 +257,7 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   if type supervisorctl > /dev/null 2>&1 ; then
-    alias spup="supervisord -c .supervisord.conf && supervisorctl status"
+    alias spup="supervisord -c $HOME/.supervisord.conf && supervisorctl status"
     alias spdown="supervisorctl shutdown && killall ShadowsocksX"
   fi
 
