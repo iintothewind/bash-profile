@@ -196,6 +196,27 @@ if type VBoxManage > /dev/null 2>&1 ; then
   alias vvminfo="VBoxManage showvminfo"
 fi
 
+if type keytool > /dev/null 2>&1 && [[ $JAVA_HOME != "" ]]; then 
+  function list_cert() {
+    local keystore=${1:-$JAVA_HOME/jre/lib/security/cacerts}
+    local storepass=${2:-changeit}
+    keytool -list -keystore $keystore -storepass $storepass 
+  }
+
+  function import_cert() {
+    local file=${1}
+    local alias=${2}
+    local keypass=${3}
+    local keystore=${4:-$JAVA_HOME/jre/lib/security/cacerts}
+    local storepass=${5:-changeit}
+    if test $keypass; then
+      keytool -importcert -keystore ${keystore} -storepass ${storepass} -file ${file} -alias ${alias} -keypass ${keypass}
+    else
+      keytool -importcert -keystore ${keystore} -storepass ${storepass} -file ${file} -alias ${alias}
+    fi
+  }
+fi
+
 # linux only
 if [[ $(uname) == Linux ]]; then
   alias rmrtlan="sudo route del default enp0s31f6"
