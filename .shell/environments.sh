@@ -107,6 +107,6 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   # brew settings
-  export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+  export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.shu.edu.cn/homebrew-bottles"
 fi
 

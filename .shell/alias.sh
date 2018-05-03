@@ -79,6 +79,7 @@ function sync_cfg() {
     cp -r .ghci ~/
     cp -r .polipo ~/
     cp -r .tmux.conf ~/
+    cp -r .supervisord.conf ~/
   fi
 }
 
