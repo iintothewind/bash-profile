@@ -79,7 +79,6 @@ function sync_cfg() {
     cp -r .ghci ~/
     cp -r .polipo ~/
     cp -r .tmux.conf ~/
-    cp -r .supervisord.conf ~/
   fi
 }
 
@@ -170,11 +169,18 @@ if type ssh-keygen > /dev/null 2>&1 ; then
   alias sshkeygen="rm -f $HOME/ssh/id_rsa && ssh-keygen -q -t rsa -P "" -N "" -f ~/.ssh/id_rsa"
 fi
 
-if type sslocal > /dev/null 2>&1 ; then
+if type ssserver > /dev/null 2>&1 ; then
   alias ssvrup="ssserver -c $HOME/.shadowsocks.json -d start"
   alias ssvrdown="ssserver -c $HOME/.shadowsocks.json -d stop"
+fi
+
+if type sslocal > /dev/null 2>&1 ; then
   alias sslcup="sslocal -c $HOME/.shadowsocks.json -d start"
   alias sslcdown="sslocal -c $HOME/.shadowsocks.json -d stop"
+fi
+
+if test -f /usr/local/kcptun/server_linux_amd64 && test -f /usr/local/kcptun/server-config.json; then
+  alias kcpsrvup="/usr/local/kcptun/server_linux_amd64 -c /usr/local/kcptun/server-config.json"
 fi
 
 if type vagrant > /dev/null 2>&1 ; then
