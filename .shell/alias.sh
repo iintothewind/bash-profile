@@ -240,6 +240,11 @@ if [[ $(uname) == Linux ]]; then
     alias xcp="xclip -selection clipboard"
     alias xcv="xclip -o"
   fi
+
+  if type supervisorctl > /dev/null 2>&1 ; then
+    alias spup="supervisord -c $HOME/.supervisord.conf && supervisorctl status"
+    alias spdown="supervisorctl shutdown"
+  fi
 fi
 
 # mac only
