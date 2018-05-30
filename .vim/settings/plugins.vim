@@ -36,7 +36,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale', {'tag': 'v1.8.0'}
+Plug 'w0rp/ale', {'tag': 'v1.9.0'}
 Plug 'ybian/smartim'
 call plug#end()
 
@@ -231,7 +231,6 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_semantic_triggers = {'haskell' : ['.']}
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_global_ycm_extra_conf = ''
-let g:ycm_semantic_triggers = {'haskell' : ['.']}
 let g:ycm_filetype_specific_completion_to_disable = {
     \ 'gitcommit': 1
     \}
