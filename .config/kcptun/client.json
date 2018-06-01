@@ -1,6 +1,6 @@
 {
   "localaddr": ":17626",
-  "remoteaddr": "207.148.92.115:29900",
+  "remoteaddr": "149.28.136.134:29900",
   "key": "very fast",
   "crypt": "aes",
   "mode": "fast",
