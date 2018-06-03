@@ -1,6 +1,99 @@
 # bash-profile
 This is a place we can share the most useful settings of our bash profiles
 
+## brew ls
+
+```
+$ brew ls
+ab				gtk+3				ntfs-3g
+adns				h2				oniguruma
+ammonite-repl			harfbuzz			openjpeg
+annie				haskell-stack			openssl
+ant				hicolor-icon-theme		openssl@1.1
+apache-spark			highlight			p11-kit
+apr				htop				p7zip
+apr-util			httpie				pandoc
+aria2				icdiff				pango
+atk				icu4c				pcre
+autoconf			iftop				perl
+automake			imagemagick			pgcli
+awscli				infer				pidof
+axel				isl				pinentry
+bash				jemalloc			pip-completion
+bash-completion			jpeg				pixman
+binutils			jq				pkg-config
+bmon				jump				polipo
+boost				kafka				poppler
+brew-cask-completion		lame				postgresql
+cabal-install			leptonica			proctools
+cabextract			libarchive			protobuf
+cairo				libassuan			pv
+calc				libepoxy			python
+cf-cli				libevent			python3
+chezscheme			libffi				python@2
+clojure				libgcrypt			q
+cmake				libgpg-error			qemu
+confuse				libidn2				qt
+consul				libksba				readline
+coreutils			libmpc				redis
+coursier			libpng				ripgrep
+cscope				libpq				rlwrap
+diffutils			libspectre			ruby
+doxygen				libtasn1			ruby-completion
+ffmpeg				libtermkey			s3cmd
+findutils			libtiff				sbt
+fontconfig			libtool				scala
+freetype			libunistring			scons
+fribidi				libusb				sdl2
+gawk				libuv				shared-mime-info
+gcc				libvterm			shml
+gd				libyaml				snappy
+gdbm				libzip				sphinx-doc
+gdk-pixbuf			little-cms2			sqlite
+gem-completion			llvm				st
+gettext				lua				the_silver_searcher
+ghc				luajit				tldr
+ghc@8.0				m-cli				tmux
+ghostscript			macvim				tree
+gist				markdown			unibilium
+git				maven				unixodbc
+glew				maven-completion		unrar
+glib				memcached			vagrant-completion
+gmp				mgba				vim
+gnu-getopt			mitmproxy			webp
+gnu-indent			mpfr				wget
+gnu-sed				mpg123				whois
+gnu-tar				msgpack				winetricks
+gnutls				msodbcsql			x264
+go				mssql-tools			xvid
+gobject-introspection		ncurses				xz
+godep				neo4j				yank
+gradle				neovim				yarn
+graphite2			nettle				zlib
+graphviz			nmap				zookeeper
+groovysdk			node
+gsettings-desktop-schemas	npth
+```
+
+## brew cask ls
+
+```
+appcleaner                       mpv                              suspicious-package
+basictex                         osxfuse                          texmacs
+betterzipql                      postman                          unrarx
+blueharvest                      qlcolorcode                      vagrant
+caffeine                         qlmarkdown                       virtualbox
+etcher                           qlprettypatch                    virtualbox-extension-pack
+filezilla                        qlstephen                        visual-studio-code
+firefox                          quicklook-csv                    visualvm
+google-chrome                    quicklook-json                   vnc-viewer
+intellij-idea-ce                 racket                           vox
+iterm2                           rar                              webpquicklook
+java                             shadowsocksx                     xquartz
+karabiner-elements               spectacle
+macdown                          squirrel
+```
+
 ## bash settings
 ### .Shell/alias.sh
 the alias settings file
@@ -16,17 +109,7 @@ username on hostname in filepath on git-branch
 proxy settings can be loaded when wifi ssid is BlueSSO, otherise it will not be loaded in bash.
 #### maually set proxy, requires admin password
 
-```
-# set http proxy on both network preference and console
-mtgeproxy
-# set http proxy for java if http proxy set
-mjp
-```
 #### manually remove proxy, requires admin password
-
-```
-rmproxy
-```
 
 #### display proxy status
 
@@ -65,37 +148,6 @@ the vimrc settings
 basic settings
 
 ### .vim/settings/plugins.vim
-
-```
-Plug 'Chiel92/vim-autoformat'
-Plug 'Shougo/vimproc.vim', {'do': 'make'}
-Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
-Plug 'airblade/vim-gitgutter'
-Plug 'derekwyatt/vim-scala', {'for': 'scala'}
-Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
-Plug 'easymotion/vim-easymotion'
-Plug 'godlygeek/tabular'
-Plug 'haya14busa/incsearch-easymotion.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
-Plug 'haya14busa/incsearch.vim'
-Plug 'jonathanfilip/vim-lucius'
-Plug 'kien/ctrlp.vim'
-Plug 'luochen1990/rainbow'
-Plug 'maxbrunsfeld/vim-yankstack'
-Plug 'navicore/vissort.vim'
-Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
-Plug 'scrooloose/nerdcommenter'
-Plug 'terryma/vim-expand-region'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-surround'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale', {'tag': 'v1.4.0'}
-Plug 'ybian/smartim'
-```
 
 ### .vim/settings/types.vim
 file type settings
