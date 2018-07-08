@@ -28,6 +28,7 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
@@ -36,7 +37,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale', {'tag': 'v1.9.0'}
+Plug 'w0rp/ale', {'tag': 'v2.0.0'}
 Plug 'ybian/smartim'
 call plug#end()
 
