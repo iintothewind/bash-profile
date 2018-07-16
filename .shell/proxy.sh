@@ -20,18 +20,18 @@ function setLocalProxy() {
   return 0
 }
 
-# GE Proxy settings
-function setGeProxy {
-  export http_proxy=http://3.20.128.6:88
-  export https_proxy=http://3.20.128.6:88
+# Corp Proxy settings
+function setCorpProxy {
+  export http_proxy=http://sjd-itcorppx.paypalcorp.com:3128
+  export https_proxy=http://sjd-itcorppx.paypalcorp.com:3128
   if type networksetup > /dev/null 2>&1; then
     sudo networksetup -setautoproxystate Wi-Fi off
-    sudo networksetup -setwebproxy Wi-Fi 3.20.128.6 88
-    sudo networksetup -setsecurewebproxy Wi-Fi 3.20.128.6 88
-    sudo networksetup -setautoproxystate 'Thunderbolt Ethernet' off
-    sudo networksetup -setwebproxy 'Thunderbolt Ethernet' 3.20.128.6 88
-    sudo networksetup -setsecurewebproxy 'Thunderbolt Ethernet' 3.20.128.6 88
+    sudo networksetup -setwebproxy Wi-Fi sjd-itcorppx.paypalcorp.com 3128
+    sudo networksetup -setsecurewebproxy Wi-Fi sjd-itcorppx.paypalcorp.com 3128
     sudo networksetup -setdnsservers Wi-Fi Empty
+    #sudo networksetup -setautoproxystate 'Thunderbolt Ethernet' off
+    #sudo networksetup -setwebproxy 'Thunderbolt Ethernet' sjd-itcorppx.paypalcorp.com 3128
+    #sudo networksetup -setsecurewebproxy 'Thunderbolt Ethernet' sjd-itcorppx.paypalcorp.com 3128
   fi
   if [[ "$http_proxy" == http* ]]; then
 	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
@@ -41,18 +41,18 @@ function setGeProxy {
   return 0
 }
 
-function setGePac {
-  export http_proxy=http://PITC-Zscaler-China-Shanghai-IDC-Z1.proxy.corporate.ge.com:80
-  export https_proxy=http://PITC-Zscaler-China-Shanghai-IDC-Z1.proxy.corporate.ge.com:80
+function setCorpPac {
+  export http_proxy=http://proxypacfile.paypalcorp.com/proxy.pac
+  export https_proxy=http://proxypacfile.paypalcorp.com/proxy.pac
 
   if type networksetup > /dev/null 2>&1; then
-    sudo networksetup -setautoproxyurl Wi-Fi "https://cloudproxy.setpac.ge.com/pac.pac"
-    sudo networksetup -setautoproxyurl 'Thunderbolt Ethernet' "https://cloudproxy.setpac.ge.com/pac.pac"
+    sudo networksetup -setautoproxyurl Wi-Fi "http://proxypacfile.paypalcorp.com/proxy.pac"
     sudo networksetup -setwebproxystate Wi-Fi off
     sudo networksetup -setsecurewebproxystate Wi-Fi off
-    sudo networksetup -setwebproxystate 'Thunderbolt Ethernet' off
-    sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off
     sudo networksetup -setdnsservers Wi-Fi Empty
+    #sudo networksetup -setautoproxyurl 'Thunderbolt Ethernet' "http://proxypacfile.paypalcorp.com/proxy.pac"
+    #sudo networksetup -setwebproxystate 'Thunderbolt Ethernet' off
+    #sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off
   fi
   if [[ "$http_proxy" == http* ]]; then
 	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
@@ -87,11 +87,11 @@ function removeProxy {
   fi
   if type networksetup > /dev/null 2>&1; then
     sudo networksetup -setautoproxystate Wi-Fi off
-    sudo networksetup -setautoproxystate 'Thunderbolt Ethernet' off
     sudo networksetup -setwebproxystate Wi-Fi off
-    sudo networksetup -setwebproxystate 'Thunderbolt Ethernet' off
     sudo networksetup -setsecurewebproxystate Wi-Fi off
-    sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off
+    #sudo networksetup -setwebproxystate 'Thunderbolt Ethernet' off
+    #sudo networksetup -setautoproxystate 'Thunderbolt Ethernet' off
+    #sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off
   fi
   return 0
 }
@@ -109,7 +109,6 @@ function getProxyStatus {
 
 if [[ $(uname) == Linux ]]; then
   alias mtproxy=setLocalProxy
-  alias mtscproxy=setShadowSocksProxy
   alias rmproxy=removeProxy
   alias pxys=getProxyStatus
   if type netstat > /dev/null 2>&1 && [[ $(netstat -tln|grep 1080) == tcp*0.0.0.0*1080*LISTEN* ]]; then 
@@ -124,15 +123,13 @@ if [[ $(uname) == Linux ]]; then
 fi
 
 if [[ $(uname) == Darwin ]]; then
-  alias mtlocalproxy=setLocalProxy
-  alias mtgeproxy=setGeProxy
-  alias mtgepac=setGePac
-  alias mtscproxy=setShadowSocksProxy
+  alias mtproxy=setCorpProxy
+  alias mtpac=setCorpPac
   alias rmproxy=removeProxy
   alias pxys=getProxyStatus
-  if [[ $(ipconfig getifaddr en0) == 10.189* ]]; then 
-    export http_proxy=http://3.20.128.6:88
-    export https_proxy=http://3.20.128.6:88
+  if [[ $(ipconfig getifaddr en0) == 10.225* ]]; then 
+    export http_proxy=http://sjd-itcorppx.paypalcorp.com:3128
+    export https_proxy=http://sjd-itcorppx.paypalcorp.com:3128
   fi
   if [[ "$http_proxy" == http* ]]; then
 	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
@@ -141,4 +138,4 @@ if [[ $(uname) == Darwin ]]; then
   fi
 fi
 
-export no_proxy="localhost,127.0.0.1,*.ge.com,192.168.0.*"
+export no_proxy="localhost,127.0.0.1,192.168.0.*"
