@@ -203,6 +203,10 @@ if type VBoxManage > /dev/null 2>&1 ; then
   alias vvminfo="VBoxManage showvminfo"
 fi
 
+if type mvn > /dev/null 2>&1 ; then
+  alias mvn_skiptest='mvn -Dmaven.test.skip=true'
+fi
+
 if type keytool > /dev/null 2>&1 && [[ $JAVA_HOME != "" ]]; then 
   function list_cert() {
     local keystore=${1:-$JAVA_HOME/jre/lib/security/cacerts}
