@@ -7,6 +7,7 @@ function gps() { ps -ef | fgrep "$@" | fgrep -v fgrep ;}
 function ghs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function gals() { alias | fgrep "$@" | fgrep -v fgrep ;}
 function fftop() { find . -size +"$@" -exec ls -lhs {} \+ | sort -nr ;} 
+function mvn_skiptest() { mvn -Dmaven.test.skip=true "$@" ;}
 
 function md() {
   if [ ! -n "$1" ]; then
@@ -201,10 +202,6 @@ fi
 if type VBoxManage > /dev/null 2>&1 ; then
   alias vlsvm="VBoxManage list vms"
   alias vvminfo="VBoxManage showvminfo"
-fi
-
-if type mvn > /dev/null 2>&1 ; then
-  alias mvn_skiptest='mvn -Dmaven.test.skip=true'
 fi
 
 if type keytool > /dev/null 2>&1 && [[ $JAVA_HOME != "" ]]; then 
