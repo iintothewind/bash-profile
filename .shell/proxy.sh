@@ -36,7 +36,7 @@ function setCorpProxy {
   if [[ "$http_proxy" == http* ]]; then
 	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
 	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
-	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
+			#export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
   fi
   return 0
 }
@@ -127,15 +127,15 @@ if [[ $(uname) == Darwin ]]; then
   alias mtpac=setCorpPac
   alias rmproxy=removeProxy
   alias pxys=getProxyStatus
-  if [[ $(ipconfig getifaddr en0) == 10.225* ]]; then 
-    export http_proxy=http://sjd-itcorppx.paypalcorp.com:3128
-    export https_proxy=http://sjd-itcorppx.paypalcorp.com:3128
-  fi
-  if [[ "$http_proxy" == http* ]]; then
-	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
-	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
-	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
-  fi
+  #if [[ $(ipconfig getifaddr en0) == 10.225* ]]; then 
+    #export http_proxy=http://sjd-itcorppx.paypalcorp.com:3128
+    #export https_proxy=http://sjd-itcorppx.paypalcorp.com:3128
+  #fi
+  #if [[ "$http_proxy" == http* ]]; then
+			#host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
+			#port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
+			#export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
+  #fi
 fi
 
 export no_proxy="localhost,127.0.0.1,192.168.0.*"

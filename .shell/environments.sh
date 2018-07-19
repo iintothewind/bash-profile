@@ -18,7 +18,7 @@ if [[ $(uname) == Linux ]]; then
   fi
   # Java Environments
   if test -f /usr/bin/java; then
-    export JAVA_HOME="/usr/java/jdk1.8.0_162"
+    export JAVA_HOME="/usr/java/jdk1.8.0_172"
     export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
   fi
 
