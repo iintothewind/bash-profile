@@ -136,7 +136,7 @@ if type git > /dev/null 2>&1 ; then
   alias gcommit="git commit"
   alias gcm="git commit"
   alias gdiff="git diff"
-  alias gdif="git diff"
+  alias gdif="git diff HEAD^ HEAD"
   alias gmerge="git merge"
   alias gme="git merge"
   alias grebase="git rebase"
