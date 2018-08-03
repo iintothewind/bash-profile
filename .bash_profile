@@ -19,6 +19,11 @@ fi
 if test -f $HOME/.shell/prompt.sh; then
   . $HOME/.shell/prompt.sh
 fi
+# path completion
+if test -f $HOME/.shell/path_completion.sh; then
+  . $HOME/.shell/path_completion.sh
+  _bcpp --defaults
+fi
 
 # linux only
 if [[ $(uname) == Linux ]]; then
