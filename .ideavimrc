@@ -1,7 +1,7 @@
 " source ~/.vimrc
 let mapleader = ";"
 let g:mapleader = ";"
-set clipboard=unnamed
+"set clipboard=unnamed
 
 noremap <Leader>q q
 noremap q <Nop>
@@ -16,10 +16,11 @@ map <silent> r :red<cr>
 "
 " Press `f` to activate AceJump
 map <leader>f :action AceAction<CR>
-" Press `F` to activate Target Mode
+" Press `t` to activate Target Mode
 map <leader>t :action AceTargetAction<CR>
-" Press `g` to activate Line Mode
+" Press `l` to activate Line Mode
 map <leader>l :action AceLineAction<CR>
 
 nnoremap <C-N> <C-D>
 
+nnoremap <leader>p "+p
