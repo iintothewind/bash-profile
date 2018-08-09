@@ -1,5 +1,4 @@
 {
-  // "http.proxy": "http://3.20.128.6:88",
   "http.proxyStrictSSL": false,
   "editor.fontSize": 10,
   "editor.tabSize": 2,
@@ -46,15 +45,21 @@
   "vim.incsearch": true,
   "vim.useSystemClipboard": true,
   "vim.statusBarColorControl": true,
-  "vim.disableAnnoyingNeovimMessage": true,
-  "vim.statusBarColors": {
-    "normal": "#0A68CC",
-    "insert": "#5f0000",
-    "visual": "#5f00af",
-    "visualline": "#005f87",
-    "visualblock": "#86592d",
-    "replace": "#000000"
-  },
+  "vim.statusBarColors.normal": "#0A68CC",
+  "vim.statusBarColors.insert": "#5F0000",
+  "vim.statusBarColors.visual": "#5F00AF",
+  "vim.statusBarColors.visualblock": "#86592D",
+  "vim.statusBarColors.replace": "#00000",
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["leader", "f"],
+      "after": ["leader", "leader", "s"]
+    },
+    {
+      "before": ["leader", "t"],
+      "after": ["leader", "leader", "/"]
+    },
+  ],
   "markdown.preview.linkify":false,
   "markdownlint.config": {
     "MD030":false,
@@ -64,19 +69,19 @@
     "MD032":false,
     "MD025":false
   },
+  "terminal.external.osxExec": "iTerm.app",
+  "maven.terminal.useJavaHome": true,
   "python.formatting.provider": "yapf",
   "python.linting.pylintEnabled": false,
-  "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home",
+  "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_144.jdk/Contents/Home",
   "java.errors.incompleteClasspath.severity": "ignore",
-  "scalaLanguageServer.logLevel" : "DEBUG",
-  "scalaLanguageServer.heapSize" : "4G",
   // "scalafmt.configFilePath": "${env:HOME}/.sbt/1.0/.scalafmt.conf",
   "workbench.iconTheme": "vscode-icons",
   "vsicons.dontShowNewVersionMessage": true,
   "workbench.colorCustomizations": {
-    "statusBar.background": "#005f87",
-    "statusBar.noFolderBackground": "#005f87",
-    "statusBar.debuggingBackground": "#005f87"
+    "statusBar.background": "#005f5f",
+    "statusBar.noFolderBackground": "#005f5f",
+    "statusBar.debuggingBackground": "#005f5f"
   },
   "extensions.ignoreRecommendations": true,
   "python.venvPath": "~/.envs",
