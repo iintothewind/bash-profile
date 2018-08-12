@@ -22,7 +22,8 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'kien/ctrlp.vim'
+"Plug 'kien/ctrlp.vim'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'luochen1990/rainbow'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'navicore/vissort.vim'
@@ -30,6 +31,7 @@ Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
+Plug 'skywind3000/asyncrun.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
@@ -37,7 +39,7 @@ Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale', {'tag': 'v2.0.0'}
+Plug 'w0rp/ale', {'tag': 'v2.1.0'}
 Plug 'ybian/smartim'
 call plug#end()
 
@@ -60,8 +62,8 @@ endtry
 " ale
 "nmap <silent> <F9> <Plug>(ale_previous_wrap)
 "nmap <silent> <F10> <Plug>(ale_next_wrap)
-nmap <silent> <F9> :lop<cr>
-nmap <silent> <F10> :lcl<cr>
+nmap <silent> <F8> :lop<cr>
+nmap <silent> <F9> :lcl<cr>
 
 " rainbow
 let g:rainbow_active = 1
@@ -184,6 +186,27 @@ let g:ctrlp_prompt_mappings   = {
   \ 'PrtExit()':            ['<esc>', '<c-c>', '<c-g>'],
   \ }
 
+" leaderf
+let g:Lf_ShortcutF = '<leader>['
+noremap <leader>] :LeaderfMru<cr>
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', '.idea', '.iml']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath = 1
+let g:Lf_HideHelp = 1
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+let g:Lf_WildIgnore = {
+  \ 'dir': ['.svn','.git','.hg', '.idea', '.vscode'],
+  \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.class', '*.DS_Store', '*.jar']
+  \}
+let g:Lf_CommandMap = {
+  \ '<CR>': ['<C-B>'], 
+  \ '<C-T>': ['<CR>']
+  \}
+
 "  Vim grep
 let Grep_Skip_Dirs = 'RCS CVS SCCS .svn .git generated'
 set grepprg=/bin/grep\ -nH
@@ -240,7 +263,15 @@ let g:ycm_filetype_blacklist = {
     \ 'pandoc' : 1,
     \ 'infolog' : 1,
     \}
+let g:ycm_disable_for_files_larger_than_kb = 512
+" disable auto menu preview
+set completeopt=menu,menuone
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
 
-
-
+" asyncrun
+" asyncrun open on quickfix window at hight 6
+let g:asyncrun_open = 6 
+let g:asyncrun_bell = 1
+nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
 
