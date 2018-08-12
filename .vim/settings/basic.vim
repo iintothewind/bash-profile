@@ -119,7 +119,7 @@ endif
 " fold according to indent
 set fdl=99
 set fdls=1
-set fdm=indent
+set fdm=manual
 
 " Enable syntax highlighting
 syntax enable 
