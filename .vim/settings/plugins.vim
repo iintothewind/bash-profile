@@ -4,10 +4,8 @@ call plug#begin('~/.vim/plugged')
 "Plug 'Yggdroot/indentLine'
 "Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'rking/ag.vim'
-"Plug 'scrooloose/syntastic'
 "Plug 'tpope/vim-fugitive'
 "Plug 'Chiel92/vim-autoformat'
-Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
 "Plug 'Valloric/YouCompleteMe', {'do': './install.py', 'for':'nothing'}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
@@ -22,7 +20,8 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'jonathanfilip/vim-lucius'
-"Plug 'kien/ctrlp.vim'
+"Plug 'kien/ctrlp.vim', { 'on': 'ctrlp-py-matcher' }
+"Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'luochen1990/rainbow'
 Plug 'maxbrunsfeld/vim-yankstack'
