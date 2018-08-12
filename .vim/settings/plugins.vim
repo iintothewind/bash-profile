@@ -272,5 +272,5 @@ let g:ycm_show_diagnostics_ui = 0
 " asyncrun open on quickfix window at hight 6
 let g:asyncrun_open = 6 
 let g:asyncrun_bell = 1
-nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
+nnoremap <silent> <F10> :call asyncrun#quickfix_toggle(6)<cr>
 
