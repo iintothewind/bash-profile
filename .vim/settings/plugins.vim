@@ -6,12 +6,16 @@ call plug#begin('~/.vim/plugged')
 "Plug 'rking/ag.vim'
 "Plug 'tpope/vim-fugitive'
 "Plug 'Chiel92/vim-autoformat'
-Plug 'Shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
+"Plug 'ensime/ensime-vim', {'for': 'scala'}
+"Plug 'kien/ctrlp.vim', { 'on': 'ctrlp-py-matcher' }
+"Plug 'FelikZ/ctrlp-py-matcher'
+"Plug 't9md/vim-choosewin'
+"Plug 'jaxbot/semantic-highlight.vim'
 "Plug 'Valloric/YouCompleteMe', {'do': './install.py', 'for':'nothing'}
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
-"Plug 'ensime/ensime-vim', {'for': 'scala'}
+Plug 'Shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', {'for': 'go'}
@@ -19,9 +23,8 @@ Plug 'godlygeek/tabular'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
+Plug 'itchyny/vim-cursorword'
 Plug 'jonathanfilip/vim-lucius'
-"Plug 'kien/ctrlp.vim', { 'on': 'ctrlp-py-matcher' }
-"Plug 'FelikZ/ctrlp-py-matcher'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'luochen1990/rainbow'
 Plug 'maxbrunsfeld/vim-yankstack'
@@ -41,10 +44,6 @@ Plug 'vim-scripts/LargeFile'
 Plug 'w0rp/ale', {'tag': 'v2.1.0'}
 Plug 'ybian/smartim'
 call plug#end()
-
-"  Load pathogen paths
-"call pathogen#infect('~/.vim/infected/{}')
-"call pathogen#helptags()
 
 " color scheme
 let g:lucius_style          = 'dark'
