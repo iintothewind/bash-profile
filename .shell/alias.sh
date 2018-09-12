@@ -170,6 +170,18 @@ if test -f /bin/launchctl ; then
   }
 fi
 
+if test -d /usr/local/Caskroom; then
+  function checkCaskUpgrade() {
+    for c in `ls /usr/local/Caskroom `; do
+      INFO=`brew cask info $c`
+      LATEST=`echo $INFO | head -n 1 | awk '{print $2}'`
+      if [ `brew cask info $c | tail -n +2 | grep $LATEST | wc -l | awk '{print $1}'` -eq 0 ]; then
+        echo $c
+      fi
+    done
+  }
+fi
+
 if type aria2c > /dev/null 2>&1 ; then
   alias aria="aria2c --conf-path=$HOME/.config/aria2/aria2.conf -D"
 fi
