@@ -59,6 +59,9 @@ function rmProxy {
 function pxys {
   echo "http_proxy=$http_proxy"
   echo "https_proxy=$https_proxy"
+  if [[ "$JAVA_OPTS" == *http* ]]; then
+    echo "JAVA_OPTS=$JAVA_OPTS"
+  fi
   if type networksetup > /dev/null 2>&1; then
     networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
       echo "$network_service http proxy: "
