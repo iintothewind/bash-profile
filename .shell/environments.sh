@@ -66,7 +66,10 @@ if [[ $(uname) == Darwin ]]; then
   # H2 drivers
   if test -d $BREW_PREFIX/h2; then 
     if test -f $HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar; then
-      export H2DRIVERS="$HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar"
+      export H2DRIVERS="$H2DRIVERS:$HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar"
+    fi
+    if test -f $HOME/.m2/repository/com/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar; then
+      export H2DRIVERS="$H2DRIVERS:$HOME/.m2/repository/com/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar"
     fi
   fi
 

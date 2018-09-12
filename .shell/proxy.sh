@@ -1,141 +1,88 @@
 #!/usr/bin/env bash
 
-# local proxy settings
-function setLocalProxy() {
-  export http_proxy=http://localhost:8123
-  export https_proxy=http://localhost:8123
-  if type networksetup > /dev/null 2>&1; then
-    sudo networksetup -setautoproxystate Wi-Fi off
-    sudo networksetup -setwebproxy Wi-Fi localhost 8123
-    sudo networksetup -setsecurewebproxy Wi-Fi localhost 8123
-    sudo networksetup -setwebproxy 'Thunderbolt Ethernet' localhost 8123
-    sudo networksetup -setsecurewebproxy 'Thunderbolt Ethernet' localhost 8123
-    sudo networksetup -setdnsservers Wi-Fi Empty
+function setProxy() {
+  if [ ! -n "$1" ] || [ ! -n "$2" ]; then
+    echo "proxy host and port are required"
+  else
+    if type networksetup > /dev/null 2>&1; then
+      export http_proxy=http://"$1":"$2"
+      export https_proxy=http://"$1":"$2"
+      networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
+        sudo networksetup -setautoproxystate "$network_service" off
+        sudo networksetup -setwebproxy "$network_service" "$1"  "$2"
+        sudo networksetup -setsecurewebproxy "$network_service" "$1"  "$2"
+      done
+    fi
   fi
+  return 0
+}
+
+function setPac() {
+  if [[ "$1" =~ http.*pac ]]; then
+    echo "pac files is required"
+  else
+    if type networksetup > /dev/null 2>&1; then
+      networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
+        sudo networksetup -setautoproxystate "$network_service" "$1"
+        sudo networksetup -setwebproxy "$network_service" off
+        sudo networksetup -setsecurewebproxy "$network_service" off
+      done
+    fi
+  fi
+  return 0
+}
+
+function setJavaProxy() {
   if [[ "$http_proxy" == http* ]]; then
 	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
 	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
 	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
   fi
-  return 0
 }
 
-# Corp Proxy settings
-function setCorpProxy {
-  export http_proxy=http://sjd-itcorppx.paypalcorp.com:3128
-  export https_proxy=http://sjd-itcorppx.paypalcorp.com:3128
-  if type networksetup > /dev/null 2>&1; then
-    sudo networksetup -setautoproxystate Wi-Fi off
-    sudo networksetup -setwebproxy Wi-Fi sjd-itcorppx.paypalcorp.com 3128
-    sudo networksetup -setsecurewebproxy Wi-Fi sjd-itcorppx.paypalcorp.com 3128
-    sudo networksetup -setdnsservers Wi-Fi Empty
-    #sudo networksetup -setautoproxystate 'Thunderbolt Ethernet' off
-    #sudo networksetup -setwebproxy 'Thunderbolt Ethernet' sjd-itcorppx.paypalcorp.com 3128
-    #sudo networksetup -setsecurewebproxy 'Thunderbolt Ethernet' sjd-itcorppx.paypalcorp.com 3128
-  fi
-  if [[ "$http_proxy" == http* ]]; then
-	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
-	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
-			#export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
-  fi
-  return 0
-}
-
-function setCorpPac {
-  export http_proxy=http://proxypacfile.paypalcorp.com/proxy.pac
-  export https_proxy=http://proxypacfile.paypalcorp.com/proxy.pac
-
-  if type networksetup > /dev/null 2>&1; then
-    sudo networksetup -setautoproxyurl Wi-Fi "http://proxypacfile.paypalcorp.com/proxy.pac"
-    sudo networksetup -setwebproxystate Wi-Fi off
-    sudo networksetup -setsecurewebproxystate Wi-Fi off
-    sudo networksetup -setdnsservers Wi-Fi Empty
-    #sudo networksetup -setautoproxyurl 'Thunderbolt Ethernet' "http://proxypacfile.paypalcorp.com/proxy.pac"
-    #sudo networksetup -setwebproxystate 'Thunderbolt Ethernet' off
-    #sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off
-  fi
-  if [[ "$http_proxy" == http* ]]; then
-	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
-	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
-	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
-  fi
-  return 0
-}
-
-# Shadowsocks Proxy settings
-function setShadowSocksProxy {
-  export http_proxy=http://192.168.0.161:8123
-  export https_proxy=http://192.168.0.161:8123
-  if type networksetup > /dev/null 2>&1; then
-    sudo networksetup -setautoproxystate Wi-Fi off
-    sudo networksetup -setwebproxy Wi-Fi 192.168.0.161 8123
-    sudo networksetup -setsecurewebproxy Wi-Fi 192.168.0.161 8123
-  fi
-  if [[ "$http_proxy" == http* ]]; then
-	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
-	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
-	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
-  fi
-  return 0
-}
-
-function removeProxy {
+function rmProxy {
   unset http_proxy
   unset https_proxy
   if [[ "$JAVA_OPTS" == *http* ]]; then
     unset JAVA_OPTS
   fi
   if type networksetup > /dev/null 2>&1; then
-    sudo networksetup -setautoproxystate Wi-Fi off
-    sudo networksetup -setwebproxystate Wi-Fi off
-    sudo networksetup -setsecurewebproxystate Wi-Fi off
-    #sudo networksetup -setwebproxystate 'Thunderbolt Ethernet' off
-    #sudo networksetup -setautoproxystate 'Thunderbolt Ethernet' off
-    #sudo networksetup -setsecurewebproxystate 'Thunderbolt Ethernet' off
+    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
+      sudo networksetup -setautoproxystate "$network_service" off
+      sudo networksetup -setwebproxy "$network_service" off
+      sudo networksetup -setsecurewebproxy "$network_service" off
+    done
   fi
   return 0
 }
 
-function getProxyStatus {
+function pxys {
   echo "http_proxy=$http_proxy"
   echo "https_proxy=$https_proxy"
   if type networksetup > /dev/null 2>&1; then
-    echo "networksetup -getwebproxy Wi-Fi"
-    networksetup -getwebproxy Wi-Fi
-    echo "networksetup -getsecurewebproxy Wi-Fi"
-    networksetup -getsecurewebproxy Wi-Fi
+    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
+      echo "$network_service http proxy: "
+      networksetup -getwebproxy "$network_service"
+      echo "$network_service https proxy: "
+      networksetup -getsecurewebproxy "$network_service"
+      echo ""
+    done
   fi
 }
 
-if [[ $(uname) == Linux ]]; then
-  alias mtproxy=setLocalProxy
-  alias rmproxy=removeProxy
-  alias pxys=getProxyStatus
-  if type netstat > /dev/null 2>&1 && [[ $(netstat -tln|grep 1080) == tcp*0.0.0.0*1080*LISTEN* ]]; then 
-    export http_proxy=http://localhost:8123
-    export https_proxy=http://localhost:8123
-  fi
+# local proxy settings
+function setLocalProxy() {
+  setProxy localhost 8123
+}
 
-  #if [[ $(nmap 192.168.0.161 -p 1080) == *open* ]]; then
-  #  export http_proxy=http://192.168.0.161:8123
-  #  export https_proxy=http://192.168.0.161:8123
-  #fi
-fi
+# Corp Proxy settings
+function setCorpProxy {
+  setProxy "sjd-itcorppx.paypalcorp.com" 3128
+}
 
-if [[ $(uname) == Darwin ]]; then
-  alias mtproxy=setCorpProxy
-  alias mtpac=setCorpPac
-  alias rmproxy=removeProxy
-  alias pxys=getProxyStatus
-  #if [[ $(ipconfig getifaddr en0) == 10.225* ]]; then 
-    #export http_proxy=http://sjd-itcorppx.paypalcorp.com:3128
-    #export https_proxy=http://sjd-itcorppx.paypalcorp.com:3128
-  #fi
-  #if [[ "$http_proxy" == http* ]]; then
-			#host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
-			#port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
-			#export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
-  #fi
-fi
+function setCorpPac {
+  setPac "http://proxypacfile.paypalcorp.com/proxy.pac"
+  return 0
+}
 
 export no_proxy="localhost,127.0.0.1,192.168.0.*"

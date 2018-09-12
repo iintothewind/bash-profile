@@ -27,14 +27,6 @@ function bu() {
   fi
 }
 
-function setJavaProxy() {
-  if [[ "$http_proxy" == http* ]]; then
-	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
-	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
-	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
-  fi
-}
-
 function fips() {
   if type ip > /dev/null 2>&1 ; then
     local list=$(ip -o -4 addr list | awk '{print $4}' | cut -d'/' -f1 | tr '\n' ',')
@@ -108,7 +100,6 @@ alias ffperm='find . -type f -exec chmod 644 {} \;'
 alias dte='date "+%Y-%m-%d %H:%M:%S"'
 alias pth="echo $PATH | tr : \\\\n"
 alias lstcp="lsof -i -n -P | grep TCP"
-alias mjp=setJavaProxy
 
 if type git > /dev/null 2>&1 ; then
   alias gclone="git clone"
@@ -161,6 +152,23 @@ if type git > /dev/null 2>&1 ; then
   }
 fi
 
+if test -f /bin/launchctl ; then
+  function killDaemons() {
+    sudo launchctl remove "com.absolute.abtsvcd"
+    sudo launchctl remove "com.absolute.ctesservice"
+    sudo launchctl remove "com.absolute.ctesservice.avp"
+    sudo launchctl remove "com.absolute.ctesservice.hdc"
+    sudo launchctl remove "com.absolute.rpcnet"
+    sudo launchctl remove "com.ar.jarx"
+    sudo launchctl remove "com.beyondtrust.pbmac.pbmacd"
+    sudo launchctl remove "com.jamf.management.daemon"
+    sudo launchctl remove "com.jamfsoftware.jamf.daemon"
+    sudo launchctl remove "com.jamfsoftware.startupItem"
+    sudo launchctl remove "com.jamfsoftware.task.Every 15 Minutes"
+    sudo launchctl remove "com.tanium.taniumclient"
+    sudo launchctl remove "com.tanium.trace.recorder"
+  }
+fi
 
 if type aria2c > /dev/null 2>&1 ; then
   alias aria="aria2c --conf-path=$HOME/.config/aria2/aria2.conf -D"
@@ -227,6 +235,7 @@ fi
 
 # linux only
 if [[ $(uname) == Linux ]]; then
+  alias rrc="source $HOME/.bashrc"
   alias rmrtlan="sudo route del default enp0s31f6"
   alias scrnoff="xset dpms force off "
   if type gvim > /dev/null 2>&1 ; then
@@ -250,6 +259,7 @@ fi
 
 # mac only
 if [[ $(uname) == Darwin ]]; then
+  alias rrc="source $HOME/.bash_profile"
   alias perf="top -l 1 -s 0 | awk ' /Processes/ || /PhysMem/ || /Load Avg/{print}'"
   alias rmdstore='sudo find / -name ".DS_Store" -depth -exec rm {} \;'
   alias fip="ipconfig getifaddr en0"
