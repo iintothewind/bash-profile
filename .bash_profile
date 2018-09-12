@@ -40,7 +40,7 @@ fi
 # mac only
 if [[ $(uname) == Darwin ]]; then
   if test -f $BREW_BIN/gls; then 
-    alias ls="gls -F --show-control-chars --color=auto"
+    alias ls="gls --show-control-chars --color=auto"
   fi
 
   # completion
