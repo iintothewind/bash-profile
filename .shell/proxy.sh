@@ -18,8 +18,8 @@ function setProxy() {
 }
 
 function setPac() {
-  if [[ "$1" =~ http.*pac ]]; then
-    echo "pac files is required"
+  if [[ "$1" =~ http*pac ]]; then
+    echo "pac file is required"
   else
     if type networksetup > /dev/null 2>&1; then
       networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
