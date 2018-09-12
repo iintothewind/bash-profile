@@ -18,14 +18,14 @@ function setProxy() {
 }
 
 function setPac() {
-  if [[ "$1" =~ http*pac ]]; then
+  if [[ "$1" != http*pac ]]; then
     echo "pac file is required"
   else
     if type networksetup > /dev/null 2>&1; then
       networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
-        sudo networksetup -setautoproxystate "$network_service" "$1"
-        sudo networksetup -setwebproxy "$network_service" off
-        sudo networksetup -setsecurewebproxy "$network_service" off
+        sudo networksetup -setautoproxyurl "$network_service" "$1"
+        sudo networksetup -setwebproxystate "$network_service" off
+        sudo networksetup -setsecurewebproxystate "$network_service" off
       done
     fi
   fi
