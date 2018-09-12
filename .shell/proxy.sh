@@ -49,8 +49,8 @@ function rmProxy {
   if type networksetup > /dev/null 2>&1; then
     networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
       sudo networksetup -setautoproxystate "$network_service" off
-      sudo networksetup -setwebproxy "$network_service" off
-      sudo networksetup -setsecurewebproxy "$network_service" off
+      sudo networksetup -setwebproxystate "$network_service" off
+      sudo networksetup -setsecurewebproxystate "$network_service" off
     done
   fi
   return 0
