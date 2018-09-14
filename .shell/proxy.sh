@@ -1,52 +1,62 @@
 #!/usr/bin/env bash
 
-function setProxy() {
+function shellProxy() {
   if [ ! -n "$1" ] || [ ! -n "$2" ]; then
     echo "proxy host and port are required"
   else
-    if type networksetup > /dev/null 2>&1; then
-      export http_proxy=http://"$1":"$2"
-      export https_proxy=http://"$1":"$2"
-      networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
-        sudo networksetup -setautoproxystate "$network_service" off
-        sudo networksetup -setwebproxy "$network_service" "$1"  "$2"
-        sudo networksetup -setsecurewebproxy "$network_service" "$1"  "$2"
-      done
-    fi
+    export http_proxy=http://"$1":"$2"
+    export https_proxy=http://"$1":"$2"
   fi
   return 0
 }
 
-function setPac() {
-  if [[ "$1" != http*pac ]]; then
-    echo "pac file is required"
+function sysProxy() {
+  local host=${1-$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)}
+  local port=${2-$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)}
+  if [[ $(uname) == Darwin ]] && test "$host" && test "$port"; then
+    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
+      sudo networksetup -setautoproxystate "$network_service" off
+      sudo networksetup -setwebproxy "$network_service" "$host"  "$port"
+      sudo networksetup -setsecurewebproxy "$network_service" "$host"  "$port"
+    done
   else
-    if type networksetup > /dev/null 2>&1; then
-      networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
-        sudo networksetup -setautoproxyurl "$network_service" "$1"
-        sudo networksetup -setwebproxystate "$network_service" off
-        sudo networksetup -setsecurewebproxystate "$network_service" off
-      done
-    fi
+      echo "proxy host and port are required"
   fi
   return 0
 }
 
-function setJavaProxy() {
-  if [[ "$http_proxy" == http* ]]; then
-	    host=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)
-	    port=$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)
+function javaProxy() {
+  local host=${1-$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)}
+  local port=${2-$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)}
+  if test "$host" && test "$port"; then
 	    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
+  else
+      echo "proxy host and port are required"
   fi
+  return 0
 }
+
+function pacProxy() {
+  if [[ $(uname) == Darwin ]] && [[ "$1" != http*pac ]]; then
+    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
+      sudo networksetup -setautoproxyurl "$network_service" "$1"
+      sudo networksetup -setwebproxystate "$network_service" off
+      sudo networksetup -setsecurewebproxystate "$network_service" off
+    done
+  else
+    echo "pac file is required"
+  fi
+  return 0
+}
+
 
 function rmProxy {
   unset http_proxy
   unset https_proxy
-  if [[ "$JAVA_OPTS" == *http* ]]; then
+  if [[ "$JAVA_OPTS" == *proxy* ]]; then
     unset JAVA_OPTS
   fi
-  if type networksetup > /dev/null 2>&1; then
+  if [[ $(uname) == Darwin ]]; then
     networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
       sudo networksetup -setautoproxystate "$network_service" off
       sudo networksetup -setwebproxystate "$network_service" off
@@ -59,10 +69,10 @@ function rmProxy {
 function pxys {
   echo "http_proxy=$http_proxy"
   echo "https_proxy=$https_proxy"
-  if [[ "$JAVA_OPTS" == *http* ]]; then
+  if [[ "$JAVA_OPTS" == *proxy* ]]; then
     echo "JAVA_OPTS=$JAVA_OPTS"
   fi
-  if type networksetup > /dev/null 2>&1; then
+  if [[ $(uname) == Darwin ]]; then
     networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
       echo "$network_service http proxy: "
       networksetup -getwebproxy "$network_service"
@@ -73,19 +83,16 @@ function pxys {
   fi
 }
 
-# local proxy settings
-function setLocalProxy() {
-  setProxy localhost 8123
+function localProxy() {
+  shellProxy localhost 8123
 }
 
-# Corp Proxy settings
-function setCorpProxy {
-  setProxy "sjd-itcorppx.paypalcorp.com" 3128
+function corpProxy {
+  shellProxy "sjd-itcorppx.paypalcorp.com" 3128
 }
 
-function setCorpPac {
-  setPac "http://proxypacfile.paypalcorp.com/proxy.pac"
-  return 0
+function corpPac {
+  pacProxy "http://proxypacfile.paypalcorp.com/proxy.pac"
 }
 
 export no_proxy="localhost,127.0.0.1,192.168.0.*"
