@@ -5,93 +5,53 @@ This is a place we can share the most useful settings of our bash profiles
 
 ```
 $ brew ls
-ab				gtk+3				ntfs-3g
-adns				h2				oniguruma
-ammonite-repl			harfbuzz			openjpeg
-annie				haskell-stack			openssl
-ant				hicolor-icon-theme		openssl@1.1
-apache-spark			highlight			p11-kit
-apr				htop				p7zip
-apr-util			httpie				pandoc
-aria2				icdiff				pango
-atk				icu4c				pcre
-autoconf			iftop				perl
-automake			imagemagick			pgcli
-awscli				infer				pidof
-axel				isl				pinentry
-bash				jemalloc			pip-completion
-bash-completion			jpeg				pixman
-binutils			jq				pkg-config
-bmon				jump				polipo
-boost				kafka				poppler
-brew-cask-completion		lame				postgresql
-cabal-install			leptonica			proctools
-cabextract			libarchive			protobuf
-cairo				libassuan			pv
-calc				libepoxy			python
-cf-cli				libevent			python3
-chezscheme			libffi				python@2
-clojure				libgcrypt			q
-cmake				libgpg-error			qemu
-confuse				libidn2				qt
-consul				libksba				readline
-coreutils			libmpc				redis
-coursier			libpng				ripgrep
-cscope				libpq				rlwrap
-diffutils			libspectre			ruby
-doxygen				libtasn1			ruby-completion
-ffmpeg				libtermkey			s3cmd
-findutils			libtiff				sbt
-fontconfig			libtool				scala
-freetype			libunistring			scons
-fribidi				libusb				sdl2
-gawk				libuv				shared-mime-info
-gcc				libvterm			shml
-gd				libyaml				snappy
-gdbm				libzip				sphinx-doc
-gdk-pixbuf			little-cms2			sqlite
-gem-completion			llvm				st
-gettext				lua				the_silver_searcher
-ghc				luajit				tldr
-ghc@8.0				m-cli				tmux
-ghostscript			macvim				tree
-gist				markdown			unibilium
-git				maven				unixodbc
-glew				maven-completion		unrar
-glib				memcached			vagrant-completion
-gmp				mgba				vim
-gnu-getopt			mitmproxy			webp
-gnu-indent			mpfr				wget
-gnu-sed				mpg123				whois
-gnu-tar				msgpack				winetricks
-gnutls				msodbcsql			x264
-go				mssql-tools			xvid
-gobject-introspection		ncurses				xz
-godep				neo4j				yank
-gradle				neovim				yarn
-graphite2			nettle				zlib
-graphviz			nmap				zookeeper
-groovysdk			node
-gsettings-desktop-schemas	npth
+ammonite-repl		glib			libunistring		polipo
+annie			gmp			libuv			proctools
+apache-spark		gnu-getopt		libvterm		protobuf
+aria2			gnu-indent		libyaml			pv
+autoconf		gnu-sed			libzip			python
+automake		gnu-tar			lua			python3
+axel			gnutls			lua@5.1			python@2
+bash			go			luajit			q
+bash-completion		gobject-introspection	macvim			qt
+bat			gradle			maven			readline
+binutils		graphite2		mgba			redis
+boost			h2			mitmproxy		ripgrep
+brew-cask-completion	harfbuzz		mpfr			ruby
+cairo			haskell-stack		mpg123			sbt
+cap-completion		hh			mpv			scala
+chezscheme		highlight		msgpack			scipy
+cmake			htop			mujs			sdl2
+coreutils		icu4c			nasm			sqlite
+cscope			imagemagick		neovim			st
+diffutils		isl			nettle			texi2html
+docker-completion	jemalloc		nmap			the_silver_searcher
+doxygen			jpeg			node			tldr
+ext4fuse		jump			ntfs-3g			tmux
+fd			lame			numpy			tree
+ffmpeg			libass			openssl			typescript
+findutils		libepoxy		p11-kit			unibilium
+fontconfig		libevent		p7zip			vim
+freetype		libffi			pandoc			webp
+fribidi			libmpc			pcre			x264
+gawk			libpng			pcre2			xsv
+gcc			libtasn1		perl			xvid
+gdbm			libtermkey		pip-completion		xz
+gettext			libtiff			pixman			yank
+git			libtool			pkg-config		yasm
 ```
 
 ## brew cask ls
 
 ```
-appcleaner                       mpv                              suspicious-package
-basictex                         osxfuse                          texmacs
-betterzipql                      postman                          unrarx
-blueharvest                      qlcolorcode                      vagrant
-caffeine                         qlmarkdown                       virtualbox
-etcher                           qlprettypatch                    virtualbox-extension-pack
-filezilla                        qlstephen                        visual-studio-code
-firefox                          quicklook-csv                    visualvm
-google-chrome                    quicklook-json                   vnc-viewer
-intellij-idea-ce                 racket                           vox
-iterm2                           rar                              webpquicklook
-java                             shadowsocksx                     xquartz
-karabiner-elements               spectacle
-macdown                          squirrel
+basictex                    intellij-idea-ce            qlstephen                   the-unarchiver
+betterzipql                 iterm2                      quicklook-csv               vagrant
+caffeine                    java8                       quicklook-json              virtualbox
+cheatsheet                  karabiner-elements          quicksilver                 virtualbox-extension-pack
+etcher                      macdown                     racket                      visual-studio-code
+filezilla                   osxfuse                     shadowsocksx
+google-chrome               qlmarkdown                  spectacle
+haskell-platform            qlprettypatch               suspicious-package
 ```
 
 ## bash settings
@@ -114,21 +74,17 @@ proxy settings can be loaded when wifi ssid is BlueSSO, otherise it will not be 
 #### display proxy status
 
 ```
-$ pxys
-http_proxy=http://3.20.128.6:88
-https_proxy=http://3.20.128.6:88
-HTTP_PROXY=http://3.20.128.6:88
-HTTPS_PROXY=http://3.20.128.6:88
-networksetup -getwebproxy Wi-Fi
-Enabled: Yes
-Server: 3.20.128.6
-Port: 88
-Authenticated Proxy Enabled: 0
-networksetup -getsecurewebproxy Wi-Fi
-Enabled: Yes
-Server: 3.20.128.6
-Port: 88
-Authenticated Proxy Enabled: 0
+# set local proxy in shell
+$ localProxy 
+
+# set mac system proxy, require admin passwd, require http host and port if http_proxy environment vaiable not set
+$ sysProxy
+
+# remove proxy in shell, also remove system proxy if system proxy enabled
+$ rmProxy 
+
+# display proxy status
+$ pxys 
 ```
 
 ### alias
