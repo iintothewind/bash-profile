@@ -264,11 +264,12 @@ _bcpp() {
     # the order of command line parameters
     if [[ "$KEYS" == *f* ]]  # --files
     then
-        complete -o bashdefault -o default -o nospace -D -F _bcpp_complete_file
+        complete -D -F _bcpp_complete_file
     fi
     if [[ "$KEYS" == *d* ]]  # --dirs
     then
-        complete -o bashdefault -o default -o nospace -F _bcpp_complete_dir cd
+        complete -F _bcpp_complete_dir cd
+        complete -F _bcpp_complete_dir pushd
     fi
     if [[ "$KEYS" == *o* ]]  # --override
     then
@@ -279,7 +280,7 @@ _bcpp() {
                 eval "_bcpp_filedir_original() $_bcpp_filedir_original_code"
             _filedir() {
                 _bcpp_filedir_original "$@"
-                _bcpp_complete "$@"
+                [ "${#COMPREPLY[@]}" -eq 0 ] && _bcpp_complete "$@"
             }
         fi
         _bcpp_filedir_xspec_original_code=$(declare -f _filedir_xspec|tail -n+2)
@@ -289,7 +290,7 @@ _bcpp() {
                 eval "_bcpp_filedir_xspec_original() $_bcpp_filedir_xspec_original_code"
             _filedir_xspec() {
                 _bcpp_filedir_xspec_original "$@"
-                _bcpp_complete "$@"
+                [ "${#COMPREPLY[@]}" -eq 0 ] && _bcpp_complete "$@"
             }
         fi
     fi
@@ -301,6 +302,7 @@ _bcpp() {
     if [[ "$KEYS" == *m* ]]  # --readline-menu
     then
         bind 'TAB:menu-complete'
+        bind '"\e[Z": menu-complete-backward'  # Shift+Tab
         bind 'set menu-complete-display-prefix on'
     fi
     if [[ "$KEYS" == *l* ]]  # --readline-color
