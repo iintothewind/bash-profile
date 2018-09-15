@@ -7,14 +7,23 @@
   safecrlf = false
 	editor = vim
 [color]
-  ui = true
-  diff = true
+  ui = auto
+  diff = auto
   status = auto
   branch = auto
   interactive = auto
 [credential]
-	helper = cache --timeout 7200
+	helper = cache --timeout 86400
+[http]
+	sslVerify = false
+[merge]
+	tool = vimdiff
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
 [alias]
+	d = difftool
   cm       = commit
   pl       = pull
   ps       = push
@@ -29,5 +38,3 @@
 	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative
 	lgme = !UN=$(git config user.name)&& git log --author="\"$UN\"" --pretty=format:'%h %cd %s' --date=short
 	bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -n 1 git branch -d; }; f"
-[http]
-	sslVerify = false
