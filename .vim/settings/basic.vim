@@ -128,7 +128,8 @@ syntax enable
 
 
 "set clipboard=unnamed
-nnoremap <leader>p "+p
+nmap <leader>p "+p
+vmap <leader>y "+y
 
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'
