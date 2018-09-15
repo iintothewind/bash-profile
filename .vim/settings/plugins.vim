@@ -38,6 +38,7 @@ Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'Valloric/ListToggle'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
@@ -60,8 +61,8 @@ endtry
 " ale
 "nmap <silent> <F9> <Plug>(ale_previous_wrap)
 "nmap <silent> <F10> <Plug>(ale_next_wrap)
-nmap <silent> <F8> :lop<cr>
-nmap <silent> <F9> :lcl<cr>
+"nmap <silent> <F8> :lop<cr>
+"nmap <silent> <F9> :lcl<cr>
 
 " rainbow
 let g:rainbow_active = 1
@@ -263,5 +264,9 @@ let g:ycm_show_diagnostics_ui = 0
 " asyncrun open on quickfix window at hight 6
 let g:asyncrun_open = 6 
 let g:asyncrun_bell = 1
-nnoremap <silent> <F10> :call asyncrun#quickfix_toggle(6)<cr>
+"nnoremap <silent> <F10> :call asyncrun#quickfix_toggle(6)<cr>
+
+" ListToggle
+let g:lt_location_list_toggle_map = '<F9>'
+let g:lt_quickfix_list_toggle_map = '<F10>'
 
