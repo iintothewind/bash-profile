@@ -105,7 +105,6 @@ set showmode
 set mat=2
 
 set showcmd
-set clipboard=unnamed
 " disable default welcome messages
 set shortmess=atI
 " No annoying sound on errors
@@ -126,6 +125,10 @@ set fdm=manual
 
 " Enable syntax highlighting
 syntax enable 
+
+
+"set clipboard=unnamed
+nnoremap <leader>p "+p
 
 " Enable 256 colors palette in Gnome Terminal
 if $COLORTERM == 'gnome-terminal'

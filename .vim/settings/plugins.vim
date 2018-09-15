@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
 "Plug 't9md/vim-choosewin'
 "Plug 'jaxbot/semantic-highlight.vim'
 "Plug 'Valloric/YouCompleteMe', {'do': './install.py', 'for':'nothing'}
+"Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
@@ -27,7 +28,6 @@ Plug 'itchyny/vim-cursorword'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'luochen1990/rainbow'
-Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
@@ -104,11 +104,11 @@ endfunction
 noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
 
 "  YankStack
-call yankstack#setup()
-let g:yankstack_map_keys = 0
-let g:yankstack_yank_keys = ['y', 'd']
-nmap <silent> <leader>p <Plug>yankstack_substitute_older_paste
-nmap <silent> <leader>P <Plug>yankstack_substitute_newer_paste
+"call yankstack#setup()
+"let g:yankstack_map_keys = 0
+"let g:yankstack_yank_keys = ['y', 'd']
+"nmap <silent> <leader>p <Plug>yankstack_substitute_older_paste
+"nmap <silent> <leader>P <Plug>yankstack_substitute_newer_paste
 
 " nerdcommenter
 nmap <Leader>/ <Plug>NERDCommenterToggle
