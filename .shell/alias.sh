@@ -138,35 +138,6 @@ if type git > /dev/null 2>&1 ; then
   }
 fi
 
-if test -f /bin/launchctl ; then
-  function killDaemons() {
-    sudo launchctl remove "com.absolute.abtsvcd"
-    sudo launchctl remove "com.absolute.ctesservice"
-    sudo launchctl remove "com.absolute.ctesservice.avp"
-    sudo launchctl remove "com.absolute.ctesservice.hdc"
-    sudo launchctl remove "com.absolute.rpcnet"
-    sudo launchctl remove "com.ar.jarx"
-    sudo launchctl remove "com.beyondtrust.pbmac.pbmacd"
-    sudo launchctl remove "com.jamf.management.daemon"
-    sudo launchctl remove "com.jamfsoftware.jamf.daemon"
-    sudo launchctl remove "com.jamfsoftware.startupItem"
-    sudo launchctl remove "com.jamfsoftware.task.Every 15 Minutes"
-    sudo launchctl remove "com.tanium.taniumclient"
-    sudo launchctl remove "com.tanium.trace.recorder"
-  }
-fi
-
-if test -d /usr/local/Caskroom; then
-  function checkCaskUpgrade() {
-    for c in `ls /usr/local/Caskroom `; do
-      INFO=`brew cask info $c`
-      LATEST=`echo $INFO | head -n 1 | awk '{print $2}'`
-      if [ `brew cask info $c | tail -n +2 | grep $LATEST | wc -l | awk '{print $1}'` -eq 0 ]; then
-        echo $c
-      fi
-    done
-  }
-fi
 
 if type aria2c > /dev/null 2>&1 ; then
   alias aria="aria2c --conf-path=$HOME/.config/aria2/aria2.conf -D"
@@ -286,6 +257,36 @@ if [[ $(uname) == Darwin ]]; then
     alias cfluw="cf login -a https://api.system.aws-usw02-pr.ice.predix.io --sso"
     alias cflja="cf l -a https://api.system.aws-usw02-pr.ice.predix.io -o ivar.chen@ge.com -s dev -u ivar.chen@ge.com -p ivar2018@GE --sso"
   fi
+
+  function killDaemons() {
+    if test -f /bin/launchctl ; then
+      sudo launchctl remove "com.absolute.abtsvcd"
+      sudo launchctl remove "com.absolute.ctesservice"
+      sudo launchctl remove "com.absolute.ctesservice.avp"
+      sudo launchctl remove "com.absolute.ctesservice.hdc"
+      sudo launchctl remove "com.absolute.rpcnet"
+      sudo launchctl remove "com.ar.jarx"
+      sudo launchctl remove "com.beyondtrust.pbmac.pbmacd"
+      sudo launchctl remove "com.jamf.management.daemon"
+      sudo launchctl remove "com.jamfsoftware.jamf.daemon"
+      sudo launchctl remove "com.jamfsoftware.startupItem"
+      sudo launchctl remove "com.jamfsoftware.task.Every 15 Minutes"
+      sudo launchctl remove "com.tanium.taniumclient"
+      sudo launchctl remove "com.tanium.trace.recorder"
+    fi
+  }
+
+  function checkCaskUpgrade() {
+    if test -d /usr/local/Caskroom; then
+      for c in `ls /usr/local/Caskroom `; do
+        INFO=`brew cask info $c`
+        LATEST=`echo $INFO | head -n 1 | awk '{print $2}'`
+        if [ `brew cask info $c | tail -n +2 | grep $LATEST | wc -l | awk '{print $1}'` -eq 0 ]; then
+          echo $c
+        fi
+      done
+    fi
+  }
 fi
 
 
