@@ -59,10 +59,19 @@ endtry
 
 
 " ale
+" Write this in your vimrc file
+let g:ale_lint_on_text_changed = 'never'
+" if you don't want linters to run on opening a file
+let g:ale_lint_on_enter = 1
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\}
+let g:ale_fix_on_save = 1
 "nmap <silent> <F9> <Plug>(ale_previous_wrap)
 "nmap <silent> <F10> <Plug>(ale_next_wrap)
 "nmap <silent> <F8> :lop<cr>
 "nmap <silent> <F9> :lcl<cr>
+
 
 " rainbow
 let g:rainbow_active = 1
@@ -194,7 +203,7 @@ let g:Lf_WildIgnore = {
   \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]', '*.class', '*.DS_Store', '*.jar']
   \}
 let g:Lf_CommandMap = {
-  \ '<CR>': ['<C-B>'], 
+  \ '<CR>': ['<C-B>'],
   \ '<C-T>': ['<CR>']
   \}
 
@@ -262,11 +271,10 @@ let g:ycm_show_diagnostics_ui = 0
 
 " asyncrun
 " asyncrun open on quickfix window at hight 6
-let g:asyncrun_open = 6 
+let g:asyncrun_open = 6
 let g:asyncrun_bell = 1
 "nnoremap <silent> <F10> :call asyncrun#quickfix_toggle(6)<cr>
 
 " ListToggle
 let g:lt_location_list_toggle_map = '<F9>'
 let g:lt_quickfix_list_toggle_map = '<F10>'
-
