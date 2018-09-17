@@ -187,8 +187,9 @@ let g:ctrlp_prompt_mappings   = {
   \ }
 
 " leaderf
-let g:Lf_ShortcutF = '<leader>['
-noremap <leader>] :LeaderfMru<cr>
+let g:Lf_ShortcutF = '<F11>'
+"nmap <silent> <F11> :<C-U>LeaderfFile<CR>
+nmap <silent> <F12> :LeaderfMru<CR>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', '.idea', '.iml']
 let g:Lf_WorkingDirectoryMode = 'Ac'
@@ -196,7 +197,7 @@ let g:Lf_WindowHeight = 0.30
 let g:Lf_CacheDirectory = expand('~/.vim/cache')
 let g:Lf_ShowRelativePath = 1
 let g:Lf_HideHelp = 1
-let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_StlColorscheme = 'airline'
 let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 let g:Lf_WildIgnore = {
   \ 'dir': ['.svn','.git','.hg', '.idea', '.vscode'],
