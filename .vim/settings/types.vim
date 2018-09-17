@@ -3,14 +3,14 @@ let python_highlight_all = 1
 au FileType python syn keyword pythonDecorator True None False self
 au BufNewFile,BufRead *.py setl tabstop=4 softtabstop=4 shiftwidth=4 expandtab autoindent fileformat=unix
 au FileType python map <buffer> F :set foldmethod=indent<cr>
-au FileType python inoremap <buffer> $r return 
-au FileType python inoremap <buffer> $i import 
-au FileType python inoremap <buffer> $p print 
+au FileType python inoremap <buffer> $r return
+au FileType python inoremap <buffer> $i import
+au FileType python inoremap <buffer> $p print
 au FileType python inoremap <buffer> $f #--- <esc>a
-au FileType python map <buffer> <leader>1 /class 
-au FileType python map <buffer> <leader>2 /def 
-au FileType python map <buffer> <leader>C ?class 
-au FileType python map <buffer> <leader>D ?def 
+au FileType python map <buffer> <leader>1 /class
+au FileType python map <buffer> <leader>2 /def
+au FileType python map <buffer> <leader>C ?class
+au FileType python map <buffer> <leader>D ?def
 au FileType python set cindent
 au FileType python set cinkeys-=0#
 au FileType python set indentkeys-=0#
@@ -36,7 +36,7 @@ au BufWritePost *.scala silent :EnTypeCheck
 "au VimLeave *.java,*.scala try | call ensime#au_vim_leave(expand("<afile>")) | catch | endtry
 nnoremap <localleader>t :EnType<CR>
 
-function! JavaScriptFold() 
+function! JavaScriptFold()
   setl foldmethod=indent
   setl foldlevelstart=1
   syn region foldBraces start=/{/ end=/}/ transparent fold keepend extend
@@ -61,6 +61,16 @@ au CompleteDone * pclose
 set expandtab
 
 " Shell section
-if exists('$TMUX') 
-  set term=screen-256color 
+if exists('$TMUX')
+  set term=screen-256color
 endif
+
+" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
