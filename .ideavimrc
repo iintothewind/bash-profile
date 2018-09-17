@@ -23,4 +23,8 @@ map <leader>l :action AceLineAction<CR>
 
 nnoremap <C-N> <C-D>
 
+"set clipboard=unnamed
 nnoremap <leader>p "+p
+vmap <leader>y "+y
+vmap <leader>d "+d<cr>
+
