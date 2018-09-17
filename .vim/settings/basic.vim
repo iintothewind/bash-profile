@@ -25,7 +25,7 @@ let g:mapleader = ";"
 " Fast saving
 nmap <leader>w :w!<cr>
 
-" :W sudo saves the file 
+" :W sudo saves the file
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
@@ -81,16 +81,16 @@ set whichwrap+=<,>,h,l
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
 "set hlsearch
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " highlight cursor line
 set cul
@@ -99,7 +99,7 @@ set cul
 set magic
 set nu
 " Show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
 set showmode
 " How many tenths of a second to blink when matching brackets
 set mat=2
@@ -124,8 +124,7 @@ set fdls=1
 set fdm=manual
 
 " Enable syntax highlighting
-syntax enable 
-
+syntax enable
 
 "set clipboard=unnamed
 nmap <leader>p "+p
@@ -185,17 +184,12 @@ set tw=300
 
 set autoindent
 set smartindent
-set wrap 
+set wrap
 
-
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-"map <space> /
-"map <c-space> ?
 
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
-"<F2>关闭高亮
-map <silent> <F2> :nohlsearch<cr>
+map <silent> <F2> :noh<cr>
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -208,14 +202,6 @@ noremap q <Nop>
 
 " map redo C-r to r
 map <silent> r :red<cr>
-
-" Close the current buffer
-"map <leader>bd :Bclose<cr>:tabclose<cr>gT
-
-" Close all the buffers
-"map <leader>ba :bufdo bd<cr>
-"map <leader>l :bnext<cr>
-"map <leader>h :bprevious<cr>
 
 " Useful mappings for managing tabs
 map <silent> gb :tabprev<cr>
@@ -234,14 +220,14 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
+" Specify the behavior when switching between buffers
 try
   set switchbuf=useopen,usetab,newtab
   set stal=2
 catch
 endtry
 
-" Return to last edit position when opening files (You want this!)
+" Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " Always show the status line
@@ -259,68 +245,14 @@ nmap <silent> <leader>k mz:m-2<cr>`z
 vmap <silent> <leader>j :m'>+<cr>`<my`>mzgv`yo`z
 vmap <silent> <leader>k :m'<-2<cr>`>my`<mzgv`yo`z
 
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 " Visual mode pressing * or # searches for the current selection
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
-" When you press gv you Ag after the selected text
-"vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-" When you press <leader>r you can search and replace the selected text 
-"vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" When you search with Ag, display your results in cope by doing:
-"   <leader>cc
-"
-" To go to the next search result do:
-"   <leader>cn
-"
-" To go to the previous search results do:
-"   <leader>cp
-"
-"map <leader>cc :botright cope<cr>
-"map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-"nmap <silent> <F6> :cn<cr>
-"nmap <silent> <F7> :cp<cr>
-
-" Pressing ,ss will toggle and untoggle spell checking
-"map <leader>ss :setlocal spell!<cr>
-
-" Shortcuts using <leader>
-"map <leader>sn ]s
-"map <leader>sp [s
-"map <leader>sa zg
-"map <leader>s? z=
-
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+"noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-" Quickly open a buffer for scribble
-"map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-"map <leader>x :e ~/buffer.md<cr>
-
-" Toggle paste mode on and off
-"map <leader>pp :setlocal paste!<cr>
-
-
-function! CmdLine(str)
-  exe "menu Foo.Bar :" . a:str
-  emenu Foo.Bar
-  unmenu Foo
-endfunction 
 
 function! VisualSelection(direction, extra_filter) range
   let l:saved_reg = @"
@@ -338,38 +270,3 @@ function! VisualSelection(direction, extra_filter) range
   let @/ = l:pattern
   let @" = l:saved_reg
 endfunction
-
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-  if &paste
-    return 'PASTE MODE  '
-  endif
-  return ''
-endfunction
-
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-  let l:currentBufNum = bufnr("%")
-  let l:alternateBufNum = bufnr("#")
-
-  if buflisted(l:alternateBufNum)
-    buffer #
-  else
-    bnext
-  endif
-
-  if bufnr("%") == l:currentBufNum
-    new
-  endif
-
-  if buflisted(l:currentBufNum)
-    execute("bdelete! ".l:currentBufNum)
-  endif
-endfunction
-
-" Make VIM remember position in file after reopen
-" if has("autocmd")
-"   au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-"endif
