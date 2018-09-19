@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 function shellProxy() {
-  if [ ! -n "$1" ] || [ ! -n "$2" ]; then
+  if [ "$1" == "" ] || [ "$2" == "" ]; then
     echo "proxy host and port are required"
   else
     export http_proxy=http://"$1":"$2"
@@ -14,7 +14,7 @@ function sysProxy() {
   local host=${1-$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)}
   local port=${2-$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)}
   if [[ $(uname) == Darwin ]] && test "$host" && test "$port"; then
-    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
+    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do
       sudo networksetup -setautoproxystate "$network_service" off
       sudo networksetup -setwebproxy "$network_service" "$host"  "$port"
       sudo networksetup -setsecurewebproxy "$network_service" "$host"  "$port"
@@ -37,8 +37,8 @@ function javaProxy() {
 }
 
 function pacProxy() {
-  if [[ $(uname) == Darwin ]] && [[ "$1" != http*pac ]]; then
-    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
+  if [[ $(uname) == Darwin ]] && [[ "$1" == http*pac ]]; then
+    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do
       sudo networksetup -setautoproxyurl "$network_service" "$1"
       sudo networksetup -setwebproxystate "$network_service" off
       sudo networksetup -setsecurewebproxystate "$network_service" off
@@ -57,11 +57,14 @@ function rmProxy {
     unset JAVA_OPTS
   fi
   if [[ $(uname) == Darwin ]]; then
-    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
+    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do
       if [[ $(networksetup -getwebproxy "$network_service") == *"Enabled: Yes"* ]]; then
-        sudo networksetup -setautoproxystate "$network_service" off
         sudo networksetup -setwebproxystate "$network_service" off
         sudo networksetup -setsecurewebproxystate "$network_service" off
+      fi
+
+      if [[ $(networksetup -getautoproxyurl "$network_service") != ""  ]]; then
+        sudo networksetup -setautoproxystate "$network_service" off
       fi
     done
   fi
@@ -75,11 +78,13 @@ function pxys {
     echo "JAVA_OPTS=$JAVA_OPTS"
   fi
   if [[ $(uname) == Darwin ]]; then
-    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do  
+    networksetup -listallnetworkservices | tail -n +2 | while read network_service; do
       echo "$network_service http proxy: "
       networksetup -getwebproxy "$network_service"
       echo "$network_service https proxy: "
       networksetup -getsecurewebproxy "$network_service"
+      echo "$network_service https auto proxy url: "
+      networksetup -getautoproxyurl "$network_service"
       echo ""
     done
   fi
