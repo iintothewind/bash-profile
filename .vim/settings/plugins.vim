@@ -13,37 +13,38 @@ call plug#begin('~/.vim/plugged')
 "Plug 'jaxbot/semantic-highlight.vim'
 "Plug 'Valloric/YouCompleteMe', {'do': './install.py', 'for':'nothing'}
 "Plug 'maxbrunsfeld/vim-yankstack'
-Plug 'Valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'airblade/vim-gitgutter'
+Plug 'coderifous/textobj-word-column.vim'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
-Plug 'Shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', {'for': 'go'}
 Plug 'godlygeek/tabular'
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch-easymotion.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'haya14busa/incsearch.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'luochen1990/rainbow'
 Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
+Plug 'shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
 Plug 'skywind3000/asyncrun.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'Valloric/ListToggle'
+Plug 'valloric/ListToggle'
+Plug 'valloric/YouCompleteMe', {'do': './install.py'}
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
 Plug 'w0rp/ale', {'tag': '*'}
 Plug 'ybian/smartim'
+Plug 'yggdroot/LeaderF', { 'do': './install.sh' }
 call plug#end()
 
 " color scheme
