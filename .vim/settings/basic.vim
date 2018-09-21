@@ -97,7 +97,8 @@ set cul
 
 " For regular expressions turn magic on
 set magic
-set nu
+set number
+set relativenumber
 " Show matching brackets when text indicator is over them
 set showmatch
 set showmode
