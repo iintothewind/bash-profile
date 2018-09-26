@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 
-# functions
 function qf() { find . -name "$@" -print ;}
-function genv() { env | fgrep "$@" ;}
-function gps() { ps -ef | fgrep "$@" | fgrep -v fgrep ;}
-function ghs() { history | fgrep "$@" | fgrep -v fgrep ;}
-function gals() { alias | fgrep "$@" | fgrep -v fgrep ;}
-function fftop() { find . -size +"$@" -exec ls -lhs {} \+ | sort -nr ;} 
-function mvn_skiptest() { mvn -Dmaven.test.skip=true "$@" ;}
+function qenv() { env | fgrep "$@" ;}
+function qps() { ps ax -rm -o pid,ppid,user,%cpu,%mem,comm | fgrep "$@" | fgrep -v fgrep ;}
+function qhs() { history | fgrep "$@" | fgrep -v fgrep ;}
+function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
+function fftop() { find . -size +"$@" -exec ls -lhs {} \+ | sort -nr ;}
+
 
 function md() {
   if [ ! -n "$1" ]; then
@@ -20,7 +19,7 @@ function md() {
 }
 
 function bu() {
-  if test -f $1; then 
+  if test -f $1; then
     cp $1 $1.`date +%Y%m%d%H%M%S`.backup;
   else
     echo "$1 does not exist"
@@ -37,19 +36,35 @@ function fips() {
   echo ${list%,}
 }
 
-function ags() {
-  if type ag > /dev/null 2>&1; then
-    echo "ag [--support-type] pattern [path]"
-    ag --list-file-types | grep $@
-  fi
-}
+if type mvn > /dev/null 2>&1; then
+  function mvn_skiptest() { mvn -Dmaven.test.skip=true "$@" ;}
+fi
 
-function rgs() {
-  if type rg > /dev/null 2>&1; then
-    echo "rg [-t support-type] pattern [path]"
-    rg --type-list | grep $@
-  fi
-}
+if type jps > /dev/null 2>&1; then
+  function qjps() { jps -v | fgrep "$@" | fgrep -v fgrep ;}
+fi
+
+if type ag > /dev/null 2>&1; then
+  function ags() {
+      echo "ag [--support-type] pattern [path]"
+      if [[ $@ != "" ]]; then
+        ag --list-file-types | grep $@
+      else
+        echo "please give a file extension to search the support type"
+      fi
+  }
+fi
+
+if type rg > /dev/null 2>&1; then
+  function rgs() {
+      echo "rg [-t support-type] pattern [path]"
+      if [[ $@ != "" ]]; then
+        rg --type-list | grep $@
+      else
+        echo "please give a file extension to search the support type"
+      fi
+  }
+fi
 
 function sync_cfg() {
   if [[ $(pwd) == *bash-profile ]]; then
@@ -112,7 +127,6 @@ if type git > /dev/null 2>&1 ; then
   alias gdiff="git diff"
   alias gdt="git difftool"
   alias gfetch="git fetch"
-  alias ggrep="git grep"
   alias ghelp="git help"
   alias ginit="git init"
   alias gll="git log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative"
@@ -129,7 +143,7 @@ if type git > /dev/null 2>&1 ; then
   alias gst="git status"
   alias gstash="git stash"
   alias gtag="git tag"
-  function gcmm(){  
+  function gcmm(){
     if [ -n "$1" ]; then
       git pull && git add --all && git commit -m "$1" && git push
     else
@@ -181,11 +195,11 @@ if type VBoxManage > /dev/null 2>&1 ; then
   alias vvminfo="VBoxManage showvminfo"
 fi
 
-if type keytool > /dev/null 2>&1 && [[ $JAVA_HOME != "" ]]; then 
+if type keytool > /dev/null 2>&1 && [[ $JAVA_HOME != "" ]]; then
   function list_cert() {
     local keystore=${1:-$JAVA_HOME/jre/lib/security/cacerts}
     local storepass=${2:-changeit}
-    keytool -list -keystore $keystore -storepass $storepass 
+    keytool -list -keystore $keystore -storepass $storepass
   }
 
   function import_cert() {
@@ -238,12 +252,12 @@ if [[ $(uname) == Darwin ]]; then
   alias bru="brew update && brew upgrade && brew prune"
   alias clean-cask="pushd /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask && git prune && popd"
   alias clean-versions="pushd /usr/local/Homebrew/Library/Taps/caskroom/homebrew-versions && git prune && popd"
-  
+
   if test -d $BREW_PREFIX/polipo; then
     alias plpon="brew services start polipo"
     alias plpoff="brew services stop polipo && killall ShadowsocksX"
   fi
-  
+
   if test -f $BREW_BIN/virtualenvwrapper.sh; then
     alias vwrapper="source /usr/local/bin/virtualenvwrapper.sh"
   fi
@@ -251,11 +265,6 @@ if [[ $(uname) == Darwin ]]; then
   if type supervisorctl > /dev/null 2>&1 ; then
     alias spup="open /Applications/ShadowsocksX.app && supervisord -c $HOME/.supervisord.conf && supervisorctl status"
     alias spdown="supervisorctl shutdown ; killall ShadowsocksX"
-  fi
-
-  if type cf > /dev/null 2>&1 ; then
-    alias cfluw="cf login -a https://api.system.aws-usw02-pr.ice.predix.io --sso"
-    alias cflja="cf l -a https://api.system.aws-usw02-pr.ice.predix.io -o ivar.chen@ge.com -s dev -u ivar.chen@ge.com -p ivar2018@GE --sso"
   fi
 
   function killDaemons() {
@@ -288,5 +297,3 @@ if [[ $(uname) == Darwin ]]; then
     fi
   }
 fi
-
-
