@@ -2,11 +2,18 @@
 
 function qf() { find . -name "$@" -print ;}
 function qenv() { env | fgrep "$@" ;}
-function qps() { ps ax -rmwwwd -o pid,ppid,user,%cpu,%mem,args | fgrep "$@" | fgrep -v fgrep ;}
 function qhs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
 function fftop() { find . -size +"$@" -exec ls -lhs {} \+ | sort -nr ;}
 
+function qps() {
+  if [[ $(uname) == Linux ]]; then
+    ps ax -o pid,ppid,user,pcpu,pmem,args --sort -pcpu,-pmem | fgrep "$@" | fgrep -v fgrep ;
+  fi
+  if [[ $(uname) == Darwin ]]; then
+    ps ax -rmwwwd -o pid,ppid,user,%cpu,%mem,args | fgrep "$@" | fgrep -v fgrep ;
+  fi
+}
 
 function md() {
   if [ ! -n "$1" ]; then
