@@ -2,7 +2,7 @@
 
 function qf() { find . -name "$@" -print ;}
 function qenv() { env | fgrep "$@" ;}
-function qps() { ps ax -rm -o pid,ppid,user,%cpu,%mem,comm | fgrep "$@" | fgrep -v fgrep ;}
+function qps() { ps ax -rmwwwd -o pid,ppid,user,%cpu,%mem,args | fgrep "$@" | fgrep -v fgrep ;}
 function qhs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
 function fftop() { find . -size +"$@" -exec ls -lhs {} \+ | sort -nr ;}
