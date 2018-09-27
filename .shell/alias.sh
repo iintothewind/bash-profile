@@ -8,10 +8,10 @@ function fftop() { find . -size +"$@" -exec ls -lhs {} \+ | sort -nr ;}
 
 function qps() {
   if [[ $(uname) == Linux ]]; then
-    ps ax -o pid,ppid,user,pcpu,pmem,args --sort -pcpu,-pmem | fgrep "$@" | fgrep -v fgrep ;
+    ps ax -o pid,ppid,user,pcpu,pmem,args --sort -pcpu,-pmem | grep -v grep | grep --color=auto "$@" ;
   fi
   if [[ $(uname) == Darwin ]]; then
-    ps ax -rmwwwd -o pid,ppid,user,%cpu,%mem,args | fgrep "$@" | fgrep -v fgrep ;
+    ps ax -rmwwwd -o pid,ppid,user,pcpu,pmem,args | fgrep -v fgrep | fgrep --color=auto "$@" ;
   fi
 }
 
