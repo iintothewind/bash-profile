@@ -18,7 +18,7 @@ if [[ $(uname) == Linux ]]; then
   fi
   # Java Environments
   if test -f /usr/bin/java; then
-    export JAVA_HOME="/usr/java/jdk1.8.0_172"
+    #export JAVA_HOME="/usr/java/jdk1.8.0_181"
     export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
   fi
 
@@ -54,22 +54,19 @@ if [[ $(uname) == Darwin ]]; then
 
   # Sqlite Environments
   #if test -d $BREW_PREFIX/sqlite; then
-    #export PATH="$PATH:$BREW_PREFIX/sqlite/bin"
+  #export PATH="$PATH:$BREW_PREFIX/sqlite/bin"
   #fi
 
   # haskell-platform
   if test -d $HOME/Library/Haskell; then
     export PATH="$PATH:$HOME/Library/Haskell/bin"
   fi
-  
+
 
   # H2 drivers
-  if test -d $BREW_PREFIX/h2; then 
+  if test -d $BREW_PREFIX/h2; then
     if test -f $HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar; then
-      export H2DRIVERS="$H2DRIVERS:$HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar"
-    fi
-    if test -f $HOME/.m2/repository/com/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar; then
-      export H2DRIVERS="$H2DRIVERS:$HOME/.m2/repository/com/oracle/ojdbc6/11.2.0.3/ojdbc6-11.2.0.3.jar"
+      export H2DRIVERS="$HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar"
     fi
   fi
 
@@ -93,7 +90,7 @@ if [[ $(uname) == Darwin ]]; then
 
   # Java Environments
   if test -f /usr/bin/java; then
-    export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home"
+    export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home"
     export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
   fi
 
@@ -113,4 +110,3 @@ if [[ $(uname) == Darwin ]]; then
   export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
   #export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.shu.edu.cn/homebrew-bottles"
 fi
-

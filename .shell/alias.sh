@@ -53,23 +53,23 @@ fi
 
 if type ag > /dev/null 2>&1; then
   function ags() {
-      echo "ag [--support-type] pattern [path]"
-      if [[ $@ != "" ]]; then
-        ag --list-file-types | grep $@
-      else
-        echo "please give a file extension to search the support type"
-      fi
+    echo "ag [--support-type] pattern [path]"
+    if [[ $@ != "" ]]; then
+      ag --list-file-types | grep $@
+    else
+      echo "please give a file extension to search the support type"
+    fi
   }
 fi
 
 if type rg > /dev/null 2>&1; then
   function rgs() {
-      echo "rg [-t support-type] pattern [path]"
-      if [[ $@ != "" ]]; then
-        rg --type-list | grep $@
-      else
-        echo "please give a file extension to search the support type"
-      fi
+    echo "rg [-t support-type] pattern [path]"
+    if [[ $@ != "" ]]; then
+      rg --type-list | grep $@
+    else
+      echo "please give a file extension to search the support type"
+    fi
   }
 fi
 
@@ -145,7 +145,7 @@ if type git > /dev/null 2>&1 ; then
   alias grebase="git rebase"
   alias greset="git reset"
   alias gresethard="git reset --hard HEAD"
-	alias grmv="git remote -v"
+  alias grmv="git remote -v"
   alias gshow="git show"
   alias gst="git status"
   alias gstash="git stash"
@@ -209,18 +209,18 @@ if type keytool > /dev/null 2>&1 && [[ $JAVA_HOME != "" ]]; then
     keytool -list -keystore $keystore -storepass $storepass
   }
 
-  function import_cert() {
-    local file=${1}
-    local alias=${2}
-    local keypass=${3}
-    local keystore=${4:-$JAVA_HOME/jre/lib/security/cacerts}
-    local storepass=${5:-changeit}
-    if test $keypass; then
-      keytool -importcert -keystore ${keystore} -storepass ${storepass} -file ${file} -alias ${alias} -keypass ${keypass}
-    else
-      keytool -importcert -keystore ${keystore} -storepass ${storepass} -file ${file} -alias ${alias}
-    fi
-  }
+function import_cert() {
+  local file=${1}
+  local alias=${2}
+  local keypass=${3}
+  local keystore=${4:-$JAVA_HOME/jre/lib/security/cacerts}
+  local storepass=${5:-changeit}
+  if test $keypass; then
+    keytool -importcert -keystore ${keystore} -storepass ${storepass} -file ${file} -alias ${alias} -keypass ${keypass}
+  else
+    keytool -importcert -keystore ${keystore} -storepass ${storepass} -file ${file} -alias ${alias}
+  fi
+}
 fi
 
 # linux only
@@ -292,15 +292,15 @@ if [[ $(uname) == Darwin ]]; then
     fi
   }
 
-  function checkCaskUpgrade() {
-    if test -d /usr/local/Caskroom; then
-      for c in `ls /usr/local/Caskroom `; do
-        INFO=`brew cask info $c`
-        LATEST=`echo $INFO | head -n 1 | awk '{print $2}'`
-        if [ `brew cask info $c | tail -n +2 | grep $LATEST | wc -l | awk '{print $1}'` -eq 0 ]; then
-          echo $c
-        fi
-      done
-    fi
-  }
+function checkCaskUpgrade() {
+  if test -d /usr/local/Caskroom; then
+    for c in `ls /usr/local/Caskroom `; do
+      INFO=`brew cask info $c`
+      LATEST=`echo $INFO | head -n 1 | awk '{print $2}'`
+      if [ `brew cask info $c | tail -n +2 | grep $LATEST | wc -l | awk '{print $1}'` -eq 0 ]; then
+        echo $c
+      fi
+    done
+  fi
+}
 fi
