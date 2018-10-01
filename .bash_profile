@@ -31,6 +31,10 @@ if [[ $(uname) == Linux ]]; then
     . /etc/bashrc
   fi
 
+  if [[ $(alias ls 2> /dev/null) == *"color"* ]]; then
+    alias ls="ls --show-control-chars --color=auto"
+  fi
+
   # jump
   if type jump > /dev/null 2>&1; then
     eval "$(jump shell --bind=z)"
@@ -39,7 +43,7 @@ fi
 
 # mac only
 if [[ $(uname) == Darwin ]]; then
-  if test -f $BREW_BIN/gls; then 
+  if test -f $BREW_BIN/gls; then
     alias ls="gls --show-control-chars --color=auto"
   fi
 
@@ -48,7 +52,7 @@ if [[ $(uname) == Darwin ]]; then
     . $BREW_PREFIX/etc/bash_completion;
   fi
   # autojump
-  if test -f $BREW_PREFIX/etc/profile.d/autojump.sh; then 
+  if test -f $BREW_PREFIX/etc/profile.d/autojump.sh; then
     . $BREW_PREFIX/etc/profile.d/autojump.sh;
   fi
   # jump
@@ -57,11 +61,10 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   if test -s $HOME/.rvm/scripts/rvm; then
-    . $HOME/.rvm/scripts/rvm 
+    . $HOME/.rvm/scripts/rvm
   fi
 
   if test -f $HOME/.iterm2_shell_integration.bash; then
     . $HOME/.iterm2_shell_integration.bash
   fi
 fi
-

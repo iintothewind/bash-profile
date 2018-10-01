@@ -14,7 +14,6 @@ call plug#begin('~/.vim/plugged')
 "Plug 'Valloric/YouCompleteMe', {'do': './install.py', 'for':'nothing'}
 "Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'airblade/vim-gitgutter'
-Plug 'coderifous/textobj-word-column.vim'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'easymotion/vim-easymotion'
@@ -44,7 +43,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
 Plug 'w0rp/ale', {'tag': '*'}
 Plug 'ybian/smartim'
-Plug 'yggdroot/LeaderF', { 'do': './install.sh' }
+Plug 'yggdroot/LeaderF', {'tag': '*', 'do': './install.sh' }
 call plug#end()
 
 " color scheme
