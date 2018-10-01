@@ -31,7 +31,7 @@ if [[ $(uname) == Linux ]]; then
     . /etc/bashrc
   fi
 
-  if [[ $(alias ls 2> /dev/null) == *"color"* ]]; then
+  if [[ $(alias ls 2> /dev/null) != *"color"* ]]; then
     alias ls="ls --show-control-chars --color=auto"
   fi
 
