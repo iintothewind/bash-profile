@@ -25,7 +25,7 @@ endfunc
 
 
 func! GitBlame()
-  echo split(split(system('git --no-pager blame -L ' . line('.') . ',+1 ' . expand('%:t')), '\n')[0], ') ')[0]
+  echo split(split(system('git --no-pager blame -L ' . line('.') . ',+1 ' . expand('%')), '\n')[0], ') ')[0]
 endfunc
 
 " GUI related
