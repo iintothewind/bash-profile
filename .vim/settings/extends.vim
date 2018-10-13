@@ -1,3 +1,33 @@
+" Helper functions
+func! DeleteTillSlash()
+  let g:cmd = getcmdline()
+
+  if has("win16") || has("win32")
+    let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
+  else
+    let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
+  endif
+
+  if g:cmd == g:cmd_edited
+    if has("win16") || has("win32")
+      let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
+    else
+      let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
+    endif
+  endif
+
+  return g:cmd_edited
+endfunc
+
+func! CurrentFileDir(cmd)
+  return a:cmd . " " . expand("%:p:h") . "/"
+endfunc
+
+
+func! GitBlame()
+  echo split(split(system('git --no-pager blame -L ' . line('.') . ',+1 ' . expand('%:t')), '\n')[0], ') ')[0]
+endfunc
+
 " GUI related
 " Set font according to system
 if has("mac") || has("macunix")
@@ -50,27 +80,4 @@ iab xdate <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 " turn tab to spaces
 set expandtab
 
-" Helper functions
-func! DeleteTillSlash()
-  let g:cmd = getcmdline()
-
-  if has("win16") || has("win32")
-    let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
-  else
-    let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
-  endif
-
-  if g:cmd == g:cmd_edited
-    if has("win16") || has("win32")
-      let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
-    else
-      let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
-    endif
-  endif
-
-  return g:cmd_edited
-endfunc
-
-func! CurrentFileDir(cmd)
-  return a:cmd . " " . expand("%:p:h") . "/"
-endfunc
+nnoremap <Leader>gb :call GitBlame()<CR>
