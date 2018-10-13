@@ -1,6 +1,16 @@
 # bash-profile
 This is a place we can share the most useful settings of our bash profiles
 
+## install gnu bash
+
+```
+brew install xz coreutils
+gdircolors --print-database > ~/.dir_colors
+brew install bash bash-completion
+sudo sh -c 'echo "/usr/local/bin/bash" >> /etc/shells'
+chsh -s /usr/local/bin/bash
+```
+
 ## brew ls
 
 ```
@@ -74,17 +84,21 @@ proxy settings can be loaded when wifi ssid is BlueSSO, otherise it will not be 
 #### display proxy status
 
 ```
+# recommend NOPASSWD in /etc/sudoers
+Defaults	env_reset,pwfeedback
+%admin  ALL = (root) NOPASSWD: /usr/sbin/networksetup
+
 # set local proxy in shell
-$ localProxy 
+$ localProxy
 
 # set mac system proxy, require admin passwd, require http host and port if http_proxy environment vaiable not set
 $ sysProxy
 
 # remove proxy in shell, also remove system proxy if system proxy enabled
-$ rmProxy 
+$ rmProxy
 
 # display proxy status
-$ pxys 
+$ pxys
 ```
 
 ### alias
@@ -124,6 +138,4 @@ ivy settings
 gradle settings
 
 ### .sbt repositories
-scala sbt repositories 
-
-
+scala sbt repositories
