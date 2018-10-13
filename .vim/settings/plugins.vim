@@ -4,7 +4,6 @@ call plug#begin('~/.vim/plugged')
 "Plug 'Yggdroot/indentLine'
 "Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'rking/ag.vim'
-"Plug 'tpope/vim-fugitive'
 "Plug 'Chiel92/vim-autoformat'
 "Plug 'ensime/ensime-vim', {'for': 'scala'}
 "Plug 'kien/ctrlp.vim', { 'on': 'ctrlp-py-matcher' }
@@ -13,6 +12,7 @@ call plug#begin('~/.vim/plugged')
 "Plug 'jaxbot/semantic-highlight.vim'
 "Plug 'Valloric/YouCompleteMe', {'do': './install.py', 'for':'nothing'}
 "Plug 'maxbrunsfeld/vim-yankstack'
+"Plug 'tpope/vim-fugitive', {'tag': '*'}
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
@@ -31,7 +31,7 @@ Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
 Plug 'shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
-Plug 'skywind3000/asyncrun.vim'
+"Plug 'skywind3000/asyncrun.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
@@ -85,7 +85,7 @@ nmap <silent> <Leader>f <Plug>(easymotion-overwin-f)
 " s{char}{char} to move to {char}{char}
 nmap <silent> <Leader>s <Plug>(easymotion-overwin-f2)
 " Move to word
-nmap <silent> <Leader>w <Plug>(easymotion-overwin-w)
+"nmap <silent> <Leader>w <Plug>(easymotion-overwin-w)
 
 function! s:incsearch_config(...) abort
   return incsearch#util#deepextend(deepcopy({
