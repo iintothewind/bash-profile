@@ -5,6 +5,7 @@ function qenv() { env | fgrep "$@" ;}
 function qhs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
 function fftop() { find . -size +"$@" -exec ls -lhs {} \+ | sort -nr ;}
+function lsf() { lsof -i -n -P | grep ${@-""} ;}
 
 function qps() {
   if [[ $(uname) == Linux ]]; then
@@ -12,6 +13,14 @@ function qps() {
   fi
   if [[ $(uname) == Darwin ]]; then
     ps ax -rmwwwd -o pid,ppid,user,pcpu,pmem,args | fgrep -v fgrep | fgrep --color=auto "$@" ;
+  fi
+}
+
+function catdup() {
+  if test -f $@ && [[ `file $@` =~ .+.text ]]; then
+    cat $@ | sort | uniq -dc
+  else
+    echo "input file does not exist or not a text file"
   fi
 }
 
@@ -43,35 +52,55 @@ function fips() {
   echo ${list%,}
 }
 
-if type mvn > /dev/null 2>&1; then
-  function mvn_skiptest() { mvn -Dmaven.test.skip=true "$@" ;}
-fi
+function mvn_skiptest() {
+  if type mvn > /dev/null 2>&1; then
+    mvn -Dmaven.test.skip=true "$@" ;
+  else
+    echo "mvn does not exist"
+  fi
+}
 
-if type jps > /dev/null 2>&1; then
-  function qjps() { jps -v | fgrep "$@" | fgrep -v fgrep ;}
-fi
+function qjps() {
+  if type jps > /dev/null 2>&1; then
+    jps -v | fgrep "$@" | fgrep -v fgrep ;
+  else
+    echo "jps does not exist"
+  fi
+}
 
-if type ag > /dev/null 2>&1; then
-  function ags() {
+function lsjar() {
+  if type jar > /dev/null 2>&1 && [[ "$@" =~ .+.jar ]] && test -f $@; then
+    jar -tf $@
+  else
+    echo "jar does not exist, or not an existing jar file"
+  fi
+}
+
+function ags() {
+  if type ag > /dev/null 2>&1; then
     echo "ag [--support-type] pattern [path]"
     if [[ $@ != "" ]]; then
       ag --list-file-types | grep $@
     else
       echo "please give a file extension to search the support type"
     fi
-  }
-fi
+  else
+    echo "ag does not exist"
+  fi
+}
 
-if type rg > /dev/null 2>&1; then
-  function rgs() {
+function rgs() {
+  if type rg > /dev/null 2>&1; then
     echo "rg [-t support-type] pattern [path]"
     if [[ $@ != "" ]]; then
       rg --type-list | grep $@
     else
       echo "please give a file extension to search the support type"
     fi
-  }
-fi
+  else
+    echo "rg does not exist"
+  fi
+}
 
 function sync_cfg() {
   if [[ $(pwd) == *bash-profile ]]; then
@@ -115,13 +144,13 @@ alias h="cd ~"
 alias l="ls -thF"
 alias ll="ls -lthF"
 alias la="ls -lthFA"
+alias ld="ls -Ad .*"
 alias rm="rm -i"
 alias his="history 50"
 alias fdperm='find . -type d -exec chmod 755 {} \;'
 alias ffperm='find . -type f -exec chmod 644 {} \;'
 alias dte='date "+%Y-%m-%d %H:%M:%S"'
 alias pth="echo $PATH | tr : \\\\n"
-alias lstcp="lsof -i -n -P | grep TCP"
 
 if type git > /dev/null 2>&1 ; then
   alias gadd="git add"
@@ -272,6 +301,10 @@ if [[ $(uname) == Darwin ]]; then
   if type supervisorctl > /dev/null 2>&1 ; then
     alias spup="open /Applications/ShadowsocksX.app && supervisord -c $HOME/.supervisord.conf && supervisorctl status"
     alias spdown="supervisorctl shutdown ; killall ShadowsocksX"
+  fi
+
+  if type minidlnad > /dev/null 2>&1 ; then
+    alias rsminidlna="brew services stop minidlna && rm -f ~/.config/minidlna/files.db && brew services start minidlna"
   fi
 
   function killDaemons() {
