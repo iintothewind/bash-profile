@@ -102,6 +102,16 @@ function rgs() {
   fi
 }
 
+# used after a pipe, for example: echo '{ "k": "v"}' | cf_jsonfmt
+function jsonfmt() {
+  if type python > /dev/null 2>&1; then
+    python -mjson.tool
+  else
+    echo "python is not found in PATH"
+    return 1
+  fi
+}
+
 function sync_cfg() {
   if [[ $(pwd) == *bash-profile ]]; then
     cp -r .shell ~/
