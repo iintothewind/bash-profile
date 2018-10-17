@@ -62,14 +62,13 @@ autocmd! bufwritepost vimrc source ~/.vimrc
 " $q is super useful when browsing on the command line
 " it deletes everything until the last slash
 cnoremap $q <C-\>eDeleteTillSlash()<cr>
-
 " Bash like keys for the command line
 cnoremap <C-A>		<Home>
 cnoremap <C-E>		<End>
 cnoremap <C-K>		<C-U>
 
 nnoremap <C-N> <C-D>
-
+nnoremap <Leader>gb :call GitBlame()<CR>
 " use ctrl-i to insert abbreviations
 " disabled, it does not work with neocomplete
 "inoremap <expr><C-I> <C-]>
@@ -80,4 +79,7 @@ iab xdate <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 " turn tab to spaces
 set expandtab
 
-nnoremap <Leader>gb :call GitBlame()<CR>
+" Shell section
+if exists('$TMUX')
+  set term=screen-256color
+endif
