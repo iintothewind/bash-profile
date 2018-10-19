@@ -7,8 +7,8 @@ function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
 function lsf() { lsof -i -n -P | grep ${@-""} ;}
 
 function ffmax() {
-  if [[ $1 =~ ^[-+][0-9]+[MG]$ ]] && test -d $2; then
-    find $2 -size ${1^^} -exec ls -lh {} \+ | sort -nr
+  if [[ $1 =~ ^[-+][0-9]+[MG]$ ]] && test -d ${2:-.}; then
+    find ${2:-.} -size ${1^^} -exec ls -lh {} \+ | sort -nr
   else
     echo "wrong size format, should be e.g +2M,-6G, or input directory not existing"
   fi
