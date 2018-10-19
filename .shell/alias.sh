@@ -4,8 +4,15 @@ function qf() { find . -name "$@" -print ;}
 function qenv() { env | fgrep "$@" ;}
 function qhs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
-function fftop() { find . -size +"$@" -exec ls -lhs {} \+ | sort -nr ;}
 function lsf() { lsof -i -n -P | grep ${@-""} ;}
+
+function ffmax() {
+  if [[ $1 =~ ^[-+][0-9]+[MG]$ ]] && test -d $2; then
+    find $2 -size ${1^^} -exec ls -lh {} \+ | sort -nr
+  else
+    echo "wrong size format, should be e.g +2M,-6G, or input directory not existing"
+  fi
+}
 
 function qps() {
   if [[ $(uname) == Linux ]]; then
