@@ -8,11 +8,8 @@ call plug#begin('~/.vim/plugged')
 "Plug 'ensime/ensime-vim', {'for': 'scala'}
 "Plug 'kien/ctrlp.vim', { 'on': 'ctrlp-py-matcher' }
 "Plug 'FelikZ/ctrlp-py-matcher'
-"Plug 't9md/vim-choosewin'
-"Plug 'jaxbot/semantic-highlight.vim'
 "Plug 'Valloric/YouCompleteMe', {'do': './install.py', 'for':'nothing'}
 "Plug 'maxbrunsfeld/vim-yankstack'
-"Plug 'tpope/vim-fugitive', {'tag': '*'}
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
@@ -231,7 +228,7 @@ let g:airline_theme                      ='wombat'
 
 "  Git gutter (Git diff)
 let g:gitgutter_enabled = 1
-nnoremap <silent> <leader>d :GitGutterToggle<cr>
+"nnoremap <silent> <leader>d :GitGutterToggle<cr>
 
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
@@ -285,11 +282,11 @@ let g:lt_quickfix_list_toggle_map = '<F10>'
 let g:move_map_keys = 0
 let g:move_auto_indent = 1
 let g:move_past_end_of_line = 1
-vmap <leader>j <Plug>MoveBlockDown
-vmap <leader>k <Plug>MoveBlockUp
-vmap <leader>h <Plug>MoveBlockLeft
-vmap <leader>l <Plug>MoveBlockRight
-nmap <leader>j <Plug>MoveLineDown
-nmap <leader>k <Plug>MoveLineUp
-nmap <leader>h <Plug>MoveCharLeft
-nmap <leader>l <Plug>MoveCharRight
+vmap ∆ <Plug>MoveBlockDown
+vmap ˚ <Plug>MoveBlockUp
+vmap ˙ <Plug>MoveBlockLeft
+vmap ¬ <Plug>MoveBlockRight
+nmap ∆ <Plug>MoveLineDown
+nmap ˚ <Plug>MoveLineUp
+nmap ˙ <Plug>MoveCharLeft
+nmap ¬ <Plug>MoveCharRight
