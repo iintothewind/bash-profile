@@ -241,10 +241,10 @@ set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}][TYPE=%Y][POS=%l,%v][%p%%]
 map 0 ^
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <silent> <leader>j mz:m+<cr>`z
-nmap <silent> <leader>k mz:m-2<cr>`z
-vmap <silent> <leader>j :m'>+<cr>`<my`>mzgv`yo`z
-vmap <silent> <leader>k :m'<-2<cr>`>my`<mzgv`yo`z
+"nmap <silent> <leader>j mz:m+<cr>`z
+"nmap <silent> <leader>k mz:m-2<cr>`z
+"vmap <silent> <leader>j :m'>+<cr>`<my`>mzgv`yo`z
+"vmap <silent> <leader>k :m'<-2<cr>`>my`<mzgv`yo`z
 
 
 " Visual mode pressing * or # searches for the current selection

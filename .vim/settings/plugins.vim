@@ -25,6 +25,7 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'luochen1990/rainbow'
+Plug 'matze/vim-move'
 Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
@@ -279,3 +280,16 @@ let g:asyncrun_bell = 1
 " ListToggle
 let g:lt_location_list_toggle_map = '<F9>'
 let g:lt_quickfix_list_toggle_map = '<F10>'
+
+" vim-move
+let g:move_map_keys = 0
+let g:move_auto_indent = 1
+let g:move_past_end_of_line = 1
+vmap <leader>j <Plug>MoveBlockDown
+vmap <leader>k <Plug>MoveBlockUp
+vmap <leader>h <Plug>MoveBlockLeft
+vmap <leader>l <Plug>MoveBlockRight
+nmap <leader>j <Plug>MoveLineDown
+nmap <leader>k <Plug>MoveLineUp
+nmap <leader>h <Plug>MoveCharLeft
+nmap <leader>l <Plug>MoveCharRight
