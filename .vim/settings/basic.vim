@@ -251,9 +251,6 @@ map 0 ^
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 
-" Remove the Windows ^M - when the encodings gets messed up
-"noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
 
 function! VisualSelection(direction, extra_filter) range
   let l:saved_reg = @"
