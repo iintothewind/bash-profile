@@ -69,6 +69,7 @@ cnoremap <C-K>		<C-U>
 
 nnoremap <C-N> <C-D>
 nnoremap <Leader>gb :call GitBlame()<CR>
+
 " use ctrl-i to insert abbreviations
 " disabled, it does not work with neocomplete
 "inoremap <expr><C-I> <C-]>
