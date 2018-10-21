@@ -40,7 +40,6 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
 Plug 'w0rp/ale', {'tag': '*'}
-Plug 'ybian/smartim'
 Plug 'yggdroot/LeaderF', {'tag': '*', 'do': './install.sh' }
 call plug#end()
 
