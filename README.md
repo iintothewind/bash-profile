@@ -61,7 +61,7 @@ cheatsheet                  karabiner-elements          quicksilver             
 etcher                      macdown                     racket                      visual-studio-code
 filezilla                   osxfuse                     shadowsocksx
 google-chrome               qlmarkdown                  spectacle
-haskell-platform            qlprettypatch               suspicious-package
+haskell-platform            qlprettypatch               suspicious-package          simple-comic
 ```
 
 ## bash settings
