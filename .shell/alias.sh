@@ -6,6 +6,22 @@ function qhs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
 function lsf() { lsof -i -n -P | grep ${@-""} ;}
 
+function epoch_date() {
+  if [ ! -n "$1" ]; then
+    echo input epoch: `date +%s` date: `date "+%Y-%m-%d %H:%M:%S"`
+  else
+    date -d "@$@" "+%Y-%m-%d %H:%M:%S" ;
+  fi
+}
+
+function date_epoch() {
+  if [ ! -n "$1" ]; then
+    echo input date: `date "+%Y-%m-%d %H:%M:%S"` epoch: `date +%s`
+  else
+    date -d "$@" "+%s" ;
+  fi
+}
+
 function ffmax() {
   if [[ $1 =~ ^[-+][0-9]+[MG]$ ]] && test -d ${2:-.}; then
     find ${2:-.} -size ${1^^} -exec ls -lh {} \+ | sort -nr
@@ -166,7 +182,6 @@ alias rm="rm -i"
 alias his="history 50"
 alias fdperm='find . -type d -exec chmod 755 {} \;'
 alias ffperm='find . -type f -exec chmod 644 {} \;'
-alias dte='date "+%Y-%m-%d %H:%M:%S"'
 alias pth="echo $PATH | tr : \\\\n"
 
 if type git > /dev/null 2>&1 ; then
