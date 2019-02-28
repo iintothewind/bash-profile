@@ -21,8 +21,12 @@
     "**/node_modules": true,
     "**/bower_components": true,
     "**/dist": true,
-    "**/.ensime*":true,
-    "**/*.sock":true
+    "**/.ensime*": true,
+    "**/*.sock": true,
+    "**/.classpath": true,
+    "**/.project": true,
+    "**/.settings": true,
+    "**/.factorypath": true
   },
   "files.watcherExclude": {
       "**/.git/objects/**": true,
@@ -43,7 +47,6 @@
   "vim.sneak": true,
   "vim.visualstar": true,
   "vim.incsearch": true,
-  "vim.useSystemClipboard": false,
   "vim.statusBarColorControl": true,
   "vim.statusBarColors.normal": "#0A68CC",
   "vim.statusBarColors.insert": "#5F0000",
@@ -59,6 +62,18 @@
       "before": ["leader", "t"],
       "after": ["leader", "leader", "/"]
     },
+    {
+      "before": ["leader", "p"],
+      "after": ["\"", "+", "p"]
+    },
+    {
+      "before": ["leader", "y"],
+      "after": ["\"", "+", "y"]
+    },
+    {
+      "before": ["leader", "d"],
+      "after": ["\"", "+", "y", "<cr>"]
+    }
   ],
   "markdown.preview.linkify":false,
   "markdownlint.config": {
@@ -73,9 +88,8 @@
   "maven.terminal.useJavaHome": true,
   "python.formatting.provider": "yapf",
   "python.linting.pylintEnabled": false,
-  "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home",
+  "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home",
   "java.errors.incompleteClasspath.severity": "ignore",
-  // "scalafmt.configFilePath": "${env:HOME}/.sbt/1.0/.scalafmt.conf",
   "workbench.iconTheme": "vscode-icons",
   "vsicons.dontShowNewVersionMessage": true,
   "workbench.colorCustomizations": {
@@ -89,5 +103,8 @@
   "explorer.confirmDelete": false,
   "window.zoomLevel": 0,
   "git.enableSmartCommit": true,
-  "git.autofetch": true
+  "git.autofetch": true,
+  "java.jdt.ls.vmargs": "-noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:\"/Users/yinghchen/.vscode/extensions/gabrielbb.vscode-lombok-0.9.7/server/lombok.jar\" -Xbootclasspath/a:\"/Users/yinghchen/.vscode/extensions/gabrielbb.vscode-lombok-0.9.7/server/lombok.jar\"",
+  "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+  "java.format.settings.profile": "GoogleStyle"
 }
