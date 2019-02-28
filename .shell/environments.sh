@@ -90,7 +90,7 @@ if [[ $(uname) == Darwin ]]; then
 
   # Java Environments
   if test -f /usr/bin/java; then
-    export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_181.jdk/Contents/Home"
+    export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home"
     export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
   fi
 
@@ -98,6 +98,11 @@ if [[ $(uname) == Darwin ]]; then
   if type go > /dev/null 2>&1 ; then
     export GOPATH="$HOME/.go"
     export PATH="$PATH:$GOPATH/bin"
+  fi
+
+  # JavaScript Environments
+  if type npm > /dev/null 2>&1 && test -d ~/.npm/modoules; then
+    export PATH="$PATH:~/.npm/modoules/bin"
   fi
 
 

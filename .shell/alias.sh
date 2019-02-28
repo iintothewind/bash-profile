@@ -53,7 +53,7 @@ function md() {
   elif [ -d $1 ]; then
     echo "$1 already exists"
   else
-    mkdir -p $1 && cd $1
+    mkdir -pv $1 && cd $1
   fi
 }
 
@@ -317,7 +317,7 @@ if [[ $(uname) == Darwin ]]; then
   alias rmdns="sudo networksetup -setdnsservers Wi-Fi Empty"
   alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.157.26 115.159.158.38 115.159.96.69 115.159.220.214"
   alias fixbrew="sudo chown -R \"$USER\":admin /usr/local"
-  alias bru="brew update && brew upgrade && brew prune"
+  alias bru="brew update && brew upgrade && brew cleanup"
   alias clean-cask="pushd /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask && git prune && popd"
   alias clean-versions="pushd /usr/local/Homebrew/Library/Taps/caskroom/homebrew-versions && git prune && popd"
 
