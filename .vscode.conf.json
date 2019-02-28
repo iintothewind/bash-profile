@@ -65,14 +65,16 @@
     {
       "before": ["leader", "p"],
       "after": ["\"", "+", "p"]
+    }
+  ],
+  "vim.visualModeKeyBindingsNonRecursive": [
+    {
+      "before": ["leader", "d"],
+      "after": ["\"", "+", "d"]
     },
     {
       "before": ["leader", "y"],
       "after": ["\"", "+", "y"]
-    },
-    {
-      "before": ["leader", "d"],
-      "after": ["\"", "+", "y", "<cr>"]
     }
   ],
   "markdown.preview.linkify":false,
