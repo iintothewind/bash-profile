@@ -10,6 +10,7 @@ call plug#begin('~/.vim/plugged')
 "Plug 'FelikZ/ctrlp-py-matcher'
 "Plug 'Valloric/YouCompleteMe', {'do': './install.py', 'for':'nothing'}
 "Plug 'maxbrunsfeld/vim-yankstack'
+"Plug 'luochen1990/rainbow'
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
 Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
@@ -21,7 +22,7 @@ Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
 Plug 'itchyny/vim-cursorword'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'luochen1990/rainbow'
+Plug 'kien/rainbow_parentheses.vim'
 Plug 'matze/vim-move'
 Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
@@ -72,6 +73,14 @@ let g:ale_fix_on_save = 1
 
 " rainbow
 let g:rainbow_active = 1
+
+" rainbow_parentheses.vim
+let g:rbpt_max = 16
+let g:rbpt_loadcmd_toggle = 0
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 " smartim
 let g:smartim_default = 'com.apple.keylayout.ABC'
