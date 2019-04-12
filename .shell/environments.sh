@@ -89,8 +89,9 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   # Java Environments
-  if test -f /usr/bin/java; then
-    export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home"
+  javaHome=$(/usr/libexec/java_home -v 1.8)
+  if [[ "$javaHome" == *jdk1.8* ]]; then
+    export JAVA_HOME=$javaHome
     export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
   fi
 
