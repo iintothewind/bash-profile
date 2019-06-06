@@ -49,19 +49,26 @@ gcc			libtasn1		perl			xvid
 gdbm			libtermkey		pip-completion		xz
 gettext			libtiff			pixman			yank
 git			libtool			pkg-config		yasm
+unix2dos
 ```
 
 ## brew cask ls
 
 ```
-basictex                    intellij-idea-ce            qlstephen                   the-unarchiver
-betterzipql                 iterm2                      quicklook-csv               vagrant
-caffeine                    java8                       quicklook-json              virtualbox
-cheatsheet                  karabiner-elements          quicksilver                 virtualbox-extension-pack
-etcher                      macdown                     racket                      visual-studio-code
-filezilla                   osxfuse                     shadowsocksx
-google-chrome               qlmarkdown                  spectacle
-haskell-platform            qlprettypatch               suspicious-package          simple-comic
+appcleaner                  macdown                     shadowsocksx
+basictex                    macs-fan-control            simple-comic
+caffeine                    macvim                      soapui
+easyfind                    mpv                         spectacle
+eclipse-java                osxfuse                     tigervnc-viewer
+firefox                     postman                     vagrant
+google-chrome               qlcolorcode                 virtualbox
+google-chrome-canary        qlmarkdown                  virtualbox-extension-pack
+intellij-idea-ce            qlmobi                      visual-studio-code
+iterm2                      qlprettypatch               visualvm
+java                        qlstephen                   webpquicklook
+java8                       quicklook-csv               xquartz
+karabiner-elements          quicklook-json
+keka                        quicksilver
 ```
 
 ## bash settings
