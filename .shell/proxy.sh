@@ -4,20 +4,33 @@ function shellProxy() {
   if [ "$1" == "" ] || [ "$2" == "" ]; then
     echo "proxy host and port are required"
   else
-    export http_proxy=http://"$1":"$2"
-    export https_proxy=http://"$1":"$2"
+    if [ "$3" != "" ] && [ "$4" != "" ]; then
+      export http_proxy=http://$3:$4@$1:$2
+      export https_proxy=http://$3:$4@$1:$2
+    else
+      export http_proxy=http://$1:$2
+      export https_proxy=http://$1:$2
+    fi
   fi
   return 0
 }
 
 function sysProxy() {
-  local host=${1-$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)}
-  local port=${2-$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)}
+  local host=${1-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f2 | cut -d':' -f1)}
+  local port=${2-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f2 | cut -d':' -f2)}
+  local usr=${3-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f1)}
+  local pwd=${4-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f2)}
   if [[ $(uname) == Darwin ]] && test "$host" && test "$port"; then
     networksetup -listallnetworkservices | tail -n +2 | while read network_service; do
-    sudo networksetup -setautoproxystate "$network_service" off
-    sudo networksetup -setwebproxy "$network_service" "$host"  "$port"
-    sudo networksetup -setsecurewebproxy "$network_service" "$host"  "$port"
+    if [ "$usr" != "" ] && [ "$pwd" != "" ]; then
+      sudo networksetup -setautoproxystate "$network_service" off
+      sudo networksetup -setwebproxy "$network_service" "$host"  "$port" on "$usr" "$pwd"
+      sudo networksetup -setsecurewebproxy "$network_service" "$host"  "$port" on "$usr" "pwd"
+    else
+      sudo networksetup -setautoproxystate "$network_service" off
+      sudo networksetup -setwebproxy "$network_service" "$host"  "$port"
+      sudo networksetup -setsecurewebproxy "$network_service" "$host"  "$port"
+    fi
   done
 else
   echo "proxy host and port are required"
@@ -26,10 +39,16 @@ return 0
 }
 
 function javaProxy() {
-  local host=${1-$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f1)}
-  local port=${2-$(echo $http_proxy | cut -d'/' -f3 | cut -d':' -f2)}
+  local host=${1-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f2 | cut -d':' -f1)}
+  local port=${2-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f2 | cut -d':' -f2)}
+  local usr=${3-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f1)}
+  local pwd=${4-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f2)}
   if test "$host" && test "$port"; then
-    export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
+    if test "$usr" && test "$pwd"; then
+      export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttp.proxyUser=$usr -Dhttp.proxyPassword=$pwd -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port -Dhttp.proxyUser=$usr -Dhttp.proxyPassword=$pwd"
+    else
+      export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
+    fi
   else
     echo "proxy host and port are required"
   fi
@@ -95,11 +114,11 @@ function localProxy() {
 }
 
 function corpProxy {
-  shellProxy "sjd-itcorppx.paypalcorp.com" 3128
+  shellProxy "proxy.prd.plb.paypalcorp.com" 8080
 }
 
 function corpPac {
   pacProxy "http://proxypacfile.paypalcorp.com/proxy.pac"
 }
 
-export no_proxy="localhost,127.0.0.1,192.168.0.*"
+export no_proxy="localhost,127.0.0.1,192.168.0.*,.local,10.*"
