@@ -18,34 +18,38 @@ function shellProxy() {
 function sysProxy() {
   local host=${1-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f2 | cut -d':' -f1)}
   local port=${2-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f2 | cut -d':' -f2)}
-  local usr=${3-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f1)}
-  local pwd=${4-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f2)}
   if [[ $(uname) == Darwin ]] && test "$host" && test "$port"; then
     networksetup -listallnetworkservices | tail -n +2 | while read network_service; do
-    if [ "$usr" != "" ] && [ "$pwd" != "" ]; then
-      sudo networksetup -setautoproxystate "$network_service" off
-      sudo networksetup -setwebproxy "$network_service" "$host"  "$port" on "$usr" "$pwd"
-      sudo networksetup -setsecurewebproxy "$network_service" "$host"  "$port" on "$usr" "pwd"
-    else
-      sudo networksetup -setautoproxystate "$network_service" off
-      sudo networksetup -setwebproxy "$network_service" "$host"  "$port"
-      sudo networksetup -setsecurewebproxy "$network_service" "$host"  "$port"
-    fi
-  done
-else
-  echo "proxy host and port are required"
-fi
-return 0
+      if [[ $http_proxy == *@* ]]; then
+        local usr=${3-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f1)}
+        local pwd=${4-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f2)}
+        # networksetup reports error when usr and pwd are used
+        #sudo networksetup -setautoproxystate "$network_service" off
+        #sudo networksetup -setwebproxy "$network_service" "$host"  "$port" on "$usr" "$pwd"
+        #sudo networksetup -setsecurewebproxy "$network_service" "$host"  "$port" on "$usr" "pwd"
+        sudo networksetup -setautoproxystate "$network_service" off
+        sudo networksetup -setwebproxy "$network_service" "$host"  "$port"
+        sudo networksetup -setsecurewebproxy "$network_service" "$host"  "$port"
+      else
+        sudo networksetup -setautoproxystate "$network_service" off
+        sudo networksetup -setwebproxy "$network_service" "$host"  "$port"
+        sudo networksetup -setsecurewebproxy "$network_service" "$host"  "$port"
+      fi
+    done
+  else
+    echo "proxy host and port are required"
+  fi
+  return 0
 }
 
 function javaProxy() {
   local host=${1-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f2 | cut -d':' -f1)}
   local port=${2-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f2 | cut -d':' -f2)}
-  local usr=${3-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f1)}
-  local pwd=${4-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f2)}
   if test "$host" && test "$port"; then
-    if test "$usr" && test "$pwd"; then
-      export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttp.proxyUser=$usr -Dhttp.proxyPassword=$pwd -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port -Dhttp.proxyUser=$usr -Dhttp.proxyPassword=$pwd"
+    if [[ $http_proxy == *@* ]]; then
+      local usr=${3-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f1)}
+      local pwd=${4-$(echo $http_proxy | cut -d'/' -f3 | cut -d'@' -f1 | cut -d':' -f2)}
+      export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttp.proxyUser=$usr -Dhttp.proxyPassword=$pwd -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port -Dhttps.proxyUser=$usr -Dhttps.proxyPassword=$pwd"
     else
       export JAVA_OPTS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
     fi
@@ -61,11 +65,11 @@ function pacProxy() {
     sudo networksetup -setautoproxyurl "$network_service" "$1"
     sudo networksetup -setwebproxystate "$network_service" off
     sudo networksetup -setsecurewebproxystate "$network_service" off
-  done
-else
-  echo "pac file is required"
-fi
-return 0
+    done
+  else
+    echo "pac file is required"
+  fi
+  return 0
 }
 
 
@@ -77,17 +81,17 @@ function rmProxy {
   fi
   if [[ $(uname) == Darwin ]]; then
     networksetup -listallnetworkservices | tail -n +2 | while read network_service; do
-    if [[ $(networksetup -getwebproxy "$network_service") == *"Enabled: Yes"* ]]; then
-      sudo networksetup -setwebproxystate "$network_service" off
-      sudo networksetup -setsecurewebproxystate "$network_service" off
-    fi
+      if [[ $(networksetup -getwebproxy "$network_service") == *"Enabled: Yes"* ]]; then
+        sudo networksetup -setwebproxystate "$network_service" off
+        sudo networksetup -setsecurewebproxystate "$network_service" off
+      fi
 
-    if [[ $(networksetup -getautoproxyurl "$network_service") != ""  ]]; then
-      sudo networksetup -setautoproxystate "$network_service" off
-    fi
-  done
-fi
-return 0
+      if [[ $(networksetup -getautoproxyurl "$network_service") != ""  ]]; then
+        sudo networksetup -setautoproxystate "$network_service" off
+      fi
+    done
+  fi
+  return 0
 }
 
 function pxys {
@@ -98,15 +102,15 @@ function pxys {
   fi
   if [[ $(uname) == Darwin ]]; then
     networksetup -listallnetworkservices | tail -n +2 | while read network_service; do
-    echo "$network_service http proxy: "
-    networksetup -getwebproxy "$network_service"
-    echo "$network_service https proxy: "
-    networksetup -getsecurewebproxy "$network_service"
-    echo "$network_service https auto proxy url: "
-    networksetup -getautoproxyurl "$network_service"
-    echo ""
-  done
-fi
+      echo "$network_service http proxy: "
+      networksetup -getwebproxy "$network_service"
+      echo "$network_service https proxy: "
+      networksetup -getsecurewebproxy "$network_service"
+      echo "$network_service https auto proxy url: "
+      networksetup -getautoproxyurl "$network_service"
+      echo ""
+    done
+  fi
 }
 
 function localProxy() {
