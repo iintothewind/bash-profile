@@ -62,9 +62,9 @@ function javaProxy() {
 function pacProxy() {
   if [[ $(uname) == Darwin ]] && [[ "$1" == http*pac ]]; then
     networksetup -listallnetworkservices | tail -n +2 | while read network_service; do
-    sudo networksetup -setautoproxyurl "$network_service" "$1"
-    sudo networksetup -setwebproxystate "$network_service" off
-    sudo networksetup -setsecurewebproxystate "$network_service" off
+      sudo networksetup -setautoproxyurl "$network_service" "$1"
+      sudo networksetup -setwebproxystate "$network_service" off
+      sudo networksetup -setsecurewebproxystate "$network_service" off
     done
   else
     echo "pac file is required"

@@ -6,6 +6,11 @@ function qhs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
 function lsf() { lsof -i -n -P | grep ${@-""} ;}
 
+function log() {
+  local prefix="[$(date '+%Y-%m-%d %H:%M:%S')]"
+  echo "$prefix $@" >&2
+}
+
 function epoch_date() {
   if [ ! -n "$1" ]; then
     echo input epoch: `date +%s` date: `date "+%Y-%m-%d %H:%M:%S"`
