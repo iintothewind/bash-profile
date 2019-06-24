@@ -196,7 +196,7 @@ let g:ctrlp_prompt_mappings   = {
 let g:Lf_ShortcutF = '<F11>'
 
 " LargeFile
-let g:LargeFile = 3
+let g:LargeFile = 2
 
 "nmap <silent> <F11> :<C-U>LeaderfFile<CR>
 nmap <silent> <F12> :LeaderfMru<CR>
