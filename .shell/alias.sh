@@ -29,7 +29,7 @@ function date_epoch() {
 
 function ffmax() {
   if [[ $1 =~ ^[-+][0-9]+[MG]$ ]] && test -d ${2:-.}; then
-    find ${2:-.} -size ${1^^} -exec ls -lh {} \+ | sed "/^total.*$/d" | sort -nr
+    find ${2:-.} -size ${1^^} -exec ls -lh {} \+ | sed "/^total.*$/d" | sort -nr | awk '{print $1,$3,$5,$9}'
   else
     echo "wrong size format, should be e.g +2M,-6G, or input directory not existing"
   fi
