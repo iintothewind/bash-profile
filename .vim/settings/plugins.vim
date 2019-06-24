@@ -194,6 +194,10 @@ let g:ctrlp_prompt_mappings   = {
 
 " leaderf
 let g:Lf_ShortcutF = '<F11>'
+
+" LargeFile
+let g:LargeFile = 3
+
 "nmap <silent> <F11> :<C-U>LeaderfFile<CR>
 nmap <silent> <F12> :LeaderfMru<CR>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
