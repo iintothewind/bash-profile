@@ -4,7 +4,7 @@ function qf() { find . -name "$@" -print ;}
 function qenv() { env | fgrep "$@" ;}
 function qhs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
-function lsf() { lsof -i -n -P | grep ${@-""} ;}
+function lsf() { lsof -i -n -P | awk '{print $1,$2,$3,$5,$8,$9}' | grep ${@-""} ;}
 
 function log() {
   local prefix="[$(date '+%Y-%m-%d %H:%M:%S')]"
