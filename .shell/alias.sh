@@ -19,6 +19,14 @@ function epoch_date() {
   fi
 }
 
+function bcal() {
+  if type bc > /dev/null 2>&1; then
+    printf '%.3f\n' "$(echo "scale=3; $@" | bc)"
+  else
+    echo "bc does not exist"
+  fi
+}
+
 function date_epoch() {
   if [ ! -n "$1" ]; then
     echo input date: `date "+%Y-%m-%d %H:%M:%S"` epoch: `date +%s`
