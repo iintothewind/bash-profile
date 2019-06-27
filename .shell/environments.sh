@@ -28,6 +28,7 @@ if [[ $(uname) == Linux ]]; then
     export PATH="$PATH:$GOPATH/bin"
   fi
 
+  pyversion=$(python --version 2>&1)
   if [[ "$pyversion" == *2.7* ]]; then
     if test -f /usr/local/bin/virtualenvwrapper.sh && test -f /usr/bin/python; then
       export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python"
