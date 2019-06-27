@@ -28,10 +28,16 @@ if [[ $(uname) == Linux ]]; then
     export PATH="$PATH:$GOPATH/bin"
   fi
 
-  # Python Environments
-  if test -f $HOME/.local/bin/virtualenvwrapper.sh; then
-    #export VIRTUALENVWRAPPER_PYTHON="$BREW_PREFIX/python/bin/python"
-    export WORKON_HOME="$HOME/.envs"
+  if [[ "$pyversion" == *2.7* ]]; then
+    if test -f /usr/local/bin/virtualenvwrapper.sh && test -f /usr/bin/python; then
+      export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python"
+      export WORKON_HOME="$HOME/.envs"
+    fi
+  else
+    if test -f /usr/local/bin/virtualenvwrapper.sh && test -f /usr/bin/python3; then
+      export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python3"
+      export WORKON_HOME="$HOME/.envs"
+    fi
   fi
 fi
 
