@@ -215,6 +215,7 @@ if type git > /dev/null 2>&1 ; then
   alias gmerge="git merge"
   alias gmv="git mv"
   alias gpull="git pull"
+  alias gsubmodule="git submodule update --init --recursive"
   alias gpush="git push"
   alias grebase="git rebase"
   alias greset="git reset"
