@@ -67,8 +67,9 @@ intellij-idea-ce            qlmobi                      visual-studio-code
 iterm2                      qlprettypatch               visualvm
 java                        qlstephen                   webpquicklook
 java8                       quicklook-csv               xquartz
-karabiner-elements          quicklook-json
-keka                        quicksilver
+karabiner-elements          quicklook-json              popclip
+keka                        quicksilver                 snip
+manico
 ```
 
 ## bash settings
