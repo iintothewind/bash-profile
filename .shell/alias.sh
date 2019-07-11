@@ -328,8 +328,6 @@ if [[ $(uname) == Darwin ]]; then
   alias perf="top -l 1 -s 0 | awk ' /Processes/ || /PhysMem/ || /Load Avg/{print}'"
   alias rmdstore='sudo find / -name ".DS_Store" -depth -exec rm {} \;'
   alias fip="ipconfig getifaddr en0"
-  alias rmdns="sudo networksetup -setdnsservers Wi-Fi Empty"
-  alias stdns="sudo networksetup -setdnsservers Wi-Fi 115.159.157.26 115.159.158.38 115.159.96.69 115.159.220.214"
   alias fixbrew="sudo chown -R \"$USER\":admin /usr/local"
   alias bru="brew update && brew upgrade && brew cleanup"
   alias clean-cask="pushd /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask && git prune && popd"
@@ -352,6 +350,22 @@ if [[ $(uname) == Darwin ]]; then
   if type minidlnad > /dev/null 2>&1 ; then
     alias rsminidlna="brew services stop minidlna && rm -f ~/.config/minidlna/files.db && brew services start minidlna"
   fi
+
+  function setdns() {
+    if test -f /bin/launchctl ; then
+      networksetup -listallnetworkservices | tail -n +2 | while read network_service; do
+        sudo networksetup -setdnsservers "$network_service" "$@"
+      done
+    fi
+  }
+
+  function unsetdns() {
+    if test -f /bin/launchctl ; then
+      networksetup -listallnetworkservices | tail -n +2 | while read network_service; do
+        sudo networksetup -setdnsservers "$network_service" "Empty"
+      done
+    fi
+  }
 
   function killDaemons() {
     if test -f /bin/launchctl ; then

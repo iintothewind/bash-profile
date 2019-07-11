@@ -37,7 +37,7 @@ function sysProxy() {
       fi
     done
   else
-    echo "proxy host and port are required"
+    echo "mac only, proxy host and port are required"
   fi
   return 0
 }
