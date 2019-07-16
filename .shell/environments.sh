@@ -32,10 +32,12 @@ if [[ $(uname) == Linux ]]; then
   if [[ "$pyversion" == *2.7* ]]; then
     if test -f /usr/local/bin/virtualenvwrapper.sh && test -f /usr/bin/python; then
       export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python"
+      export WORKON_HOME="$HOME/.envs"
     fi
   else
     if test -f /usr/local/bin/virtualenvwrapper.sh && test -f /usr/bin/python3; then
       export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python3"
+      export WORKON_HOME="$HOME/.envs"
     fi
   fi
 fi
@@ -84,10 +86,12 @@ if [[ $(uname) == Darwin ]]; then
   if [[ "$pyversion" == *2.7* ]]; then
     if test -f /usr/local/bin/virtualenvwrapper.sh && test -f $BREW_BIN/python; then
       export VIRTUALENVWRAPPER_PYTHON="$BREW_BIN/python"
+      export WORKON_HOME="$HOME/.envs"
     fi
   else
     if test -f /usr/local/bin/virtualenvwrapper.sh && test -f $BREW_BIN/python3; then
       export VIRTUALENVWRAPPER_PYTHON="$BREW_BIN/python3"
+      export WORKON_HOME="$HOME/.envs"
     fi
   fi
 
@@ -105,8 +109,8 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   # JavaScript Environments
-  if type npm > /dev/null 2>&1 && test -d ~/.npm/modoules; then
-    export PATH="$PATH:~/.npm/modoules/bin"
+  if type npm > /dev/null 2>&1 && test -d $HOME/.npm/modules; then
+    export PATH="$PATH:$HOME/.npm/modules/bin"
   fi
 
 
