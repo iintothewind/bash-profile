@@ -10,7 +10,7 @@
 #
 
 
-# Copyright 2018 Vitaly Potyarkin
+# Copyright 2018-2019 Vitaly Potyarkin
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -61,8 +61,13 @@ _bcpp_put_wildcards() {
             -e 's:\([^\/\*]\)$:\1*:g' \
             -e 's:^\(\~[^\/]*\)\*\/:\1/:' \
             -Ee 's:(\.+)\*/:\1/:g' \
+            -Ee 's:(^|/)(\$[^/]+)\*(/|$):\2\3:g'
     )
-    eval "TILDE_EXPANSION=$(printf '%q' "$PROCESSED"|$_BCPP_SED -e 's:^\\\~:~:g')"
+    eval "TILDE_EXPANSION=$(\
+        printf \
+            '%q' \
+            "$PROCESSED"|$_BCPP_SED -e 's:^\\\~:~:g' -Ee 's:(^|/)\\(\$):\1\2:g' \
+    )"
 
     # Workaround for Mingw pseudo directories for drives,
     # i.e. `/c/` refers to drive `C:\`, but glob `/c*/` returns no matches
@@ -157,8 +162,8 @@ _bcpp_complete_file() { _bcpp_complete file; }
 _bcpp() {
     local DEFAULT ALL KEYS ARG USAGE UNKNOWN
 
-    DEFAULT="--files --dirs --override --nocase --readline"
-    ALL="--files --dirs --override --nocase --readline"
+    DEFAULT="--files --dirs --cooperate --nocase --readline"
+    ALL="--files --dirs --cooperate --nocase --readline"
     USAGE=(
         "Usage: $FUNCNAME OPTIONS"
         "    Manage enhanced path completion in bash"
@@ -179,8 +184,11 @@ _bcpp() {
         "        Enable enhanced completion for file paths"
         "    --dirs"
         "        Complete \`cd\` with paths to directories only"
-        "    --override"
-        "        Override bash-completion if it's in use"
+        "    --cooperate"
+        "        Cooperate with system-wide bash-completion if it's in use."
+        "        This function must be invoked AFTER the main bash-completion"
+        "        is loaded."
+        "        Deprecated alias: --override"
         "    --nocase"
         "        Make path completion case insensitive"
         "    --readline"
@@ -194,7 +202,7 @@ _bcpp() {
         "    --readline-misc"
         "        Other useful readline tweaks"
         ""
-        "Copyright 2018 Vitaly Potyarkin"
+        "Copyright 2018-2019 Vitaly Potyarkin"
         "<https://github.com/sio/bash-complete-partial-path>"
         ""
         "This program is Free Software and comes with ABSOLUTELY NO WARRANTY,"
@@ -222,7 +230,7 @@ _bcpp() {
                 KEYS="${KEYS}f" ;;
             --dirs)
                 KEYS="${KEYS}d" ;;
-            --override)
+            --cooperate|--override)
                 KEYS="${KEYS}o" ;;
             --nocase)
                 KEYS="${KEYS}c" ;;
@@ -262,17 +270,12 @@ _bcpp() {
 
     # Enable selected functionality. The order of execution does not depend on
     # the order of command line parameters
-    if [[ "$KEYS" == *f* ]]  # --files
+    if [[ "$KEYS" == *o* ]]  # --cooperate|--override
     then
-        complete -D -F _bcpp_complete_file
-    fi
-    if [[ "$KEYS" == *d* ]]  # --dirs
-    then
-        complete -F _bcpp_complete_dir cd
-        complete -F _bcpp_complete_dir pushd
-    fi
-    if [[ "$KEYS" == *o* ]]  # --override
-    then
+        local DYNAMIC
+        DYNAMIC=$(complete -p|grep -E -- '-D.*_completion_loader|_completion_loader.*-D')
+
+        local _bcpp_filedir_original_code
         _bcpp_filedir_original_code=$(declare -f _filedir|tail -n+2)
         if [[ ! -z "$_bcpp_filedir_original_code" ]]
         then
@@ -283,6 +286,8 @@ _bcpp() {
                 [ "${#COMPREPLY[@]}" -eq 0 ] && _bcpp_complete "$@"
             }
         fi
+
+        local _bcpp_filedir_xspec_original_code
         _bcpp_filedir_xspec_original_code=$(declare -f _filedir_xspec|tail -n+2)
         if [[ ! -z "$_bcpp_filedir_xspec_original_code" ]]
         then
@@ -293,6 +298,17 @@ _bcpp() {
                 [ "${#COMPREPLY[@]}" -eq 0 ] && _bcpp_complete "$@"
             }
         fi
+    fi
+    if [[ "$KEYS" == *f* ]]  # --files
+    then
+        # Do not overwrite default completion function if dynamic completion
+        # loader is enabled
+        [[ -z "$DYNAMIC" ]] && complete -D -F _bcpp_complete_file
+    fi
+    if [[ "$KEYS" == *d* ]]  # --dirs
+    then
+        complete -F _bcpp_complete_dir cd
+        complete -F _bcpp_complete_dir pushd
     fi
     if [[ "$KEYS" == *c* ]]  # --nocase
     then

@@ -37,6 +37,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'valloric/ListToggle'
 Plug 'valloric/YouCompleteMe', {'do': './install.py'}
+"Plug 'zxqfl/tabnine-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
@@ -255,7 +256,7 @@ let g:haskellmode_completion_ghc = 0
 autocmd FileType haskell setl omnifunc=necoghc#omnifunc
 
 " YouCompleteMe
-"let g:ycm_path_to_python_interpreter = '/usr/local/bin/python'
+"let g:ycm_path_to_python_interpreter = '/usr/local/bin/python3'
 let g:ycm_complete_in_strings = 1
 let g:ycm_complete_in_comments = 1
 let g:ycm_auto_trigger = 1
