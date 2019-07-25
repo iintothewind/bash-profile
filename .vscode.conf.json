@@ -92,8 +92,7 @@
   "python.linting.pylintEnabled": false,
   "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home",
   "java.errors.incompleteClasspath.severity": "ignore",
-  "workbench.iconTheme": "vscode-icons",
-  "vsicons.dontShowNewVersionMessage": true,
+  // "scalafmt.configFilePath": "${env:HOME}/.sbt/1.0/.scalafmt.conf",
   "workbench.colorCustomizations": {
     "statusBar.background": "#005f5f",
     "statusBar.noFolderBackground": "#005f5f",
@@ -101,12 +100,18 @@
   },
   "extensions.ignoreRecommendations": true,
   "python.venvPath": "~/.envs",
-  "workbench.colorTheme": "Visual Studio Light",
+  "workbench.colorTheme": "Default Light+",
+  "workbench.editor.enablePreview": false,
   "explorer.confirmDelete": false,
   "window.zoomLevel": 0,
   "git.enableSmartCommit": true,
   "git.autofetch": true,
   "java.jdt.ls.vmargs": "-noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:\"/Users/yinghchen/.vscode/extensions/gabrielbb.vscode-lombok-0.9.7/server/lombok.jar\" -Xbootclasspath/a:\"/Users/yinghchen/.vscode/extensions/gabrielbb.vscode-lombok-0.9.7/server/lombok.jar\"",
   "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
-  "java.format.settings.profile": "GoogleStyle"
+  "java.format.settings.profile": "GoogleStyle",
+  "editor.suggestSelection": "first",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "vsicons.dontShowNewVersionMessage": true,
+  "editor.wordWrapColumn": 300,
+  "python.jediEnabled": false
 }
