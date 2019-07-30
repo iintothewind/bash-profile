@@ -12,10 +12,20 @@ function log() {
 }
 
 function epoch_date() {
-  if [ ! -n "$1" ]; then
-    echo input epoch: `date +%s` date: `date "+%Y-%m-%d %H:%M:%S"`
+  local input=$@
+  if [[ $input =~ ^[0-9]{10}$ ]]; then
+    date -d "@${input:0:10}" "+%Y-%m-%d %H:%M:%S" ;
   else
-    date -d "@$@" "+%Y-%m-%d %H:%M:%S" ;
+    echo invalid epoch format, current epoch: `date +%s` date: `date "+%Y-%m-%d %H:%M:%S"`
+  fi
+}
+
+function date_epoch() {
+  local input=$@
+  if [[ $input =~ ^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]).+(20|21|22|23|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]$ ]]; then
+    date -d "${input:0}" "+%s" ;
+  else
+    echo invalid date format, current date: `date "+%Y-%m-%d %H:%M:%S"` epoch: `date +%s`
   fi
 }
 
@@ -24,14 +34,6 @@ function bcal() {
     printf '%.3f\n' "$(echo "scale=3; $@" | bc)"
   else
     echo "bc does not exist"
-  fi
-}
-
-function date_epoch() {
-  if [ ! -n "$1" ]; then
-    echo input date: `date "+%Y-%m-%d %H:%M:%S"` epoch: `date +%s`
-  else
-    date -d "$@" "+%s" ;
   fi
 }
 
