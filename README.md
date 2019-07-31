@@ -15,41 +15,39 @@ chsh -s /usr/local/bin/bash
 
 ```
 $ brew ls
-ammonite-repl		glib			libunistring		polipo
-annie			gmp			libuv			proctools
-apache-spark		gnu-getopt		libvterm		protobuf
-aria2			gnu-indent		libyaml			pv
-autoconf		gnu-sed			libzip			python
-automake		gnu-tar			lua			python3
-axel			gnutls			lua@5.1			python@2
-bash			go			luajit			q
-bash-completion		gobject-introspection	macvim			qt
-bat			gradle			maven			readline
-binutils		graphite2		mgba			redis
-boost			h2			mitmproxy		ripgrep
-brew-cask-completion	harfbuzz		mpfr			ruby
-cairo			haskell-stack		mpg123			sbt
-cap-completion		hh			mpv			scala
-chezscheme		highlight		msgpack			scipy
-cmake			htop			mujs			sdl2
-coreutils		icu4c			nasm			sqlite
-cscope			imagemagick		neovim			st
-diffutils		isl			nettle			texi2html
-docker-completion	jemalloc		nmap			the_silver_searcher
-doxygen			jpeg			node			tldr
-ext4fuse		jump			ntfs-3g			tmux
-fd			lame			numpy			tree
-ffmpeg			libass			openssl			typescript
-findutils		libepoxy		p11-kit			unibilium
-fontconfig		libevent		p7zip			vim
-freetype		libffi			pandoc			webp
-fribidi			libmpc			pcre			x264
-gawk			libpng			pcre2			xsv
-gcc			libtasn1		perl			xvid
-gdbm			libtermkey		pip-completion		xz
-gettext			libtiff			pixman			yank
-git			libtool			pkg-config		yasm
-unix2dos
+activemq ammonite-repl ant aom aria2 autoconf
+automake bash bash-completion bat binutils bmon
+boost cabal-install cairo chezscheme cliclick cmake
+confuse coreutils coursier cscope diffutils dos2unix
+elasticsearch eslint expect fd ffmpeg findutils
+flac fontconfig freetype frei0r fribidi fselect
+gawk gcc gd gdbm gettext ghc
+giflib git glib gmp gnu-getopt gnu-indent
+gnu-sed gnu-tar gnutls go gobject-introspection gradle
+graphicsmagick graphite2 graphviz groovysdk grunt-cli gts
+h2 harfbuzz haskell-stack highlight htop httpie
+icu4c ilmbase imagemagick isl jasper jemalloc
+jpeg jq jsonnet jump lame leptonica
+libaacs libarchive libass libbluray libcaca libde265
+libepoxy libevent libffi libgcrypt libgpg-error libheif
+libidn2 libmpc libogg libomp libpng libsamplerate
+libsndfile libsoxr libssh2 libtasn1 libtermkey libtiff
+libtool libunistring libuv libvorbis libvpx libvterm
+libyaml libzip little-cms2 llvm lua lua@5.1
+luajit lzo makedepend maven maven-completion mgba
+mill mitmproxy mosh mpfr mpg123 mpv
+msgpack mujs ncurses neovim netpbm nettle
+nmap node ntfs-3g oniguruma opencore-amr openexr
+openjpeg openssl opus p11-kit p7zip pandoc
+pcre pcre2 perl pixman pkg-config polipo
+prettyping protobuf pv python python@2 q
+qt readline redis ripgrep rtmpdump rubberband
+ruby sbt scala sdl2 shared-mime-info snappy
+speex sphinx-doc sqlite swig telnet tesseract
+testenv the_silver_searcher theora tldr tmux trash
+uchardet unbound unibilium vapoursynth vert.x vim
+webp wget x264 x265 xvid xz
+yank youtube-dl zimg zlib
 ```
 
 ## brew cask ls
