@@ -82,12 +82,6 @@ provide you a sexy bash prompt in following format:
 username on hostname in filepath on git-branch
 
 ### .Shell/proxy
-proxy settings can be loaded when wifi ssid is BlueSSO, otherise it will not be loaded in bash.
-#### maually set proxy, requires admin password
-
-#### manually remove proxy, requires admin password
-
-#### display proxy status
 
 ```
 # recommend NOPASSWD in /etc/sudoers
@@ -109,8 +103,6 @@ $ pxys
 
 ### alias
 many useful aliases in .shell/alias.sh
-
-
 
 ## vim settings
 
