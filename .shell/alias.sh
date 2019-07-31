@@ -13,7 +13,7 @@ function log() {
 
 function epoch_date() {
   local input=$@
-  if [[ $input =~ ^[0-9]{10}$ ]]; then
+  if [[ $input =~ ^[0-9]{10,}$ ]]; then
     date -d "@${input:0:10}" "+%Y-%m-%d %H:%M:%S" ;
   else
     echo invalid epoch format, current epoch: `date +%s` date: `date "+%Y-%m-%d %H:%M:%S"`
