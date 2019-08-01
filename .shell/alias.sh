@@ -345,7 +345,7 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   if type supervisorctl > /dev/null 2>&1 ; then
-    alias spup="open /Applications/ShadowsocksX.app && supervisord -c $HOME/.supervisord.conf && supervisorctl status"
+    alias spup="open /Applications/ShadowsocksX.app && supervisord -c $HOME/.supervisord_mac.conf && supervisorctl status"
     alias spdown="supervisorctl shutdown ; killall ShadowsocksX"
   fi
 
@@ -398,4 +398,12 @@ function checkCaskUpgrade() {
     done
   fi
 }
+fi
+
+# raspberrypi only
+if [[ $(uname -a) == *rasp* ]]; then
+  if type supervisorctl > /dev/null 2>&1 ; then
+    alias spup="supervisord -c $HOME/.supervisord_rasp.conf && supervisorctl status"
+    alias spdown="supervisorctl shutdown"
+  fi
 fi

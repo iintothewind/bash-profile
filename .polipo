@@ -164,6 +164,6 @@
 
 # alwaysAddNoTransform = true
 
-socksParentProxy = 0.0.0.0:1080
+socksParentProxy = localhost:1080
 proxyAddress = 0.0.0.0
-proxyPort = 8123
+proxyPort = 18123
