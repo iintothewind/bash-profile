@@ -319,7 +319,7 @@ if [[ $(uname) == Linux ]]; then
   fi
 
   if type supervisorctl > /dev/null 2>&1 ; then
-    alias spup="supervisord -c $HOME/.supervisord.conf && supervisorctl status"
+    alias spup="supervisord -c $HOME/.supervisord_server.conf && supervisorctl status"
     alias spdown="supervisorctl shutdown"
   fi
 fi
