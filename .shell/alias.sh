@@ -372,32 +372,21 @@ if [[ $(uname) == Darwin ]]; then
   function killDaemons() {
     if test -f /bin/launchctl ; then
       sudo launchctl remove "com.absolute.abtsvcd"
-      sudo launchctl remove "com.absolute.ctesservice"
-      sudo launchctl remove "com.absolute.ctesservice.avp"
-      sudo launchctl remove "com.absolute.ctesservice.hdc"
-      sudo launchctl remove "com.absolute.rpcnet"
-      sudo launchctl remove "com.ar.jarx"
-      sudo launchctl remove "com.beyondtrust.pbmac.pbmacd"
-      sudo launchctl remove "com.jamf.management.daemon"
-      sudo launchctl remove "com.jamfsoftware.jamf.daemon"
-      sudo launchctl remove "com.jamfsoftware.startupItem"
-      sudo launchctl remove "com.jamfsoftware.task.Every 15 Minutes"
-      sudo launchctl remove "com.tanium.taniumclient"
-      sudo launchctl remove "com.tanium.trace.recorder"
     fi
   }
 
-function checkCaskUpgrade() {
-  if test -d /usr/local/Caskroom; then
-    for c in `ls /usr/local/Caskroom `; do
-      INFO=`brew cask info $c`
-      LATEST=`echo $INFO | head -n 1 | awk '{print $2}'`
-      if [ `brew cask info $c | tail -n +2 | grep $LATEST | wc -l | awk '{print $1}'` -eq 0 ]; then
-        echo $c
-      fi
-    done
-  fi
-}
+  function checkCaskUpgrade() {
+    if test -d /usr/local/Caskroom; then
+      for c in `ls /usr/local/Caskroom `; do
+        INFO=`brew cask info $c`
+        LATEST=`echo $INFO | head -n 1 | awk '{print $2}'`
+        if [ `brew cask info $c | tail -n +2 | grep $LATEST | wc -l | awk '{print $1}'` -eq 0 ]; then
+          echo $c
+        fi
+      done
+    fi
+  }
+
 fi
 
 # raspberrypi only
@@ -406,4 +395,5 @@ if [[ $(uname -a) == *rasp* ]]; then
     alias spup="supervisord -c $HOME/.supervisord_rasp.conf && supervisorctl status"
     alias spdown="supervisorctl shutdown"
   fi
+
 fi
