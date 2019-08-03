@@ -24,16 +24,16 @@
 	prompt = false
 [alias]
 	d = difftool
-  cm       = commit
-  pl       = pull
-  ps       = push
-	br       = branch
-	co       = checkout
-	di       = diff
+  cm = commit
+  pl = pull
+  ps = push
+	br = branch
+	co = checkout
+	di = diff
 	fetchall = fetch -v --all
-	st       = status
-	wdiff    = diff --word-diff
-  amend    = commit --amend -a
+	st = status
+	wdiff = diff --word-diff
+  amend = commit --amend -a
 	last = log -1
 	ll = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative
 	lgme = !UN=$(git config user.name)&& git log --author="\"$UN\"" --pretty=format:'%h %cd %s' --date=short
