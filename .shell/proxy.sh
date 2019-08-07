@@ -114,7 +114,7 @@ function pxys {
 }
 
 function localProxy() {
-  shellProxy localhost 8123
+  shellProxy localhost 18123
 }
 
 function corpProxy {
