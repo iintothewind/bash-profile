@@ -29,17 +29,21 @@ if [[ $(uname) == Linux ]]; then
   fi
 
   pyversion=$(python --version 2>&1)
-  if [[ "$pyversion" == *2.7* ]]; then
+  if [[ "$pyversion" == *Python*2.?.?* ]]; then
     if test -f /usr/local/bin/virtualenvwrapper.sh && test -f /usr/bin/python; then
       export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python"
       export WORKON_HOME="$HOME/.envs"
     fi
-  else
+  fi
+
+  pyversion=$(python3 --version 2>&1)
+  if [[ "$pyversion" == *Python*3.?.?* ]]; then
     if test -f /usr/local/bin/virtualenvwrapper.sh && test -f /usr/bin/python3; then
       export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python3"
       export WORKON_HOME="$HOME/.envs"
     fi
   fi
+
 fi
 
 # mac only
@@ -101,7 +105,7 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   # Java Environments
-  javaHome=$(/usr/libexec/java_home -v 1.8)
+  javaHome=$(/usr/libexec/java_home -v 1.8 2>&1)
   if [[ "$javaHome" == *jdk1.8* ]] || [[ "$javaHome" == *jdk-8* ]]; then
     export JAVA_HOME=$javaHome
     export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
