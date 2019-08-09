@@ -337,7 +337,7 @@ if [[ $(uname) == Darwin ]]; then
 
   if test -d $BREW_PREFIX/polipo; then
     alias plpon="brew services start polipo"
-    alias plpoff="brew services stop polipo && killall ShadowsocksX"
+    alias plpoff="brew services stop polipo ; killall ShadowsocksX"
   fi
 
   if test -f $BREW_BIN/virtualenvwrapper.sh; then
