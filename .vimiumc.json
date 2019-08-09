@@ -1,0 +1,16 @@
+{
+	"name": "Vimium C",
+	"@time": "8/1/2019, 7:54:32 PM",
+	"time": 1564660472625,
+	"environment": {
+		"extension": "1.76.3",
+		"platform": "mac",
+		"chrome": 78
+	},
+	"searchUrl": "http://www.bing.com/search?q=$s 必应",
+	"keyMappings": "map e scrollPageUp",
+	"grabBackFocus": true,
+	"showAdvancedOptions": true,
+	"exclusionRules": [],
+	"scrollStepSize": 150
+}
