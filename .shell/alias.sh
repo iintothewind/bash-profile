@@ -152,25 +152,25 @@ function jsonfmt() {
 
 function sync_cfg() {
   if [[ $(pwd) == *bash-profile ]]; then
-    cp -r .shell ~/
-    cp -r .vim ~/
-    cp -r .m2 ~/
-    cp -r .gradle ~/
-    cp -r .ivy2 ~/
-    cp -r .sbt ~/
-    cp -r .ammonite ~/
-    cp -r .cabal ~/
-    cp -r .stack ~/
-    cp -r .config ~/
-    cp -r .docker ~/
-    cp -r .bash_profile ~/
-    cp -r .vimrc ~/
-    cp -r .gitconfig ~/
-    cp -r .gitignore ~/
-    cp -r .gemrc ~/
-    cp -r .ghci ~/
-    cp -r .polipo ~/
-    cp -r .tmux.conf ~/
+    cp -ruv .shell ~/
+    cp -ruv .vim ~/
+    cp -ruv .m2 ~/
+    cp -ruv .gradle ~/
+    cp -ruv .ivy2 ~/
+    cp -ruv .sbt ~/
+    cp -ruv .ammonite ~/
+    cp -ruv .cabal ~/
+    cp -ruv .stack ~/
+    cp -ruv .config ~/
+    cp -ruv .docker ~/
+    cp -ruv .bash_profile ~/
+    cp -ruv .vimrc ~/
+    cp -ruv .gitconfig ~/
+    cp -ruv .gitignore ~/
+    cp -ruv .gemrc ~/
+    cp -ruv .ghci ~/
+    cp -ruv .polipo ~/
+    cp -ruv .tmux.conf ~/
   fi
 }
 
@@ -185,6 +185,7 @@ alias uuuuu='cd ../../../../../'
 alias grep='grep --color'
 alias egrep='egrep --color'
 alias fgrep='fgrep --color'
+alias cpruv='cp -ruv '
 
 # utils
 alias sudo="sudo "
