@@ -78,17 +78,22 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   # Python Environments
-  if test -d $HOME/Library/Python/2.7/bin; then
-    export PATH="$PATH:$HOME/Library/Python/2.7/bin"
-  fi
-
   pyversion=$(python --version 2>&1)
-  if [[ "$pyversion" == *2.7* ]]; then
+  if [[ "$pyversion" == *Python*2.?.?* ]]; then
+    if test -d "$HOME/Library/Python/${pyversion:7:3}/bin"; then
+      export PATH="$PATH:$HOME/Library/Python/${pyversion:7:3}/bin"
+    fi
     if test -f /usr/local/bin/virtualenvwrapper.sh && test -f $BREW_BIN/python; then
       export VIRTUALENVWRAPPER_PYTHON="$BREW_BIN/python"
       export WORKON_HOME="$HOME/.envs"
     fi
-  else
+  fi
+
+  pyversion=$(python3 --version 2>&1)
+  if [[ "$pyversion" == *Python*3.?.?* ]]; then
+    if test -d "$HOME/Library/Python/${pyversion:7:3}/bin"; then
+      export PATH="$PATH:$HOME/Library/Python/${pyversion:7:3}/bin"
+    fi
     if test -f /usr/local/bin/virtualenvwrapper.sh && test -f $BREW_BIN/python3; then
       export VIRTUALENVWRAPPER_PYTHON="$BREW_BIN/python3"
       export WORKON_HOME="$HOME/.envs"
@@ -97,7 +102,7 @@ if [[ $(uname) == Darwin ]]; then
 
   # Java Environments
   javaHome=$(/usr/libexec/java_home -v 1.8)
-  if [[ "$javaHome" == *jdk1.8* ]]; then
+  if [[ "$javaHome" == *jdk1.8* ]] || [[ "$javaHome" == *jdk-8* ]]; then
     export JAVA_HOME=$javaHome
     export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
   fi
@@ -120,6 +125,7 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   # brew settings
+  export HOMEBREW_NO_AUTO_UPDATE=1
   export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
   #export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.shu.edu.cn/homebrew-bottles"
 fi
