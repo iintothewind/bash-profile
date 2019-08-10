@@ -13,7 +13,7 @@ call plug#begin('~/.vim/plugged')
 "Plug 'luochen1990/rainbow'
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
-Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
+"Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', {'for': 'go', 'tag':'*'}
 Plug 'godlygeek/tabular'
@@ -29,7 +29,7 @@ Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
-Plug 'shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
+"Plug 'shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
 "Plug 'skywind3000/asyncrun.vim'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
