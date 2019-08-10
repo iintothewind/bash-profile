@@ -1,4 +1,5 @@
 {
+  // defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
   "http.proxyStrictSSL": false,
   "editor.fontSize": 10,
   "editor.tabSize": 2,
@@ -29,15 +30,15 @@
     "**/.factorypath": true
   },
   "files.watcherExclude": {
-      "**/.git/objects/**": true,
-      "**/.git/subtree-cache/**": true,
-      "**/.DS_Store": true,
-      "**/node_modules/**": true,
-      "**/tmp/**": true,
-      "**/bower_components/**": true,
-      "**/dist/**": true,
-      "**/.ensime*":true,
-      "**/*.sock":true
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.DS_Store": true,
+    "**/node_modules/**": true,
+    "**/tmp/**": true,
+    "**/bower_components/**": true,
+    "**/dist/**": true,
+    "**/.ensime*": true,
+    "**/*.sock": true
   },
   "window.menuBarVisibility": "hidden",
   "window.openFilesInNewWindow": "default",
@@ -55,42 +56,77 @@
   "vim.statusBarColors.replace": "#00000",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["leader", "f"],
-      "after": ["leader", "leader", "s"]
+      "before": [
+        "leader",
+        "f"
+      ],
+      "after": [
+        "leader",
+        "leader",
+        "s"
+      ]
     },
     {
-      "before": ["leader", "t"],
-      "after": ["leader", "leader", "/"]
+      "before": [
+        "leader",
+        "t"
+      ],
+      "after": [
+        "leader",
+        "leader",
+        "/"
+      ]
     },
     {
-      "before": ["leader", "p"],
-      "after": ["\"", "+", "p"]
+      "before": [
+        "leader",
+        "p"
+      ],
+      "after": [
+        "\"",
+        "+",
+        "p"
+      ]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "before": ["leader", "d"],
-      "after": ["\"", "+", "d"]
+      "before": [
+        "leader",
+        "d"
+      ],
+      "after": [
+        "\"",
+        "+",
+        "d"
+      ]
     },
     {
-      "before": ["leader", "y"],
-      "after": ["\"", "+", "y"]
+      "before": [
+        "leader",
+        "y"
+      ],
+      "after": [
+        "\"",
+        "+",
+        "y"
+      ]
     }
   ],
-  "markdown.preview.linkify":false,
+  "markdown.preview.linkify": false,
   "markdownlint.config": {
-    "MD030":false,
-    "MD034":false,
-    "MD024":false,
-    "MD012":false,
-    "MD032":false,
-    "MD025":false
+    "MD030": false,
+    "MD034": false,
+    "MD024": false,
+    "MD012": false,
+    "MD032": false,
+    "MD025": false
   },
   "terminal.external.osxExec": "iTerm.app",
   "maven.terminal.useJavaHome": true,
   "python.formatting.provider": "yapf",
   "python.linting.pylintEnabled": false,
-  "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home",
+  "java.home": "/Library/Java/JavaVirtualMachines/adoptopenjdk-8.jdk/Contents/Home",
   "java.errors.incompleteClasspath.severity": "ignore",
   // "scalafmt.configFilePath": "${env:HOME}/.sbt/1.0/.scalafmt.conf",
   "workbench.colorCustomizations": {
@@ -100,7 +136,6 @@
   },
   "extensions.ignoreRecommendations": true,
   "python.venvPath": "~/.envs",
-  "workbench.colorTheme": "Default Light+",
   "workbench.editor.enablePreview": false,
   "explorer.confirmDelete": false,
   "window.zoomLevel": 0,
@@ -113,5 +148,8 @@
   "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
   "vsicons.dontShowNewVersionMessage": true,
   "editor.wordWrapColumn": 300,
-  "python.jediEnabled": false
+  "python.jediEnabled": false,
+  "workbench.iconTheme": "vscode-icons",
+  "languageServerHaskell.hlintOn": true,
+  "languageServerHaskell.maxNumberOfProblems": 100
 }

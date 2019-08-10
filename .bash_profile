@@ -2,7 +2,6 @@
 BREW_BIN="/usr/local/bin"
 BREW_PREFIX="/usr/local/opt"
 
-
 # environments
 if test -f $HOME/.shell/environments.sh; then
   . $HOME/.shell/environments.sh
@@ -20,7 +19,7 @@ if test -f $HOME/.shell/prompt.sh; then
   . $HOME/.shell/prompt.sh
 fi
 # path completion
-if test -f $HOME/.shell/path_completion.sh; then
+if [[ "$SHELL" == "/usr/local/bin/bash" ]] && type gsed > /dev/null 2>&1 && test -f $HOME/.shell/path_completion.sh; then
   . $HOME/.shell/path_completion.sh
   _bcpp --defaults
 fi
