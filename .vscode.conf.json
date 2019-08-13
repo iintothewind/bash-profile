@@ -4,7 +4,7 @@
   "editor.fontSize": 10,
   "editor.tabSize": 2,
   "editor.cursorBlinking": "solid",
-  "editor.minimap.enabled": false,
+  "editor.minimap.enabled": true,
   "files.autoSave": "onFocusChange",
   "files.trimTrailingWhitespace": true,
   "files.exclude": {
@@ -151,5 +151,10 @@
   "python.jediEnabled": false,
   "workbench.iconTheme": "vscode-icons",
   "languageServerHaskell.hlintOn": true,
-  "languageServerHaskell.maxNumberOfProblems": 100
+  "languageServerHaskell.maxNumberOfProblems": 100,
+  "workbench.enableExperiments": false,
+  "update.showReleaseNotes": false,
+  "extensions.showRecommendationsOnlyOnDemand": true,
+  "telemetry.enableTelemetry": false,
+  "telemetry.enableCrashReporter": false
 }
