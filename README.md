@@ -123,6 +123,20 @@ file type settings
 ### .vim/settings/extends.vim
 extra settings
 
+## nvim settings
+
+```bash
+pip3 install --user --upgrade pynvim
+mkdir -p ~/.local/share/nvim/site/autoload/
+ln -s ~/.vim/autoload/plug.vim ~/.local/share/nvim/site/autoload/plug.vim
+```
+
+### .config/nvim/init.vim
+
+```bash
+mkdir -p ~/.config/nvim
+ln -s ~/.vimrc ~/.config/nvim/init.vim
+```
 
 ## java settings
 
