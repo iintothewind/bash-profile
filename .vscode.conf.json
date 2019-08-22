@@ -87,6 +87,16 @@
         "+",
         "p"
       ]
+    },
+    {
+      "before": [
+        "g",
+        "b"
+      ],
+      "after": [
+        "g",
+        "T"
+      ]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
