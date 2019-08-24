@@ -336,6 +336,10 @@ if [[ $(uname) == Darwin ]]; then
   alias clean-cask="pushd /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask && git prune && popd"
   alias clean-versions="pushd /usr/local/Homebrew/Library/Taps/caskroom/homebrew-versions && git prune && popd"
 
+  if type trash > /dev/null 2>&1 ; then
+    alias rm="trash -v "
+  fi
+
   if test -d $BREW_PREFIX/polipo; then
     alias plpon="brew services start polipo"
     alias plpoff="brew services stop polipo ; killall ShadowsocksX"
