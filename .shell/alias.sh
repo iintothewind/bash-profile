@@ -47,10 +47,10 @@ function ffmax() {
 
 function qps() {
   if [[ $(uname) == Linux ]]; then
-    ps ax -o pid,ppid,user,pcpu,pmem,args --sort -pcpu,-pmem | grep -v grep | grep --color=auto "$@" ;
+    ps ax -mwww -o pid,ppid,user,pcpu,pmem,args --sort -pcpu,-pmem | grep -v grep | grep --color=auto "$@" ;
   fi
   if [[ $(uname) == Darwin ]]; then
-    ps ax -rmwwwd -o pid,ppid,user,pcpu,pmem,args | fgrep -v fgrep | fgrep --color=auto "$@" ;
+    ps ax -mwww -o pid,ppid,user,pcpu,pmem,args | fgrep -v fgrep | fgrep --color=auto "$@" ;
   fi
 }
 
