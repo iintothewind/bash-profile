@@ -11,6 +11,10 @@ function log() {
   echo "$prefix $@" >&2
 }
 
+function tail_args() {
+  echo "$@" | xargs -n 1 | tail -n +2 | xargs
+}
+
 function tgza() {
   local path=$1
   local file=$2
