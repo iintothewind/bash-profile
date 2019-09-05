@@ -354,8 +354,6 @@ if [[ $(uname) == Darwin ]]; then
   alias fip="ipconfig getifaddr en0"
   alias fixbrew="sudo chown -R \"$USER\":admin /usr/local"
   alias bru="brew update && brew upgrade && brew cleanup"
-  alias clean-cask="pushd /usr/local/Homebrew/Library/Taps/caskroom/homebrew-cask && git prune && popd"
-  alias clean-versions="pushd /usr/local/Homebrew/Library/Taps/caskroom/homebrew-versions && git prune && popd"
 
   if type trash > /dev/null 2>&1 ; then
     alias rm="trash -v "
