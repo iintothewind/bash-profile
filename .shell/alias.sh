@@ -12,23 +12,34 @@ function log() {
 }
 
 function tgza() {
-  local file=$1
-  local path=$2
+  local path=$1
+  local file=$2
   if [[ $file == *tgz ]] && test -d $path ; then
     echo "tar cvzf $file -C $path ."
     tar cvzf $file -C $path .
   else
-    echo "tgza <file> <path>"
-    echo "alias for: tar cvzf <file> -C <path> ."
-    echo "file is required to be ended with .tgz"
-    echo "path must be existing"
+    echo "tgza <src-path> <dest-file>"
+    echo "alias for: tar cvzf <dest-file.tgz> -C <src-path> ."
+    echo "det-file is required to be ended with .tgz"
+    echo "src-path must be existing"
   fi
 }
 
 function tgzx() {
-    echo "tar vtf <tar-file>"
-    echo "tar xvzf <tgz-file> -C <dest-path> <extract-files>"
-    echo "dest-path must be existing"
+  if [[ $# -ge 2 ]] && [[ $1 == *tgz ]] && test -f "$1"; then
+    local tgzFile=$1
+    local destPath=$2
+    local extractFiles=$(echo $@ | cut -d' ' -f3-)
+    echo "tar xvzf $tgzFile -C $destPath $extractFiles"
+
+    mkdir -p $destPath
+    tar xvzf $tgzFile -C $destPath $extractFiles
+  else
+    echo "tgzx <src-file.tgz> <dest-path> [extract-files]"
+    echo "alias for: tar xvzf <src-file.tgz> -C <dest-path> [extract-files]"
+    echo "list files in tgz: tar vtf <src-file.tgz>"
+    echo "src-file.tgz must be existing"
+  fi
 }
 
 function epoch_date() {
