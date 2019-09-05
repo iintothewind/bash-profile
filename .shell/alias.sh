@@ -14,31 +14,31 @@ function log() {
 function tgza() {
   local path=$1
   local file=$2
-  if [[ $file == *tgz ]] && test -d $path ; then
+  if [[ "$file" == *tgz || "$file" == *tar.gz ]] && test -d $path ; then
     echo "tar cvzf $file -C $path ."
-    tar cvzf $file -C $path .
+    tar cvzf "$file" -C "$path" .
   else
     echo "tgza <src-path> <dest-file>"
     echo "alias for: tar cvzf <dest-file.tgz> -C <src-path> ."
-    echo "det-file is required to be ended with .tgz"
+    echo "dest-file is required to be ended with .tgz or tar.gz"
     echo "src-path must be existing"
   fi
 }
 
 function tgzx() {
-  if [[ $# -ge 2 ]] && [[ $1 == *tgz ]] && test -f "$1"; then
+  if [[ $# -ge 2 ]] && [[ "$1" == *tgz || "$1" == *tar.gz ]] && test -f "$1"; then
     local tgzFile=$1
     local destPath=$2
     local extractFiles=$(echo $@ | cut -d' ' -f3-)
     echo "tar xvzf $tgzFile -C $destPath $extractFiles"
 
-    mkdir -p $destPath
-    tar xvzf $tgzFile -C $destPath $extractFiles
+    mkdir -p "$destPath"
+    tar xvzf "$tgzFile" -C "$destPath" $extractFiles
   else
-    echo "tgzx <src-file.tgz> <dest-path> [extract-files]"
-    echo "alias for: tar xvzf <src-file.tgz> -C <dest-path> [extract-files]"
-    echo "list files in tgz: tar vtf <src-file.tgz>"
-    echo "src-file.tgz must be existing"
+    echo "tgzx <src-file> <dest-path> [extract-files]"
+    echo "alias for: tar xvzf <src-file> -C <dest-path> [extract-files]"
+    echo "list files in tgz: tar vtf <src-file>"
+    echo "src-file must be existing"
   fi
 }
 
