@@ -29,7 +29,6 @@ function tgzx() {
     echo "tar vtf <tar-file>"
     echo "tar xvzf <tgz-file> -C <dest-path> <extract-files>"
     echo "dest-path must be existing"
-  fi
 }
 
 function epoch_date() {
