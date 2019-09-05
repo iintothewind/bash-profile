@@ -11,6 +11,27 @@ function log() {
   echo "$prefix $@" >&2
 }
 
+function tgza() {
+  local file=$1
+  local path=$2
+  if [[ $file == *tgz ]] && test -d $path ; then
+    echo "tar cvzf $file -C $path ."
+    tar cvzf $file -C $path .
+  else
+    echo "tgza <file> <path>"
+    echo "alias for: tar cvzf <file> -C <path> ."
+    echo "file is required to be ended with .tgz"
+    echo "path must be existing"
+  fi
+}
+
+function tgzx() {
+    echo "tar vtf <tar-file>"
+    echo "tar xvzf <tgz-file> -C <dest-path> <extract-files>"
+    echo "dest-path must be existing"
+  fi
+}
+
 function epoch_date() {
   local input=$@
   if [[ $input =~ ^[0-9]{10,}$ ]]; then
@@ -225,7 +246,7 @@ if type git > /dev/null 2>&1 ; then
   alias gresethard="git reset --hard HEAD"
   alias grmv="git remote -v"
   alias gshow="git show"
-  alias gst="git status"
+  alias gstatus="git status"
   alias gstash="git stash"
   alias gtag="git tag"
   function gcmm(){
