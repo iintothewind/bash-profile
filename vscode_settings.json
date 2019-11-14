@@ -96,6 +96,24 @@
     },
     {
       "before": [
+        "<c-n>"
+      ],
+      "after": [
+        "<c-d>"
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "b"
+      ],
+      "after": [
+        "g",
+        "T"
+      ]
+    },
+    {
+      "before": [
         "leader",
         "p"
       ],
