@@ -42,7 +42,9 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
 Plug 'w0rp/ale', {'tag': '*'}
-Plug 'yggdroot/LeaderF', {'tag': '*', 'do': './install.sh' }
+"Plug 'yggdroot/LeaderF', {'tag': '*', 'do': './install.sh' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 
 " color scheme
@@ -150,6 +152,9 @@ vmap <Leader>/ <Plug>NERDCommenterToggle
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=darkgrey
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=black
 
+" LargeFile
+let g:LargeFile = 2
+
 "  CTRL-P
 let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
 let g:ctrlp_working_path_mode = 0
@@ -195,12 +200,8 @@ let g:ctrlp_prompt_mappings   = {
 
 " leaderf
 let g:Lf_ShortcutF = '<F11>'
-
-" LargeFile
-let g:LargeFile = 2
-
 "nmap <silent> <F11> :<C-U>LeaderfFile<CR>
-nmap <silent> <F12> :LeaderfMru<CR>
+"nmap <silent> <F12> :LeaderfMru<CR>
 let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git', '.idea', '.iml']
 let g:Lf_WorkingDirectoryMode = 'Ac'
@@ -218,6 +219,30 @@ let g:Lf_CommandMap = {
   \ '<CR>': ['<C-B>'],
   \ '<C-T>': ['<CR>']
   \}
+
+" fzf.vim
+let g:fzf_action = {
+  \ 'enter': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+nmap <silent> <F11> :Files<cr>
+nmap <silent> <F12> :History<cr>
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+" [Buffers] Jump to the existing window if possible
+let g:fzf_buffers_jump = 1
+
+" Likewise, Files command with preview window
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 "  Vim grep
 let Grep_Skip_Dirs = 'RCS CVS SCCS .svn .git generated'
