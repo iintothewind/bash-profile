@@ -161,6 +161,7 @@ endif
 set encoding=utf8
 
 " Use Unix as the standard file type
+set ff=unix
 set ffs=unix,dos,mac
 
 set backup
