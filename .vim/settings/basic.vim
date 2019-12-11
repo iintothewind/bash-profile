@@ -235,7 +235,16 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 set laststatus=2
 
 " Format the status line
-set statusline=%F%m%r%h%w\ [FORMAT=%{&ff}][TYPE=%Y][POS=%l,%v][%p%%]
+" file name
+set statusline +=%F%m%r%h%w
+" right align
+set statusline +=%=
+" format:encoding
+set statusline +=[%{&ff}:%{&fenc!=''?&fenc:&enc}]
+" file type
+set statusline +=[TYPE=%Y]
+" position
+set statusline +=[POS=%l/%L(%p%%),%v]
 
 " Remap VIM 0 to first non-blank character
 map 0 ^

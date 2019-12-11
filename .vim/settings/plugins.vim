@@ -38,8 +38,8 @@ Plug 'tpope/vim-surround'
 Plug 'valloric/ListToggle'
 Plug 'valloric/YouCompleteMe', {'do': './install.py'}
 "Plug 'zxqfl/tabnine-vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
 Plug 'w0rp/ale', {'tag': '*'}
 "Plug 'yggdroot/LeaderF', {'tag': '*', 'do': './install.sh' }
