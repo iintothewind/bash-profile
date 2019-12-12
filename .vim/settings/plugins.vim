@@ -320,11 +320,14 @@ let g:lt_quickfix_list_toggle_map = '<F10>'
 let g:move_map_keys = 0
 let g:move_auto_indent = 1
 let g:move_past_end_of_line = 1
-vmap ∆ <Plug>MoveBlockDown
-vmap ˚ <Plug>MoveBlockUp
-vmap ˙ <Plug>MoveBlockLeft
-vmap ¬ <Plug>MoveBlockRight
-nmap ∆ <Plug>MoveLineDown
-nmap ˚ <Plug>MoveLineUp
-nmap ˙ <Plug>MoveCharLeft
-nmap ¬ <Plug>MoveCharRight
+
+if has("mac") || has("macunix")
+  vmap ∆ <Plug>MoveBlockDown
+  vmap ˚ <Plug>MoveBlockUp
+  vmap ˙ <Plug>MoveBlockLeft
+  vmap ¬ <Plug>MoveBlockRight
+  nmap ∆ <Plug>MoveLineDown
+  nmap ˚ <Plug>MoveLineUp
+  nmap ˙ <Plug>MoveCharLeft
+  nmap ¬ <Plug>MoveCharRight
+endif
