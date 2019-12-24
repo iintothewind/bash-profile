@@ -1,5 +1,4 @@
 {
-  // defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false
   "http.proxyStrictSSL": false,
   "editor.fontSize": 10,
   "editor.detectIndentation": true,
@@ -65,87 +64,46 @@
   "vim.statusBarColors.replace": "#00000",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "leader",
-        "f"
-      ],
-      "after": [
-        "leader",
-        "leader",
-        "s"
-      ]
+      "before": ["leader", "f"],
+      "after": ["leader", "leader", "s"]
     },
     {
-      "before": [
-        "leader",
-        "t"
-      ],
-      "after": [
-        "leader",
-        "leader",
-        "/"
-      ]
+      "before": ["leader", "t"],
+      "after": ["leader", "leader", "/"]
     },
     {
-      "before": [
-        "r"
-      ],
-      "after": [
-        "<c-r>"
-      ]
+      "before": ["r"],
+      "after": ["<c-r>"]
     },
     {
-      "before": [
-        "<c-n>"
-      ],
-      "after": [
-        "<c-d>"
-      ]
+      "before": ["<c-n>"],
+      "after": ["<c-d>"]
     },
     {
-      "before": [
-        "g",
-        "b"
-      ],
-      "after": [
-        "g",
-        "T"
-      ]
+      "before": ["g", "b"],
+      "after": ["g", "T"]
     },
     {
-      "before": [
-        "leader",
-        "p"
-      ],
-      "after": [
-        "\"",
-        "+",
-        "p"
-      ]
+      "before": ["leader", "p"],
+      "after": ["\"", "+", "p"]
+    },
+    {
+      "before":["<c-i>"],
+      "commands": ["workbench.action.navigateBack"]
+    },
+    {
+      "before":["<c-o>"],
+      "commands": ["workbench.action.navigateForward"]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "leader",
-        "d"
-      ],
-      "after": [
-        "\"",
-        "+",
-        "d"
-      ]
+      "before": ["leader", "d"],
+      "after": ["\"", "+", "d"]
     },
     {
-      "before": [
-        "leader",
-        "y"
-      ],
-      "after": [
-        "\"",
-        "+",
-        "y"
-      ]
+      "before": ["leader", "y"],
+      "after": ["\"", "+", "y"]
     }
   ],
   "markdown.preview.linkify": false,
@@ -161,9 +119,8 @@
   "maven.terminal.useJavaHome": true,
   "python.formatting.provider": "yapf",
   "python.linting.pylintEnabled": false,
-  "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_202.jdk/Contents/Home",
+  "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home",
   "java.errors.incompleteClasspath.severity": "ignore",
-  // "scalafmt.configFilePath": "${env:HOME}/.sbt/1.0/.scalafmt.conf",
   "workbench.colorCustomizations": {
     "statusBar.background": "#005f5f",
     "statusBar.noFolderBackground": "#005f5f",
@@ -192,5 +149,5 @@
   "workbench.settings.enableNaturalLanguageSearch": false,
   "sync.quietSync": true,
   "sync.autoDownload": true,
-  "sync.autoUpload": true,
+  "sync.autoUpload": true
 }
