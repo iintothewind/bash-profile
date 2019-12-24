@@ -29,7 +29,7 @@ func! GitBlame()
 endfunc
 
 " GUI related
-" Set font according to system
+" Set gui font according to system
 if has("mac") || has("macunix")
   set gfn=Hack:h14,Source\ Code\ Pro:h12,Menlo:h11
 elseif has("win16") || has("win32")
@@ -61,6 +61,7 @@ autocmd! bufwritepost vimrc source ~/.vimrc
 
 " $q is super useful when browsing on the command line
 " it deletes everything until the last slash
+" use $q in command line that ends with a path
 cnoremap $q <C-\>eDeleteTillSlash()<cr>
 " Bash like keys for the command line
 cnoremap <C-A>		<Home>
@@ -70,12 +71,7 @@ cnoremap <C-K>		<C-U>
 nnoremap <C-N> <C-D>
 nnoremap <Leader>gb :call GitBlame()<CR>
 
-" use ctrl-i to insert abbreviations
-" disabled, it does not work with neocomplete
-"inoremap <expr><C-I> <C-]>
 
-" General abbreviations
-iab xdate <c-r>=strftime("%Y-%m-%d %H:%M:%S")<cr>
 
 " turn tab to spaces
 set expandtab
