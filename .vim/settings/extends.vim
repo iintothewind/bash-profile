@@ -96,8 +96,3 @@ nnoremap <Leader>gb :call GitBlame()<CR>
 
 " turn tab to spaces
 set expandtab
-
-" Shell section
-if exists('$TMUX')
-  set term=screen-256color
-endif
