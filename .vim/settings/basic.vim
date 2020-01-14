@@ -181,8 +181,8 @@ set tabstop=2
 set viminfo+=!
 set iskeyword+=_,$,@,%,#,-
 " Linebreak on 300 characters
-set lbr
-set tw=300
+"set lbr
+"set tw=300
 
 set autoindent
 set smartindent
