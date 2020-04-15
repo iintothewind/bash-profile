@@ -94,6 +94,10 @@
     {
       "before":["<c-o>"],
       "commands": ["workbench.action.navigateForward"]
+    },
+    {
+      "before": ["leader", "/"],
+      "commands": ["editor.action.commentLine"]
     }
   ],
   "vim.visualModeKeyBindingsNonRecursive": [
