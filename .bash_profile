@@ -2,6 +2,11 @@
 BREW_BIN="/usr/local/bin"
 BREW_PREFIX="/usr/local/opt"
 
+# custom functions
+if test -f $HOME/.shell/cf.sh; then
+  . $HOME/.shell/cf.sh
+fi
+
 # environments
 if test -f $HOME/.shell/environments.sh; then
   . $HOME/.shell/environments.sh
@@ -50,6 +55,7 @@ if [[ $(uname) == Darwin ]]; then
   if test -f $BREW_PREFIX/etc/bash_completion; then
     . $BREW_PREFIX/etc/bash_completion;
   fi
+
   # autojump
   if test -f $BREW_PREFIX/etc/profile.d/autojump.sh; then
     . $BREW_PREFIX/etc/profile.d/autojump.sh;
@@ -57,13 +63,5 @@ if [[ $(uname) == Darwin ]]; then
   # jump
   if type jump > /dev/null 2>&1; then
     eval "$(jump shell --bind=z)"
-  fi
-
-  if test -s $HOME/.rvm/scripts/rvm; then
-    . $HOME/.rvm/scripts/rvm
-  fi
-
-  if test -f $HOME/.iterm2_shell_integration.bash; then
-    . $HOME/.iterm2_shell_integration.bash
   fi
 fi
