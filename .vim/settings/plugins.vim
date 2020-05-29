@@ -26,7 +26,7 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'matze/vim-move'
 Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
+"Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
 "Plug 'shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
@@ -282,40 +282,41 @@ let g:haskellmode_completion_ghc = 0
 
 " YouCompleteMe
 "let g:ycm_path_to_python_interpreter = '/usr/local/bin/python3'
+let g:ycm_auto_trigger = 1
 let g:ycm_complete_in_strings = 1
 let g:ycm_complete_in_comments = 1
-let g:ycm_auto_trigger = 1
-let g:ycm_min_num_identifier_candidate_chars = 0
+let g:ycm_min_num_identifier_candidate_chars = 2
 let g:ycm_min_num_of_chars_for_completion = 2
-let g:ycm_confirm_extra_conf = 0
-let g:ycm_global_ycm_extra_conf = ''
-let g:ycm_filetype_specific_completion_to_disable = {
-    \ 'gitcommit': 1
-    \}
-
-let g:ycm_filetype_whitelist = {
-    \ "sh":1,
-    \ "c":1,
-    \ "cpp":1,
-    \ "java":1,
-    \ "python":1,
-    \ }
-let g:ycm_filetype_blacklist = {
-    \ 'tagbar' : 1,
-    \ 'pandoc' : 1,
-    \ 'infolog' : 1,
-    \}
-"let g:ycm_semantic_triggers =  {
-			"\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-			"\ 'cs,lua,javascript': ['re!\w{2}'],
-			"\ }
-let g:ycm_disable_for_files_larger_than_kb = 512
-" disable auto menu preview
+let g:ycm_collect_identifiers_from_comments_and_string = 1
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_show_diagnostics_ui = 0
 set completeopt=menu,menuone
 let g:ycm_add_preview_to_completeopt = 0
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_disable_for_files_larger_than_kb = 512
+let g:ycm_filetype_specific_completion_to_disable = {
+    \ 'gitcommit': 1
+    \}
+let g:ycm_filetype_whitelist = {
+    \ "sh"         : 1,
+    \ "c"          : 1,
+    \ "cpp"        : 1,
+    \ "vim"        : 1,
+    \ "haskell"    : 1,
+    \ "java"       : 1,
+    \ "javascript" : 1,
+    \ "python"     : 1,
+    \ 'markdown'   : 1,
+    \}
+let g:ycm_filetype_blacklist = {
+    \ 'tagbar'  : 1,
+    \ 'pandoc'  : 1,
+    \ 'infolog' : 1,
+    \}
+let g:ycm_semantic_triggers =  {
+    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+    \ 'cs,lua,javascript': ['re!\w{2}'],
+    \}
 
 " asyncrun
 " asyncrun open on quickfix window at hight 6
