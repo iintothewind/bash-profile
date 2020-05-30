@@ -1,19 +1,7 @@
 " Load plug
 call plug#begin('~/.vim/plugged')
-"Plug 'Shougo/neocomplete.vim'
-"Plug 'Yggdroot/indentLine'
-"Plug 'nathanaelkane/vim-indent-guides'
-"Plug 'rking/ag.vim'
-"Plug 'Chiel92/vim-autoformat'
-"Plug 'ensime/ensime-vim', {'for': 'scala'}
-"Plug 'kien/ctrlp.vim', { 'on': 'ctrlp-py-matcher' }
-"Plug 'FelikZ/ctrlp-py-matcher'
-"Plug 'Valloric/YouCompleteMe', {'do': './install.py', 'for':'nothing'}
-"Plug 'maxbrunsfeld/vim-yankstack'
-"Plug 'luochen1990/rainbow'
 Plug 'airblade/vim-gitgutter'
 Plug 'derekwyatt/vim-scala', {'for': 'scala'}
-"Plug 'eagletmt/neco-ghc', {'for': 'haskell'}
 Plug 'easymotion/vim-easymotion'
 Plug 'fatih/vim-go', {'for': 'go', 'tag':'*'}
 Plug 'godlygeek/tabular'
@@ -26,23 +14,18 @@ Plug 'kien/rainbow_parentheses.vim'
 Plug 'matze/vim-move'
 Plug 'navicore/vissort.vim'
 Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
-"Plug 'plasticboy/vim-markdown', {'for': 'markdown'}
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
-"Plug 'shougo/vimproc.vim', {'do': 'make', 'for': 'haskell'}
 "Plug 'skywind3000/asyncrun.vim'
+Plug 'skywind3000/vim-auto-popmenu'
+Plug 'skywind3000/vim-dict'
 Plug 'terryma/vim-expand-region'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'valloric/ListToggle'
-Plug 'valloric/YouCompleteMe', {'do': './install.py'}
-"Plug 'zxqfl/tabnine-vim'
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/LargeFile'
 Plug 'w0rp/ale', {'tag': '*'}
-"Plug 'yggdroot/LeaderF', {'tag': '*', 'do': './install.sh' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 call plug#end()
@@ -291,22 +274,11 @@ let g:ycm_collect_identifiers_from_comments_and_string = 1
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_show_diagnostics_ui = 0
-set completeopt=menu,menuone
+"set completeopt=menu,menuone,noselect
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_disable_for_files_larger_than_kb = 512
 let g:ycm_filetype_specific_completion_to_disable = {
     \ 'gitcommit': 1
-    \}
-let g:ycm_filetype_whitelist = {
-    \ "sh"         : 1,
-    \ "c"          : 1,
-    \ "cpp"        : 1,
-    \ "vim"        : 1,
-    \ "haskell"    : 1,
-    \ "java"       : 1,
-    \ "javascript" : 1,
-    \ "python"     : 1,
-    \ 'markdown'   : 1,
     \}
 let g:ycm_filetype_blacklist = {
     \ 'tagbar'  : 1,
@@ -317,6 +289,12 @@ let g:ycm_semantic_triggers =  {
     \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
     \ 'cs,lua,javascript': ['re!\w{2}'],
     \}
+
+" vim-auto-popmenu
+let g:apc_enable_ft = {'*' : 1}
+set cpt=.,k,w,b
+set shortmess+=c
+set completeopt=menu,menuone,noselect
 
 " asyncrun
 " asyncrun open on quickfix window at hight 6
