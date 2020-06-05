@@ -44,6 +44,11 @@ if [[ $(uname) == Linux ]]; then
     fi
   fi
 
+  # JavaScript Environments
+  if type npm > /dev/null 2>&1 && test -d $HOME/.npm/modules; then
+    export PATH="$PATH:$HOME/.npm/modules/bin"
+  fi
+
 fi
 
 # mac only
