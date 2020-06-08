@@ -435,3 +435,9 @@ if [[ $(uname -a) == *rasp* ]]; then
   fi
 
 fi
+
+
+# raspberrypi only
+if [[ $(uname -a) == *Android* ]]; then
+  alias sshdup="termux-wake-lock && sshd"
+fi
