@@ -215,6 +215,7 @@ alias uu='cd ../../'
 alias uuu='cd ../../../'
 alias uuuu='cd ../../../../'
 alias uuuuu='cd ../../../../../'
+alias l='cd -'
 
 # greps
 alias grep='grep --color'
@@ -225,7 +226,6 @@ alias cpruv='cp -ruv '
 # utils
 alias sudo="sudo "
 alias h="cd ~"
-alias l="ls -thF"
 alias ll="ls -lthF"
 alias la="ls -lthFA"
 alias lh="ls -Ad .*"
