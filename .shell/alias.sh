@@ -350,7 +350,6 @@ if [[ $(uname) == Linux ]]; then
   fi
 
   if type xclip > /dev/null 2>&1 ; then
-    alias xcp="xclip -selection clipboard"
     alias xcv="xclip -o"
   fi
 
@@ -437,7 +436,7 @@ if [[ $(uname -a) == *rasp* ]]; then
 fi
 
 
-# raspberrypi only
+# termux only
 if [[ $(uname -a) == *Android* ]]; then
   alias sshdup="termux-wake-lock && sshd"
 fi
