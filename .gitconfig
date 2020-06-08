@@ -40,3 +40,7 @@
   bclean       = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -n 1 git branch -d; }; f"
 [pull]
 	rebase = true
+[credential]
+  helper = osxkeychain
+  helper = manager
+  helper = store
