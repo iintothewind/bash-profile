@@ -65,3 +65,10 @@ if [[ $(uname) == Darwin ]]; then
     eval "$(jump shell --bind=z)"
   fi
 fi
+
+# termux only
+if [[ $(uname -a) == *Android* ]]; then
+  if [[ $(qps "/usr/bin/sshd") == "" ]]; then
+    termux-wake-lock && sshd
+  fi
+fi
