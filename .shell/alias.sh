@@ -431,8 +431,8 @@ if [[ $(uname -a) == *rasp* ]]; then
   if type supervisorctl > /dev/null 2>&1 ; then
     alias spup="supervisord -c $HOME/.supervisord_rasp.conf && supervisorctl status"
     alias spdown="supervisorctl shutdown"
+    alias cputemp='bcal "$(cat /sys/class/thermal/thermal_zone0/temp)/1000"'
   fi
-
 fi
 
 
