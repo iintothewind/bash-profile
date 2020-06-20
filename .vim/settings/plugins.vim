@@ -1,9 +1,9 @@
 " Load plug
 call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
-Plug 'derekwyatt/vim-scala', {'for': 'scala'}
+"Plug 'derekwyatt/vim-scala', {'for': 'scala'}
 Plug 'easymotion/vim-easymotion'
-Plug 'fatih/vim-go', {'for': 'go', 'tag':'*'}
+"Plug 'fatih/vim-go', {'for': 'go', 'tag':'*'}
 Plug 'godlygeek/tabular'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
@@ -13,7 +13,7 @@ Plug 'jonathanfilip/vim-lucius'
 Plug 'kien/rainbow_parentheses.vim'
 Plug 'matze/vim-move'
 Plug 'navicore/vissort.vim'
-Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
+"Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
 Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
 "Plug 'skywind3000/asyncrun.vim'
@@ -25,7 +25,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'valloric/ListToggle'
 Plug 'vim-scripts/LargeFile'
-Plug 'w0rp/ale', {'tag': '*'}
+"Plug 'w0rp/ale', {'tag': '*'}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 call plug#end()
@@ -278,23 +278,32 @@ let g:ycm_show_diagnostics_ui = 0
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_disable_for_files_larger_than_kb = 512
 let g:ycm_filetype_specific_completion_to_disable = {
-    \ 'gitcommit': 1
-    \}
+  \ 'gitcommit': 1
+  \ }
 let g:ycm_filetype_blacklist = {
-    \ 'tagbar'  : 1,
-    \ 'pandoc'  : 1,
-    \ 'infolog' : 1,
-    \}
+  \ 'tagbar'  : 1,
+  \ 'pandoc'  : 1,
+  \ 'infolog' : 1,
+  \ }
 let g:ycm_semantic_triggers =  {
-    \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-    \ 'cs,lua,javascript': ['re!\w{2}'],
-    \}
+  \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+  \ 'cs,lua,javascript': ['re!\w{2}'],
+  \ }
 
 " vim-auto-popmenu
 let g:apc_enable_ft = {'*' : 1}
 set cpt=.,k,w,b
 set shortmess+=c
 set completeopt=menu,menuone,noselect
+
+" vim-dict
+let g:vim_dict_dict = [
+  \ '~/.vim/dict',
+  \ ]
+let g:vim_dict_config = {
+  \ 'html':'html,javascript,css,text', 
+  \ 'markdown':'text',
+  \ }
 
 " asyncrun
 " asyncrun open on quickfix window at hight 6
