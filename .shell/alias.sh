@@ -406,9 +406,9 @@ if [[ $(uname) == Darwin ]]; then
     fi
   }
 
-  function killDaemons() {
-    if test -f /bin/launchctl ; then
-      sudo launchctl remove "com.absolute.abtsvcd"
+  function rmProfiles() {
+    if test -f /usr/local/bin/jamf; then
+      sudo jamf removeMdmProfile
     fi
   }
 
