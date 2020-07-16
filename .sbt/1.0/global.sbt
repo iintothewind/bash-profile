@@ -1,6 +1,6 @@
 cancelable in Global := true
 
-ensimeRepositoryUrls in ThisBuild += "http://maven.aliyun.com/nexus/content/groups/public"
+ensimeRepositoryUrls in ThisBuild += "https://maven.aliyun.com/nexus/content/groups/public"
 ensimeIgnoreScalaMismatch in ThisBuild := true
 ensimeJavaFlags in ThisBuild := Seq("-Xss512M", "-Xmx4G", "-XX:MaxMetaspaceSize=768M")
 
@@ -11,5 +11,5 @@ assemblyMergeStrategy in assembly := {
 
 resolvers ++= Seq(
   Resolver.mavenLocal,
-  MavenRepository("aliyun", "http://maven.aliyun.com/nexus/content/groups/public")
+  MavenRepository("aliyun", "https://maven.aliyun.com/nexus/content/groups/public")
 )
