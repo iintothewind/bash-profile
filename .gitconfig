@@ -12,8 +12,6 @@
   status       = auto
   branch       = auto
   interactive  = auto
-[credential]
-  helper       = cache --timeout 86400
 [http]
   sslVerify    = false
 [merge]
@@ -41,6 +39,6 @@
 [pull]
 	rebase = true
 [credential]
+  helper = cache --timeout=86400
   ;helper = osxkeychain
   ;helper = manager
-  helper = cache --timeout=86400
