@@ -62,6 +62,9 @@
   "vim.statusBarColors.visual": "#5F00AF",
   "vim.statusBarColors.visualblock": "#86592D",
   "vim.statusBarColors.replace": "#00000",
+  "vim.easymotionMarkerBackgroundColor": "#F0F0F0",
+  "vim.easymotionMarkerForegroundColorOneChar": "#FF0000",
+  "vim.easymotionMarkerForegroundColorTwoChar": "#FF0000",
   "vim.normalModeKeyBindingsNonRecursive": [
     {
       "before": ["leader", "f"],
