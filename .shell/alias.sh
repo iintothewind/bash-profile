@@ -66,7 +66,7 @@ function date_epoch() {
 
 function bcal() {
   if type bc > /dev/null 2>&1; then
-    printf '%.3f\n' "$(echo "scale=3; $@" | bc)"
+    printf '%.3f\n' "$(echo "scale=3; ${@:-`cat`}" | bc)"
   else
     echo "bc does not exist"
   fi
@@ -215,7 +215,6 @@ alias uu='cd ../../'
 alias uuu='cd ../../../'
 alias uuuu='cd ../../../../'
 alias uuuuu='cd ../../../../../'
-alias l='cd -'
 
 # greps
 alias grep='grep --color'
@@ -226,6 +225,7 @@ alias cpruv='cp -ruv '
 # utils
 alias sudo="sudo "
 alias h="cd ~"
+alias l="ls -thF"
 alias ll="ls -lthF"
 alias la="ls -lthFA"
 alias lh="ls -Ad .*"
@@ -350,6 +350,7 @@ if [[ $(uname) == Linux ]]; then
   fi
 
   if type xclip > /dev/null 2>&1 ; then
+    alias xcp="xclip -selection clipboard"
     alias xcv="xclip -o"
   fi
 
@@ -363,7 +364,7 @@ fi
 if [[ $(uname) == Darwin ]]; then
   alias rrc="source $HOME/.bash_profile"
   alias perf="top -l 1 -s 0 | awk ' /Processes/ || /PhysMem/ || /Load Avg/{print}'"
-  alias rmdstore='sudo find / -name ".DS_Store" -depth -exec rm {} \;'
+  alias rmdstore='find . -name ".DS_Store" -depth -exec rm {} \;'
   alias fip="ipconfig getifaddr en0"
   alias fixbrew="sudo chown -R \"$USER\":admin /usr/local"
   alias bru="brew update && brew upgrade && brew cleanup"
@@ -406,9 +407,9 @@ if [[ $(uname) == Darwin ]]; then
     fi
   }
 
-  function rmProfiles() {
-    if test -f /usr/local/bin/jamf; then
-      sudo jamf removeMdmProfile
+  function killDaemons() {
+    if test -f /bin/launchctl ; then
+      sudo launchctl remove "com.absolute.abtsvcd"
     fi
   }
 
@@ -431,12 +432,6 @@ if [[ $(uname -a) == *rasp* ]]; then
   if type supervisorctl > /dev/null 2>&1 ; then
     alias spup="supervisord -c $HOME/.supervisord_rasp.conf && supervisorctl status"
     alias spdown="supervisorctl shutdown"
-    alias cputemp='bcal "$(cat /sys/class/thermal/thermal_zone0/temp)/1000"'
   fi
-fi
 
-
-# termux only
-if [[ $(uname -a) == *Android* ]]; then
-  alias sshdup="termux-wake-lock && sshd"
 fi
