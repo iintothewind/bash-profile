@@ -3,7 +3,7 @@
   "target": "127.0.0.1:17626",
   "key": "very fast",
   "crypt": "aes",
-  "mode": "fast",
+  "mode": "fast2",
   "mtu": 1350,
   "sndwnd": 512,
   "rcvwnd": 512,
