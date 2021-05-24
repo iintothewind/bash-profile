@@ -1,9 +1,9 @@
 {
   "localaddr": ":17626",
-  "remoteaddr": "207.148.91.66:29900",
+  "remoteaddr": "141.164.50.135:29900",
   "key": "very fast",
   "crypt": "aes",
-  "mode": "fast",
+  "mode": "fast2",
   "mtu": 1350,
   "sndwnd": 512,
   "rcvwnd": 512,
