@@ -236,8 +236,9 @@ alias ffperm='find . -type f -exec chmod 644 {} \;'
 alias pth="echo $PATH | tr : \\\\n"
 
 if type exa > /dev/null 2>&1 ; then
-  alias ll="exa -lh --time-style=long-iso --sort=modified"
-  alias la="exa -lah --time-style=long-iso --sort=modified"
+  alias ll="exa -l --time-style=long-iso --sort=modified"
+  alias lh="exa -lh --time-style=long-iso --sort=modified"
+  alias la="exa -la --time-style=long-iso --sort=modified"
 fi
 
 if type git > /dev/null 2>&1 ; then
