@@ -12,6 +12,8 @@
   status       = auto
   branch       = auto
   interactive  = auto
+[credential]
+  helper       = cache --timeout 86400
 [http]
   sslVerify    = false
 [merge]
@@ -33,9 +35,28 @@
   wdiff        = diff --word-diff
   amend        = commit --amend -a
   last         = log -1
+  bclean       = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -n 1 git branch -d; }; f"
 [pull]
 	rebase = true
 [credential]
-  helper = cache --timeout=86400
   ;helper = osxkeychain
   ;helper = manager
+  helper = cache --timeout=86400
+
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[delta]
+    plus-style = "syntax #012800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    navigate = true
+    line-numbers = true
+
+[interactive]
+    diffFilter = delta --color-only
+
+

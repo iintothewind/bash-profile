@@ -215,6 +215,7 @@ alias uu='cd ../../'
 alias uuu='cd ../../../'
 alias uuuu='cd ../../../../'
 alias uuuuu='cd ../../../../../'
+alias l='cd -'
 
 # greps
 alias grep='grep --color'
@@ -225,7 +226,6 @@ alias cpruv='cp -ruv '
 # utils
 alias sudo="sudo "
 alias h="cd ~"
-alias l="ls -thF"
 alias ll="ls -lthF"
 alias la="ls -lthFA"
 alias lh="ls -Ad .*"
@@ -235,13 +235,18 @@ alias fdperm='find . -type d -exec chmod 755 {} \;'
 alias ffperm='find . -type f -exec chmod 644 {} \;'
 alias pth="echo $PATH | tr : \\\\n"
 
+if type exa > /dev/null 2>&1 ; then
+  alias ll="exa -lh --time-style=long-iso --sort=modified"
+  alias la="exa -lah --time-style=long-iso --sort=modified"
+fi
+
 if type git > /dev/null 2>&1 ; then
   alias gadd="git add"
   alias gbisect="git bisect"
   alias gbranch="git branch"
   alias gcheckout="git checkout"
   alias gclone="git clone"
-  alias gcommit="git commit"
+  alias gcm="git commit"
   alias gdif="git diff HEAD^ HEAD"
   alias gdiff="git diff"
   alias gdt="git difftool"
@@ -263,13 +268,6 @@ if type git > /dev/null 2>&1 ; then
   alias gstatus="git status"
   alias gstash="git stash"
   alias gtag="git tag"
-  function gcmm(){
-    if [ -n "$1" ]; then
-      git pull && git add --all && git commit -m "$1" && git push
-    else
-      echo 'Could not run command, please add a commit message! e.g. gcmm "commit message"';
-    fi
-  }
 fi
 
 
@@ -407,6 +405,12 @@ if [[ $(uname) == Darwin ]]; then
     fi
   }
 
+  function rmProfiles() {
+    if test -f /usr/local/bin/jamf; then
+      sudo jamf removeMdmProfile
+    fi
+  }
+
   function killDaemons() {
     if test -f /bin/launchctl ; then
       sudo launchctl remove "com.absolute.abtsvcd"
@@ -432,6 +436,12 @@ if [[ $(uname -a) == *rasp* ]]; then
   if type supervisorctl > /dev/null 2>&1 ; then
     alias spup="supervisord -c $HOME/.supervisord_rasp.conf && supervisorctl status"
     alias spdown="supervisorctl shutdown"
+    alias cputemp='bcal "$(cat /sys/class/thermal/thermal_zone0/temp)/1000"'
   fi
+fi
 
+
+# termux only
+if [[ $(uname -a) == *Android* ]]; then
+  alias sshdup="termux-wake-lock && sshd"
 fi
