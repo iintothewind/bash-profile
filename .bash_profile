@@ -29,6 +29,14 @@ if [[ "$SHELL" == "/usr/local/bin/bash" ]] && type gsed > /dev/null 2>&1 && test
   _bcpp --defaults
 fi
 
+if type zoxide > /dev/null 2>&1; then
+  eval "$(zoxide init bash --cmd z)"
+fi
+
+if type jump > /dev/null 2>&1; then
+  eval "$(jump shell --bind=j)"
+fi
+
 # linux only
 if [[ $(uname) == Linux ]]; then
   if test -f /etc/bashrc; then
@@ -37,11 +45,6 @@ if [[ $(uname) == Linux ]]; then
 
   if [[ $(alias ls 2> /dev/null) != *"color"* ]]; then
     alias ls="ls --show-control-chars --color=auto"
-  fi
-
-  # jump
-  if type jump > /dev/null 2>&1; then
-    eval "$(jump shell --bind=z)"
   fi
 fi
 
@@ -59,10 +62,6 @@ if [[ $(uname) == Darwin ]]; then
   # autojump
   if test -f $BREW_PREFIX/etc/profile.d/autojump.sh; then
     . $BREW_PREFIX/etc/profile.d/autojump.sh;
-  fi
-  # jump
-  if type jump > /dev/null 2>&1; then
-    eval "$(jump shell --bind=z)"
   fi
 fi
 
