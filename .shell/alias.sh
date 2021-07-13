@@ -277,7 +277,7 @@ if type aria2c > /dev/null 2>&1 ; then
 fi
 
 if type ssh-keygen > /dev/null 2>&1 ; then
-  alias sshkeygen="rm -f $HOME/ssh/id_rsa && ssh-keygen -q -t rsa -P "" -N "" -f ~/.ssh/id_rsa"
+  alias sshkeygen="rm -f $HOME/.ssh/id_rsa && ssh-keygen -q -t rsa -N '' -f $HOME/.ssh/id_rsa"
 fi
 
 if type ssserver > /dev/null 2>&1 ; then
