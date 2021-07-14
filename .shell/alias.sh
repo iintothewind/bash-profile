@@ -285,6 +285,22 @@ if type git > /dev/null 2>&1 ; then
   alias gtag="git tag"
 fi
 
+if type envsubst > /dev/null 2>&1 ; then
+  function env_subst() {
+    local templateFile=$1
+    local outputFile=$2
+    if test -f templateFile || test -z $outputFile; then
+      echo "template file or output file is invalid"
+      echo "usage: dump_config templatefile outputFile"
+    else
+      if [ ! -f "$outputFile" ]; then
+        cf_mdf $outputFile
+      fi
+      envsubst < $templateFile > $outputFile
+    fi
+  }
+fi
+
 
 if type aria2c > /dev/null 2>&1 ; then
   alias aria="aria2c --conf-path=$HOME/.config/aria2/aria2.conf -D"
