@@ -107,6 +107,20 @@ function md() {
   fi
 }
 
+function mdf() {
+  if [ ! -n "$1" ]; then
+    echo "enter a file name"
+    return 1
+  elif [ -f $1 ]; then
+    echo "$(dirname "$1") already exists"
+    return 1
+  else
+    mkdir -p $(dirname "$1")
+    return 0
+  fi
+}
+
+
 function bu() {
   if test -f $1; then
     cp $1 $1.`date +%Y%m%d%H%M%S`.backup;
