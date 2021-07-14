@@ -1,5 +1,15 @@
 #! /usr/bin/env bash
 
+function cf_get_or_default {
+  local input=$1
+  local default=$2
+  if [[ "$input" == "" || "$input" == null ]]; then
+    echo $default
+  else
+    echo $input
+  fi
+}
+
 function cf_is_number() {
   [[ $1 =~ ^[+-]?[0-9]+([.][0-9]+)?$ ]]
 }
