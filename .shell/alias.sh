@@ -472,6 +472,11 @@ if [[ $(uname -a) == *rasp* ]]; then
 fi
 
 
+# armbian only
+if type armbian-config > /dev/null 2>&1 ; then
+  alias cputemp='bcal "$(cat /sys/class/hwmon/hwmon0/temp1_input)/1000"'
+fi
+
 # termux only
 if [[ $(uname -a) == *Android* ]]; then
   alias sshdup="termux-wake-lock && sshd"
