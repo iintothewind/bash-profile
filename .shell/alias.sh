@@ -474,6 +474,10 @@ fi
 
 # armbian only
 if type armbian-config > /dev/null 2>&1 ; then
+  if type supervisorctl > /dev/null 2>&1 ; then
+    alias spup="supervisord -c $HOME/.supervisord_armbian.conf && supervisorctl status"
+    alias spdown="supervisorctl shutdown"
+  fi
   alias cputemp='bcal "$(cat /sys/class/hwmon/hwmon0/temp1_input)/1000"'
 fi
 
