@@ -133,9 +133,10 @@ vmap <leader>y "+y
 vmap <leader>d "+d<cr>
 
 " Enable 256 colors palette in Gnome Terminal
-if $COLORTERM == 'gnome-terminal'
-  set t_Co=256
-endif
+"if $COLORTERM == 'gnome-terminal'
+  "set t_Co=256
+"endif
+set t_Co=256
 
 set background=dark
 try
