@@ -321,6 +321,7 @@ let g:move_map_keys = 0
 let g:move_auto_indent = 1
 let g:move_past_end_of_line = 1
 
+" support combination keys, move selected block or line with alt + j,k,h,l
 if has("mac") || has("macunix")
   vmap ∆ <Plug>MoveBlockDown
   vmap ˚ <Plug>MoveBlockUp
