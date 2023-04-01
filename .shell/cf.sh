@@ -1,15 +1,5 @@
 #! /usr/bin/env bash
 
-function cf_get_or_default {
-  local input=$1
-  local default=$2
-  if [[ "$input" == "" || "$input" == null ]]; then
-    echo $default
-  else
-    echo $input
-  fi
-}
-
 function cf_is_number() {
   [[ $1 =~ ^[+-]?[0-9]+([.][0-9]+)?$ ]]
 }
@@ -131,5 +121,20 @@ function cf_unmount_ram() {
   else
     echo "this function works on mac only" >&2
     return 1
+  fi
+}
+
+
+function cf_convert_mp3_to_ogg()  {
+  local path=$1
+  if type ffmpeg > /dev/null 2>&1 && type parallel > /dev/null 2>&1; then
+    if test -d $path; then
+      find $path -iname "*.mp3" -type f | parallel -I% --max-args 1  \
+        "ffmpeg -i % -strict -2 -c:a opus -b:a 64K -map_metadata 0 -compression_level 10 -y %.ogg"
+    else
+      echo "path $path is invalid"
+    fi
+  else 
+    echo "ffmpeg or parallel is not installed"
   fi
 }

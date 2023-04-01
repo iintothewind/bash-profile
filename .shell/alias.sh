@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function qf() { find . -name "$@" -print ;}
+function qf() { find . -iname "$@" -print ;}
 function qenv() { env | fgrep "$@" ;}
 function qhs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
@@ -107,20 +107,6 @@ function md() {
   fi
 }
 
-function mdf() {
-  if [ ! -n "$1" ]; then
-    echo "enter a file name"
-    return 1
-  elif [ -f $1 ]; then
-    echo "$(dirname "$1") already exists"
-    return 1
-  else
-    mkdir -p $(dirname "$1")
-    return 0
-  fi
-}
-
-
 function bu() {
   if test -f $1; then
     cp $1 $1.`date +%Y%m%d%H%M%S`.backup;
@@ -198,6 +184,46 @@ function jsonfmt() {
     return 1
   fi
 }
+
+function chext() {
+  local path=$1
+  local oldExt=$2
+  local newExt=$3
+  if [[ -d $path && -n $oldExt && -n $newExt ]]; then
+    # temprarily navigate to given path
+    #pushd $path > /dev/null
+    find "$path" -type f -name "*.$oldExt" -exec sh -c 'mv "$0" "${0%.$1}.$2"' {} "$oldExt" "$newExt" \;
+    # navigate back 
+    #popd > /dev/null
+  else 
+    echo "chext path oldExt newExt"
+    echo "args: path oldExt newExt are required, extension name should not include dot (.) character"
+  fi
+}
+
+function renamex() {
+  local path=$1
+  local searchPattern=$2
+  local replaceRegex=$3
+
+  if [[ -n $path && -d $path && -n $searchPattern && -n $replaceRegex ]]; then
+    find "$path" -type f -name "$searchPattern" -print0 | while IFS= read -r -d '' file; do
+      newFile=$(echo "$file" | sed -r "$replaceRegex")
+      if [ "$file" != "$newFile" ]; then
+        mv -n "$file" "$newFile"
+        echo "Renamed $file to $newFile"
+      fi
+    done
+  else 
+    echo "renamex path searchPattern replaceRegex"
+    echo "args: path searchPattern replaceRegex are required"
+    echo "searchPattern is a name pattern for find"
+    echo "replaceRegex is an replace regex for sed"
+    echo "example: extract number in the middle: \"s/([a-z A-Z \s]+)([0-9]+)(.+)/snapshot_\2.png/\""
+    echo "example: remove chinese characters in the middle: \"s/([0-9]+)([^\x00-\xff]+)(\.[0-9 a-z]+)/\1\3/\""
+  fi
+}
+
 
 function sync_cfg() {
   if [[ $(pwd) == *bash-profile ]]; then
@@ -285,22 +311,6 @@ if type git > /dev/null 2>&1 ; then
   alias gtag="git tag"
 fi
 
-if type envsubst > /dev/null 2>&1 ; then
-  function env_subst() {
-    local templateFile=$1
-    local outputFile=$2
-    if test -f templateFile || test -z $outputFile; then
-      echo "template file or output file is invalid"
-      echo "usage: dump_config templatefile outputFile"
-    else
-      if [ ! -f "$outputFile" ]; then
-        cf_mdf $outputFile
-      fi
-      envsubst < $templateFile > $outputFile
-    fi
-  }
-fi
-
 
 if type aria2c > /dev/null 2>&1 ; then
   alias aria="aria2c --conf-path=$HOME/.config/aria2/aria2.conf -D"
@@ -357,7 +367,7 @@ function import_cert() {
   local keypass=${3}
   local keystore=${4:-$JAVA_HOME/jre/lib/security/cacerts}
   local storepass=${5:-changeit}
-  if test $keypass; then
+  if test -z $keypass; then
     keytool -importcert -keystore ${keystore} -storepass ${storepass} -file ${file} -alias ${alias} -keypass ${keypass}
   else
     keytool -importcert -keystore ${keystore} -storepass ${storepass} -file ${file} -alias ${alias}
@@ -436,30 +446,6 @@ if [[ $(uname) == Darwin ]]; then
     fi
   }
 
-  function rmProfiles() {
-    if test -f /usr/local/bin/jamf; then
-      sudo jamf removeMdmProfile
-    fi
-  }
-
-  function killDaemons() {
-    if test -f /bin/launchctl ; then
-      sudo launchctl remove "com.absolute.abtsvcd"
-    fi
-  }
-
-  function checkCaskUpgrade() {
-    if test -d /usr/local/Caskroom; then
-      for c in `ls /usr/local/Caskroom `; do
-        INFO=`brew cask info $c`
-        LATEST=`echo $INFO | head -n 1 | awk '{print $2}'`
-        if [ `brew cask info $c | tail -n +2 | grep $LATEST | wc -l | awk '{print $1}'` -eq 0 ]; then
-          echo $c
-        fi
-      done
-    fi
-  }
-
 fi
 
 # raspberrypi only
@@ -471,15 +457,6 @@ if [[ $(uname -a) == *rasp* ]]; then
   fi
 fi
 
-
-# armbian only
-if type armbian-config > /dev/null 2>&1 ; then
-  if type supervisorctl > /dev/null 2>&1 ; then
-    alias spup="supervisord -c $HOME/.supervisord_armbian.conf && supervisorctl status"
-    alias spdown="supervisorctl shutdown"
-  fi
-  alias cputemp='bcal "$(cat /sys/class/hwmon/hwmon0/temp1_input)/1000"'
-fi
 
 # termux only
 if [[ $(uname -a) == *Android* ]]; then

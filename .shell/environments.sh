@@ -3,7 +3,6 @@
 #export PS1="[\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]]\$ "
 export GIT_PS1_SHOWDIRTYSTATE=1
 export HISTTIMEFORMAT="%y-%m-%d %T "
-export HISTCONTROL=$HISTCONTROL:ignoredups
 export LC_CTYPE=zh_CN.UTF-8
 export LC_ALL=zh_CN.UTF-8
 
@@ -141,6 +140,6 @@ if [[ $(uname) == Darwin ]]; then
 
   # brew settings
   export HOMEBREW_NO_AUTO_UPDATE=1
-  export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.ustc.edu.cn/homebrew-bottles"
+  #export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
   #export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.shu.edu.cn/homebrew-bottles"
 fi
