@@ -129,8 +129,8 @@ function cf_convert_mp3_to_ogg()  {
   local path=$1
   if type ffmpeg > /dev/null 2>&1 && type parallel > /dev/null 2>&1; then
     if test -d $path; then
-      find $path -iname "*.mp3" -type f | parallel -I% --max-args 1  \
-        "ffmpeg -i % -strict -2 -c:a opus -b:a 64K -map_metadata 0 -compression_level 10 -y %.ogg"
+      find $path -iname "*.mp3" -type f | sed -r "s/\.mp3//" | parallel -I% --max-args 1  \
+        "ffmpeg -i %.mp3 -strict -2 -c:a opus -b:a 64K -map_metadata 0 -compression_level 10 -y %.ogg > /dev/null 2>&1 && echo 'converted %.mp3 to %.ogg'"
     else
       echo "path $path is invalid"
     fi
