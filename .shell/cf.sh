@@ -124,13 +124,28 @@ function cf_unmount_ram() {
   fi
 }
 
-function cf_convert_to_ogg()  {
+function cf_convert_to_opus()  {
   local path=$1
   local ext=$2
   if type ffmpeg > /dev/null 2>&1 && type parallel > /dev/null 2>&1; then
-    if [[ -d $path && -n ext ]]; then
-      find $path -iname "*.$ext" -type f | sed -r "s/\.$ext//" | parallel -I% --max-args 1  \
+    if [[ -d $path && -n $ext ]]; then
+      find $path -type f -iname "*.$ext" | sed -r "s/\.$ext//" | parallel -I% --max-args 1  \
         "ffmpeg -i %.$ext -strict -2 -c:a opus -b:a 64K -map_metadata 0 -compression_level 10 -y %.ogg > /dev/null 2>&1 && echo 'converted %.$ext to %.ogg'"
+    else
+      echo "path $path or extension $ext is invalid"
+    fi
+  else 
+    echo "ffmpeg or parallel is not installed"
+  fi
+}
+
+function cf_convert_to_orbis()  {
+  local path=$1
+  local ext=$2
+  if type ffmpeg > /dev/null 2>&1 && type parallel > /dev/null 2>&1; then
+    if [[ -d $path && -n $ext ]]; then
+      find $path -type f -iname "*.$ext" | sed -r "s/\.$ext//" | parallel -I% --max-args 1  \
+        "ffmpeg -i %.$ext -strict -2 -c:a libvorbis -b:a 64K -map_metadata 0 -compression_level 10 -y %.ogg > /dev/null 2>&1 && echo 'converted %.$ext to %.ogg'"
     else
       echo "path $path or extension $ext is invalid"
     fi
@@ -143,8 +158,8 @@ function cf_convert_to_m4a()  {
   local path=$1
   local ext=$2
   if type ffmpeg > /dev/null 2>&1 && type parallel > /dev/null 2>&1; then
-    if [[ -d $path && -n ext ]]; then
-      find $path -iname "*.$ext" -type f | sed -r "s/\.$ext//" | parallel -I% --max-args 1  \
+    if [[ -d $path && -n $ext ]]; then
+      find $path -type f -iname "*.$ext" | sed -r "s/\.$ext//" | parallel -I% --max-args 1  \
         "ffmpeg -i %.$ext -strict -2 -c:a aac -b:a 64K -map_metadata 0 -compression_level 10 -y %.m4a > /dev/null 2>&1 && echo 'converted %.$ext to %.m4a'"
     else
       echo "path $path or extension $ext is invalid"

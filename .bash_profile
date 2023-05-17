@@ -3,28 +3,28 @@ BREW_BIN="/usr/local/bin"
 BREW_PREFIX="/usr/local/opt"
 
 # custom functions
-if test -f $HOME/.shell/cf.sh; then
+if [[ -f $HOME/.shell/cf.sh ]]; then
   . $HOME/.shell/cf.sh
 fi
 
 # environments
-if test -f $HOME/.shell/environments.sh; then
+if [[ -f $HOME/.shell/environments.sh ]]; then
   . $HOME/.shell/environments.sh
 fi
 # proxy
-if test -f $HOME/.shell/proxy.sh; then
+if [[ -f $HOME/.shell/proxy.sh ]]; then
   . $HOME/.shell/proxy.sh
 fi
 # alias
-if test -f $HOME/.shell/alias.sh; then
+if [[ -f $HOME/.shell/alias.sh ]]; then
   . $HOME/.shell/alias.sh
 fi
 # prompt
-if test -f $HOME/.shell/prompt.sh; then
+if [[ -f $HOME/.shell/prompt.sh ]]; then
   . $HOME/.shell/prompt.sh
 fi
 # path completion
-if [[ "$SHELL" == "/usr/local/bin/bash" ]] && type gsed > /dev/null 2>&1 && test -f $HOME/.shell/path_completion.sh; then
+if type gsed > /dev/null 2>&1 && [[ "$SHELL" == "/usr/local/bin/bash" && -f $HOME/.shell/path_completion.sh ]]; then
   . $HOME/.shell/path_completion.sh
   _bcpp --defaults
 fi
