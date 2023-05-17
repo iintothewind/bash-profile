@@ -18,7 +18,7 @@ function tail_args() {
 function tgza() {
   local path=$1
   local file=$2
-  if [[ "$file" == *tgz || "$file" == *tar.gz ]] && test -d $path ; then
+  if [[ "$file" == *tgz || "$file" == *tar.gz ]] && [[ -d $path ]]; then
     echo "tar cvzf $file -C $path ."
     tar cvzf "$file" -C "$path" .
   else
@@ -30,7 +30,7 @@ function tgza() {
 }
 
 function tgzx() {
-  if [[ $# -ge 2 ]] && [[ "$1" == *tgz || "$1" == *tar.gz ]] && test -f "$1"; then
+  if [[ $# -ge 2 ]] && [[ "$1" == *tgz || "$1" == *tar.gz ]] && [[ -f "$1" ]]; then
     local tgzFile=$1
     local destPath=$2
     local extractFiles=$(echo $@ | cut -d' ' -f3-)
@@ -74,7 +74,7 @@ function bcal() {
 
 function ffmax() {
   if [[ $1 =~ ^[-+][0-9]+[MG]$ ]] && test -d ${2:-.}; then
-    find ${2:-.} -size ${1^^} -exec ls -lh {} \+ | sort -nr | sed "/^total.*$/d" | awk '{print $1,$3,$5,$9}'
+    find ${2:-.} -size ${1^^} -exec ls -lh {} \+ | sort -nr | sed "/^total.*$/d" | awk '{print $0}'
   else
     echo "wrong size format, should be e.g +2M,-6G, or input directory not existing"
   fi
@@ -142,10 +142,26 @@ function qjps() {
 }
 
 function lsjar() {
-  if type jar > /dev/null 2>&1 && [[ "$@" =~ .+.jar ]] && test -f $@; then
+  if type jar > /dev/null 2>&1 && [[ "$@" =~ .+.jar && -f $@ ]]; then
     jar -tf $@
   else
     echo "jar does not exist, or not an existing jar file"
+  fi
+}
+
+function findInJar() {
+  local path=$1
+  local file=$2
+  if type jar > /dev/null 2>&1 &&  [[ -d $path && -n $file ]]; then
+    find $path -type f -iname "*.jar" -print0 | while read -d $'\0' jarFile; do
+      if [[ -f "$jarFile" ]]; then
+        jar -tf "$jarFile" | while read -r line; do
+          if [[ "$line" == *"$file"* ]]; then
+            echo "$jarFile : $line"
+          fi
+        done
+      fi
+    done
   fi
 }
 
