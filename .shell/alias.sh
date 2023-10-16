@@ -391,6 +391,15 @@ function import_cert() {
 }
 fi
 
+if type openssl > /dev/null 2>&1 && type sed > /dev/null 2>&1; then
+function cf_download_cert() {
+  local remoteHost=${1}
+  local remotePort=${2:-443}
+  echo | openssl s_client -connect ${remoteHost}:${remotePort} 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
+}
+fi
+
+
 # linux only
 if [[ $(uname) == Linux ]]; then
   alias rrc="source $HOME/.bashrc"
