@@ -46,19 +46,21 @@ export WHITE
 export BOLD
 export RESET
 
-function parse_git_dirty() {
-  [[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
-}
+#function parse_git_dirty() {
+  #[[ $(git status 2> /dev/null | tail -n1) != *"working directory clean"* ]] && echo "*"
+#}
 
-function parse_git_branch() {
-  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
-}
+#function parse_git_branch() {
+  #git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/"
+#}
 
-if type git > /dev/null 2>&1 ; then
-  export PS1="\[${BOLD}${MAGENTA}\]\u\[$WHITE\] at \[$ORANGE\]\h\[$WHITE\] in \[$GREEN\]\W\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(if type parse_git_branch > /dev/null 2>&1; then parse_git_branch; else echo 'gitbranch'; fi)\[$WHITE\]\n\$ \[$RESET\]"
-  else
-  export PS1="[\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]]\$ "
-fi
+#if type git > /dev/null 2>&1 ; then
+  #export PS1="\[${BOLD}${MAGENTA}\]\u\[$WHITE\] at \[$ORANGE\]\h\[$WHITE\] in \[$GREEN\]\W\[$WHITE\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\[$PURPLE\]\$(if type parse_git_branch > /dev/null 2>&1; then parse_git_branch; else echo 'gitbranch'; fi)\[$WHITE\]\n\$ \[$RESET\]"
+  #else
+  #export PS1="[\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]]\$ "
+#fi
+
+export PS1="\[${BOLD}${MAGENTA}\]\u\[$WHITE\] at \[$ORANGE\]\h\[$WHITE\] in \[$GREEN\]\W\[$WHITE\]\n\$\[$RESET\] "
 
 # use default prompt for text mode
 #if [[ $(tty) == \/dev\/tty[0-6]* ]]; then
