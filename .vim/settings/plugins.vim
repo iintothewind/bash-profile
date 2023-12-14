@@ -1,6 +1,6 @@
 " Load plug
 call plug#begin('~/.vim/plugged')
-Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter', {'branch': 'main'}
 "Plug 'derekwyatt/vim-scala', {'for': 'scala'}
 Plug 'easymotion/vim-easymotion'
 "Plug 'fatih/vim-go', {'for': 'go', 'tag':'*'}
