@@ -5,13 +5,11 @@ Plug 'airblade/vim-gitgutter', {'branch': 'main'}
 Plug 'easymotion/vim-easymotion'
 "Plug 'fatih/vim-go', {'for': 'go', 'tag':'*'}
 Plug 'godlygeek/tabular'
-Plug 'haya14busa/incsearch-easymotion.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
-Plug 'haya14busa/incsearch.vim'
+Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/vim-cursorword'
 Plug 'liuchengxu/eleline.vim'
 Plug 'jonathanfilip/vim-lucius'
-Plug 'kien/rainbow_parentheses.vim'
+"Plug 'kien/rainbow_parentheses.vim'
 Plug 'matze/vim-move'
 Plug 'navicore/vissort.vim'
 "Plug 'neovimhaskell/haskell-vim', {'for': 'haskell'}
@@ -64,54 +62,59 @@ let g:rainbow_active = 1
 " rainbow_parentheses.vim
 let g:rbpt_max = 16
 let g:rbpt_loadcmd_toggle = 0
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
-au Syntax * RainbowParenthesesLoadBraces
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadBraces
 
 " smartim
 let g:smartim_default = 'com.apple.keylayout.ABC'
 
 " easymotion
+
+" Disable default mappings
+let g:EasyMotion_do_mapping = 0 
+
 " <Leader>f{char} to move to {char}
 nmap <silent> <Leader>f <Plug>(easymotion-overwin-f)
 " s{char}{char} to move to {char}{char}
-nmap <silent> <Leader>s <Plug>(easymotion-overwin-f2)
+"nmap <silent> <Leader>s <Plug>(easymotion-overwin-f2)
 " Move to word
 "nmap <silent> <Leader>w <Plug>(easymotion-overwin-w)
 
-function! s:incsearch_config(...) abort
-  return incsearch#util#deepextend(deepcopy({
-  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
-  \   'keymap': {
-  \     "\<CR>": '<Over>(easymotion)'
-  \   },
-  \   'is_expr': 0
-  \ }), get(a:, 1, {}))
-endfunction
+"function! s:incsearch_config(...) abort
+  "return incsearch#util#deepextend(deepcopy({
+  "\   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  "\   'keymap': {
+  "\     "\<CR>": '<Over>(easymotion)'
+  "\   },
+  "\   'is_expr': 0
+  "\ }), get(a:, 1, {}))
+"endfunction
 
-noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
-noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
-noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
+"noremap <silent><expr> /  incsearch#go(<SID>incsearch_config())
+"noremap <silent><expr> ?  incsearch#go(<SID>incsearch_config({'command': '?'}))
+"noremap <silent><expr> g/ incsearch#go(<SID>incsearch_config({'is_stay': 1}))
 
-function! s:config_easyfuzzymotion(...) abort
-  return extend(copy({
-  \   'converters': [incsearch#config#fuzzyword#converter()],
-  \   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
-  \   'keymap': {"\<CR>": '<Over>(easymotion)'},
-  \   'is_expr': 0,
-  \   'is_stay': 1
-  \ }), get(a:, 1, {}))
-endfunction
+"function! s:config_easyfuzzymotion(...) abort
+  "return extend(copy({
+  "\   'converters': [incsearch#config#fuzzyword#converter()],
+  "\   'modules': [incsearch#config#easymotion#module({'overwin': 1})],
+  "\   'keymap': {"\<CR>": '<Over>(easymotion)'},
+  "\   'is_expr': 0,
+  "\   'is_stay': 1
+  "\ }), get(a:, 1, {}))
+"endfunction
 
-noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
+"noremap <silent><expr> <Space>/ incsearch#go(<SID>config_easyfuzzymotion())
+
 
 "  YankStack
 "call yankstack#setup()
 "let g:yankstack_map_keys = 0
 "let g:yankstack_yank_keys = ['y', 'd']
 "nmap <silent> <leader>p <Plug>yankstack_substitute_older_paste
-"nmap <silent> <leader>P <Plug>yankstack_substitute_newer_paste
+"nmay <silent> <leader>P <Plug>yankstack_substitute_newer_paste
 
 " nerdcommenter
 nmap <Leader>/ <Plug>NERDCommenterToggle
