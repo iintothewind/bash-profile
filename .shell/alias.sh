@@ -4,7 +4,7 @@ function qf() { find . -iname "$@" -print ;}
 function qenv() { env | fgrep "$@" ;}
 function qhs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
-function lsf() { lsof -i -n -P | awk '{print $1,$2,$3,$5,$8,$9}' | grep ${@-""} ;}
+function lsf() { sudo lsof -i -n -P | awk '{print $1,$2,$3,$5,$8,$9}' | grep ${@-""} ;}
 
 function log() {
   local prefix="[$(date '+%Y-%m-%d %H:%M:%S')]"
@@ -422,6 +422,11 @@ if [[ $(uname) == Linux ]]; then
     alias spup="supervisord -c $HOME/.supervisord_server.conf && supervisorctl status"
     alias spdown="supervisorctl shutdown"
   fi
+
+  if type systemctl > /dev/null 2>&1 ; then
+    alias lsvc="systemctl list-units --type=service"
+  fi
+
 fi
 
 # mac only
