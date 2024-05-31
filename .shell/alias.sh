@@ -282,8 +282,8 @@ alias cpruv='cp -ruv '
 # utils
 alias sudo="sudo "
 alias h="cd ~"
-alias ll="ls -lthF"
-alias la="ls -lthFA"
+alias ll="ls -lthrF"
+alias la="ls -lthrFA"
 alias lh="ls -Ad .*"
 alias rm="rm -i"
 alias his="history 50"
