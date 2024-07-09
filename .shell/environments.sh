@@ -3,8 +3,14 @@
 #export PS1="[\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]]\$ "
 export GIT_PS1_SHOWDIRTYSTATE=1
 export HISTTIMEFORMAT="%y-%m-%d %T "
-export LC_CTYPE=zh_CN.UTF-8
-export LC_ALL=zh_CN.UTF-8
+#export LC_CTYPE=zh_CN.UTF-8
+#export LC_ALL=zh_CN.UTF-8
+
+if type rclone > /dev/null 2>&1; then
+  export RCLONE_PROGRESS=1
+  export RCLONE_MAX_DEPTH=1
+  export RCLONE_HUMAN_READABLE=1
+fi
 
 # linux only
 if [[ $(uname) == Linux ]]; then
