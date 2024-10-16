@@ -1,160 +1,147 @@
 {
-  "http.proxyStrictSSL": false,
-  "editor.fontSize": 10,
-  "editor.detectIndentation": true,
-  "editor.insertSpaces": true,
-  "editor.tabSize": 2,
-  "editor.cursorBlinking": "solid",
-  "editor.minimap.enabled": true,
-  "editor.minimap.renderCharacters": false,
-  "editor.minimap.maxColumn": 200,
-  "editor.minimap.showSlider": "always",
-  "editor.smoothScrolling": true,
-  "editor.cursorSmoothCaretAnimation": true,
-  "breadcrumbs.enabled": true,
-  "files.autoSave": "onFocusChange",
-  "files.trimTrailingWhitespace": true,
-  "files.exclude": {
-    "**/.vscode": true,
-    "**/.git": true,
-    "**/.svn": true,
-    "**/.hg": true,
-    "**/CVS": true,
-    "**/.DS_Store": true,
-    "**/*.pyc": true,
-    "**/*.swp": true,
-    "**/tmp": true,
-    "**/.idea": true,
-    "**/target": true,
-    "**/node_modules": true,
-    "**/bower_components": true,
-    "**/dist": true,
-    "**/.ensime*": true,
-    "**/*.sock": true,
-    "**/.classpath": true,
-    "**/.project": true,
-    "**/.settings": true,
-    "**/.factorypath": true
-  },
-  "files.watcherExclude": {
-    "**/.git/objects/**": true,
-    "**/.git/subtree-cache/**": true,
-    "**/.DS_Store": true,
-    "**/node_modules/**": true,
-    "**/tmp/**": true,
-    "**/bower_components/**": true,
-    "**/dist/**": true,
-    "**/.ensime*": true,
-    "**/*.sock": true
-  },
-  "window.menuBarVisibility": "hidden",
-  "window.openFilesInNewWindow": "default",
-  "window.title": "${dirty} ${activeEditorMedium}${separator}${rootName}",
-  "update.mode": "none",
-  "vim.leader": ";",
-  "vim.easymotion": true,
-  "vim.sneak": true,
-  "vim.visualstar": true,
-  "vim.incsearch": true,
-  "vim.statusBarColorControl": true,
-  "vim.statusBarColors.normal": "#0A68CC",
-  "vim.statusBarColors.insert": "#5F0000",
-  "vim.statusBarColors.visual": "#5F00AF",
-  "vim.statusBarColors.visualblock": "#86592D",
-  "vim.statusBarColors.replace": "#00000",
-  "vim.easymotionMarkerBackgroundColor": "#F0F0F0",
-  "vim.easymotionMarkerForegroundColorOneChar": "#FF0000",
-  "vim.easymotionMarkerForegroundColorTwoChar": "#FF0000",
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["leader", "f"],
-      "after": ["leader", "leader", "s"]
+    "http.proxyStrictSSL": false,
+    "editor.fontSize": 12,
+    "editor.detectIndentation": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.cursorBlinking": "solid",
+    "editor.minimap.enabled": true,
+    "editor.minimap.renderCharacters": false,
+    "editor.minimap.maxColumn": 200,
+    "editor.minimap.showSlider": "always",
+    "editor.smoothScrolling": true,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "breadcrumbs.enabled": true,
+    "files.autoSave": "onFocusChange",
+    "files.trimTrailingWhitespace": true,
+    "files.exclude": {
+      "**/.vscode": true,
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      "**/*.pyc": true,
+      "**/*.swp": true,
+      "**/tmp": true,
+      "**/.idea": true,
+      "**/target": true,
+      "**/node_modules": true,
+      "**/bower_components": true,
+      "**/dist": true,
+      "**/.ensime*": true,
+      "**/*.sock": true,
+      "**/.classpath": true,
+      "**/.project": true,
+      "**/.settings": true,
+      "**/.factorypath": true
     },
-    {
-      "before": ["leader", "t"],
-      "after": ["leader", "leader", "/"]
+    "files.watcherExclude": {
+      "**/.git/objects/**": true,
+      "**/.git/subtree-cache/**": true,
+      "**/.DS_Store": true,
+      "**/node_modules/**": true,
+      "**/tmp/**": true,
+      "**/bower_components/**": true,
+      "**/dist/**": true,
+      "**/.ensime*": true,
+      "**/*.sock": true
     },
-    {
-      "before": ["r"],
-      "after": ["<c-r>"]
+    "window.menuBarVisibility": "hidden",
+    "window.openFilesInNewWindow": "default",
+    "window.title": "${dirty} ${activeEditorMedium}${separator}${rootName}",
+    "update.mode": "none",
+    "vim.leader": ";",
+    "vim.easymotion": true,
+    "vim.sneak": true,
+    "vim.visualstar": true,
+    "vim.incsearch": true,
+    "vim.statusBarColorControl": true,
+    "vim.statusBarColors.normal": "#0A68CC",
+    "vim.statusBarColors.insert": "#5F0000",
+    "vim.statusBarColors.visual": "#5F00AF",
+    "vim.statusBarColors.visualblock": "#86592D",
+    "vim.statusBarColors.replace": "#00000",
+    "vim.easymotionMarkerBackgroundColor": "#F0F0F0",
+    "vim.easymotionMarkerForegroundColorOneChar": "#FF0000",
+    "vim.normalModeKeyBindingsNonRecursive": [
+      {
+        "before": ["leader", "f"],
+        "after": ["leader", "leader", "s"]
+      },
+      {
+        "before": ["leader", "t"],
+        "after": ["leader", "leader", "/"]
+      },
+      {
+        "before": ["r"],
+        "after": ["<c-r>"]
+      },
+      {
+        "before": ["<c-n>"],
+        "after": ["<c-d>"]
+      },
+      {
+        "before": ["g", "b"],
+        "after": ["g", "T"]
+      },
+      {
+        "before": ["leader", "p"],
+        "after": ["\"", "+", "p"]
+      },
+      {
+        "before":["<c-i>"],
+        "commands": ["workbench.action.navigateBack"]
+      },
+      {
+        "before":["<c-o>"],
+        "commands": ["workbench.action.navigateForward"]
+      },
+      {
+        "before": ["leader", "/"],
+        "commands": ["editor.action.commentLine"]
+      }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+      {
+        "before": ["leader", "d"],
+        "after": ["\"", "+", "d"]
+      },
+      {
+        "before": ["leader", "y"],
+        "after": ["\"", "+", "y"]
+      }
+    ],
+    "markdown.preview.linkify": false,
+    "markdownlint.config": {
+      "MD030": false,
+      "MD034": false,
+      "MD024": false,
+      "MD012": false,
+      "MD032": false,
+      "MD025": false
     },
-    {
-      "before": ["<c-n>"],
-      "after": ["<c-d>"]
+    "terminal.external.osxExec": "iTerm.app",
+    "java.errors.incompleteClasspath.severity": "ignore",
+    "workbench.colorCustomizations": {
+      "statusBar.background": "#005f87",
+      "statusBar.noFolderBackground": "#005f87",
+      "statusBar.debuggingBackground": "#005f87",
+      "statusBar.foreground": "#ffffff",
+      "statusBar.debuggingForeground": "#ffffff"
     },
-    {
-      "before": ["g", "b"],
-      "after": ["g", "T"]
-    },
-    {
-      "before": ["leader", "p"],
-      "after": ["\"", "+", "p"]
-    },
-    {
-      "before":["<c-i>"],
-      "commands": ["workbench.action.navigateBack"]
-    },
-    {
-      "before":["<c-o>"],
-      "commands": ["workbench.action.navigateForward"]
-    },
-    {
-      "before": ["leader", "/"],
-      "commands": ["editor.action.commentLine"]
-    }
-  ],
-  "vim.visualModeKeyBindingsNonRecursive": [
-    {
-      "before": ["leader", "d"],
-      "after": ["\"", "+", "d"]
-    },
-    {
-      "before": ["leader", "y"],
-      "after": ["\"", "+", "y"]
-    }
-  ],
-  "markdown.preview.linkify": false,
-  "markdownlint.config": {
-    "MD030": false,
-    "MD034": false,
-    "MD024": false,
-    "MD012": false,
-    "MD032": false,
-    "MD025": false
-  },
-  "terminal.external.osxExec": "iTerm.app",
-  "maven.terminal.useJavaHome": true,
-  "python.formatting.provider": "yapf",
-  "python.linting.pylintEnabled": false,
-  "java.home": "/Library/Java/JavaVirtualMachines/jdk1.8.0_231.jdk/Contents/Home",
-  "java.errors.incompleteClasspath.severity": "ignore",
-  "workbench.colorCustomizations": {
-    "statusBar.background": "#005f5f",
-    "statusBar.noFolderBackground": "#005f5f",
-    "statusBar.debuggingBackground": "#005f5f"
-  },
-  "extensions.ignoreRecommendations": true,
-  "python.venvPath": "~/.envs",
-  "workbench.editor.enablePreview": false,
-  "explorer.confirmDelete": false,
-  "window.zoomLevel": 0,
-  "git.enableSmartCommit": true,
-  "git.autofetch": true,
-  "java.jdt.ls.vmargs": "-noverify -Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication -javaagent:\"/Users/yinghchen/.vscode/extensions/gabrielbb.vscode-lombok-0.9.9/server/lombok.jar\"",
-  "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
-  "java.format.settings.profile": "GoogleStyle",
-  "editor.suggestSelection": "first",
-  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
-  "vsicons.dontShowNewVersionMessage": true,
-  "editor.wordWrapColumn": 300,
-  "python.jediEnabled": false,
-  "workbench.iconTheme": "vscode-icons",
-  "languageServerHaskell.hlintOn": true,
-  "languageServerHaskell.maxNumberOfProblems": 100,
-  "telemetry.enableCrashReporter": false,
-  "telemetry.enableTelemetry": false,
-  "workbench.settings.enableNaturalLanguageSearch": false,
-  "sync.quietSync": true,
-  "sync.autoDownload": true,
-  "sync.autoUpload": true
-}
+    "extensions.ignoreRecommendations": true,
+    "workbench.editor.enablePreview": false,
+    "explorer.confirmDelete": false,
+    "window.zoomLevel": 0,
+    "git.enableSmartCommit": true,
+    "git.autofetch": "all",
+    "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
+    "java.format.settings.profile": "GoogleStyle",
+    "editor.suggestSelection": "first",
+    "editor.wordWrapColumn": 300,
+    "workbench.iconTheme": "vscode-icons",
+    "telemetry.telemetryLevel": "off",
+    "workbench.settings.enableNaturalLanguageSearch": false,
+    "workbench.colorTheme": "Visual Studio Light",
+  }
