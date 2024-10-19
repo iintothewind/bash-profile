@@ -5,7 +5,7 @@
     "editor.insertSpaces": true,
     "editor.tabSize": 2,
     "editor.cursorBlinking": "solid",
-    "editor.minimap.enabled": true,
+    "editor.minimap.enabled": false,
     "editor.minimap.renderCharacters": false,
     "editor.minimap.maxColumn": 200,
     "editor.minimap.showSlider": "always",
@@ -133,7 +133,7 @@
     "extensions.ignoreRecommendations": true,
     "workbench.editor.enablePreview": false,
     "explorer.confirmDelete": false,
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
     "git.enableSmartCommit": true,
     "git.autofetch": "all",
     "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
@@ -144,4 +144,8 @@
     "telemetry.telemetryLevel": "off",
     "workbench.settings.enableNaturalLanguageSearch": false,
     "workbench.colorTheme": "Visual Studio Light",
+    "vim.commandLineModeKeyBindings": [
+
+    ],
+
   }
