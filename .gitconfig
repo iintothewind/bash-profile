@@ -33,8 +33,9 @@
   fetchall     = fetch -v --all
   st           = status
   wdiff        = diff --word-diff
-  amend        = commit --amend -a
-  last         = log -1
+  am           = commit --amend -a
+  ll           = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative
+  last         = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative -1
   bclean       = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -n 1 git branch -d; }; f"
 [pull]
 	rebase = true
