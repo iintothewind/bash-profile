@@ -192,9 +192,18 @@ function rgs() {
 }
 
 # used after a pipe, for example: echo '{ "k": "v"}' | cf_jsonfmt
-function jsonfmt() {
+function jsonFormat() {
   if type python > /dev/null 2>&1; then
     python -mjson.tool
+  else
+    echo "python is not found in PATH"
+    return 1
+  fi
+}
+
+function jsonEscape() {
+  if type python > /dev/null 2>&1; then
+    python -c 'import sys, json; print(json.dumps(sys.stdin.read().strip()))'
   else
     echo "python is not found in PATH"
     return 1
