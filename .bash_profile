@@ -7,6 +7,10 @@ if [[ -f $HOME/.shell/cf.sh ]]; then
   . $HOME/.shell/cf.sh
 fi
 
+if [[ -f $HOME/.shell/bark.sh ]]; then
+  . $HOME/.shell/bark.sh
+fi
+
 # environments
 if [[ -f $HOME/.shell/environments.sh ]]; then
   . $HOME/.shell/environments.sh
