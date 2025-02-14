@@ -46,23 +46,28 @@ function cf_json_escape() {
 # -u : user name, default value: $REQ_USER
 # -p : password, default value: $REQ_PWD
 # -l : request url, it can be full url (startsWith http://baseurl.com) or sub-path (/data/resource), default value: $REQ_BASE
+# -t : authorization token
 # -m : request method, default value: $REQ_METHOD
-# -d : request body, defaut read from stdin by cat
+# -d : request body, default read from stdin by cat
 function cf_req() {
   local OPTIND=1
-  local u;local p;local l;local m;local d;
-  while getopts ":u:p:l:m:d:" o; do
+  local u;local p;local l;local t;local m;local d;
+  while getopts ":u:p:l:t:m:d:" o; do
       case "${o}" in
           u)  u=${OPTARG} ;;
           p)  p=${OPTARG} ;;
           l)  l=${OPTARG} ;;
+          t)  t=${OPTARG} ;;
           m)  m=${OPTARG} ;;
           d)  d=${OPTARG} ;;
       esac
   done
+
   if type curl > /dev/null 2>&1; then
     if (test $u || test $REQ_USER) && (test $p || test $REQ_PWD); then
       echo $(curl -k -s -u ${u:-$REQ_USER}:${p:-$REQ_PWD} -X `cf_upper ${m:-$REQ_METHOD}` -H "Accept: application/json" -H "Content-Type: application/json" $(cf_compose_url $l $REQ_BASE) -d @<(if test "GET" = `cf_upper ${m:-$REQ_METHOD}` || test "DELETE" = `cf_upper ${m:-$REQ_METHOD}`; then echo ""; else echo ${d:-`cat`}; fi))
+    elif (test $t); then
+      echo $(curl -k -s -X `cf_upper ${m:-$REQ_METHOD}` -H "Accept: application/json" -H "Content-Type: application/json" -H "Authorization: Bearer $t" $(cf_compose_url $l $REQ_BASE) -d @<(if test "GET" = `cf_upper ${m:-$REQ_METHOD}` || test "DELETE" = `cf_upper ${m:-$REQ_METHOD}`; then echo ""; else echo ${d:-`cat`}; fi))
     else
       echo $(curl -k -s -X `cf_upper ${m:-$REQ_METHOD}` -H "Accept: application/json" -H "Content-Type: application/json" $(cf_compose_url $l $REQ_BASE) -d @<(if test "GET" = `cf_upper ${m:-$REQ_METHOD}` || test "DELETE" = `cf_upper ${m:-$REQ_METHOD}`; then echo ""; else echo ${d:-`cat`}; fi))
     fi
