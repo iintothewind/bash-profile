@@ -8,7 +8,7 @@ if [[ -f $HOME/.shell/cf.sh ]]; then
     local msgContent=$(echo "${1:-`cat`}" | cf_json_escape)
     local msgSuffix='}'
 
-    echo "${msgPrefix}${msgContent}${msgSuffix}" | cf_req -l $url -m "POST" | cf_json_format
+    echo "${msgPrefix}${msgContent}${msgSuffix}" | cf_req -l $url -m post 
   }
 
   function cf_bark_ashley() {
@@ -17,7 +17,7 @@ if [[ -f $HOME/.shell/cf.sh ]]; then
     local msgContent=$(echo "${1:-`cat`}" | cf_json_escape)
     local msgSuffix='}'
 
-    echo "${msgPrefix}${msgContent}${msgSuffix}" | cf_req -l $url -m "POST" | cf_json_format
+    echo "${msgPrefix}${msgContent}${msgSuffix}" | cf_req -l $url -m post 
   }
 
 fi
