@@ -30,8 +30,14 @@ if [[ $(uname) == Linux ]]; then
 
   # Go Environments
   if type go > /dev/null 2>&1 ; then
-    export GOPATH="$HOME/.go"
+    export GO_PATH="$HOME/.go"
     export PATH="$PATH:$GOPATH/bin"
+  fi
+
+  # Rust Environments
+  if type rustc > /dev/null 2>&1 ; then
+    export RUST_PATH="$HOME/.cargo/env"
+    export PATH="$PATH:$RUST_PATH"
   fi
 
   pyversion=$(python --version 2>&1)
