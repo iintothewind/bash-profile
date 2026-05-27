@@ -1,0 +1,2 @@
+# Shell scripts: always LF (Unix) in repo and on checkout
+*.sh text eol=lf
