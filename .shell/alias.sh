@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function qf() { find . -iname "$@" -print ;}
+function qf() { find . -iname "$1" -print ;}
 function qenv() { env | fgrep "$@" ;}
 function qhs() { history | fgrep "$@" | fgrep -v fgrep ;}
 function qals() { alias | fgrep "$@" | fgrep -v fgrep ;}
@@ -298,7 +298,7 @@ alias rm="rm -i"
 alias his="history 50"
 alias fdperm='find . -type d -exec chmod 755 {} \;'
 alias ffperm='find . -type f -exec chmod 644 {} \;'
-alias pth="echo $PATH | tr : \\\\n"
+alias pth='echo $PATH | tr : \\n'
 
 if type exa > /dev/null 2>&1 ; then
   alias ll="exa -l --time-style=long-iso --sort=modified"
@@ -342,7 +342,14 @@ if type aria2c > /dev/null 2>&1 ; then
 fi
 
 if type ssh-keygen > /dev/null 2>&1 ; then
-  alias sshkeygen="rm -f $HOME/.ssh/id_* && ssh-keygen -q -t rsa -N '' -f $HOME/.ssh/id_rsa"
+  function sshkeygen() {
+    echo "WARNING: This will remove ALL existing SSH keys in ~/.ssh and generate new ones."
+    read -p "Are you sure? [y/N] " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      rm -f "$HOME/.ssh/id_*" && ssh-keygen -q -t rsa -N '' -f "$HOME/.ssh/id_rsa"
+    fi
+  }
 fi
 
 if type ssserver > /dev/null 2>&1 ; then
@@ -359,20 +366,7 @@ if test -f /usr/local/kcptun/server_linux_amd64 && test -f /usr/local/kcptun/ser
   alias kcpsrvup="/usr/local/kcptun/server_linux_amd64 -c /usr/local/kcptun/server-config.json"
 fi
 
-if type vagrant > /dev/null 2>&1 ; then
-  alias vinit="vagrant init"
-  alias vup="vagrant up"
-  alias vssh="vagrant ssh"
-  alias vsuspend="vagrant suspend"
-  alias vresume="vagrant resume"
-  alias vreload="vagrant load"
-  alias vhalt="vagrant halt"
-  alias vport="vagrant port"
-  alias vbox="vagrant box"
-  alias vdestroy="vagrant destroy"
-  alias vpackage="vagrant package"
-  alias vpush="vagrant push"
-fi
+
 
 if type VBoxManage > /dev/null 2>&1 ; then
   alias vlsvm="VBoxManage list vms"
@@ -392,10 +386,10 @@ function import_cert() {
   local keypass=${3}
   local keystore=${4:-$JAVA_HOME/jre/lib/security/cacerts}
   local storepass=${5:-changeit}
-  if test -z $keypass; then
-    keytool -importcert -keystore ${keystore} -storepass ${storepass} -file ${file} -alias ${alias} -keypass ${keypass}
+  if test -n "$keypass"; then
+    keytool -importcert -keystore "${keystore}" -storepass "${storepass}" -file "${file}" -alias "${alias}" -keypass "${keypass}"
   else
-    keytool -importcert -keystore ${keystore} -storepass ${storepass} -file ${file} -alias ${alias}
+    keytool -importcert -keystore "${keystore}" -storepass "${storepass}" -file "${file}" -alias "${alias}"
   fi
 }
 fi
@@ -412,7 +406,14 @@ fi
 # linux only
 if [[ $(uname) == Linux ]]; then
   alias rrc="source $HOME/.bashrc"
-  alias rmrtlan="sudo route del default enp0s31f6"
+  function rmrtlan() {
+    echo "WARNING: This will delete the default route and disconnect the network!"
+    read -p "Are you sure? [y/N] " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      sudo route del default enp0s31f6
+    fi
+  }
   alias scrnoff="xset dpms force off "
   if type gvim > /dev/null 2>&1 ; then
     alias vim="gvim -v"
