@@ -19,7 +19,6 @@ set autoread
 set autowrite
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ";"
 let g:mapleader = ";"
 
 " Fast saving
@@ -29,26 +28,17 @@ let g:mapleader = ";"
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
-" Set 7 lines to the cursor - when moving vertically using j/k
-" set so=7
-
-set helplang=cn
-" set encoding
-if has("multi_byte")
-  set encoding=utf-8
-  set termencoding=utf-8
-  set formatoptions+=mM
-  set fencs=utf-8,gbk
-  if v:lang =~? '^/(zh/)/|/(ja/)/|/(ko/)'
-    set ambiwidth=double
-  endif
-  if has("win32")
-    source $VIMRUNTIME/delmenu.vim
-    source $VIMRUNTIME/menu.vim
-    language messages zh_CN.utf-8
-  endif
-else
-  echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
+" Set utf8 as standard encoding
+set encoding=utf-8
+set termencoding=utf-8
+set fencs=utf-8,gbk
+if v:lang =~? '^/(zh/)/|/(ja/)/|/(ko/)'
+  set ambiwidth=double
+endif
+if has("win32")
+  source $VIMRUNTIME/delmenu.vim
+  source $VIMRUNTIME/menu.vim
+  language messages zh_CN.utf-8
 endif
 
 " Turn on the WiLd menu
@@ -159,7 +149,7 @@ if has('gui_running')
   nnoremap <leader><F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 endif
 " Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
+set encoding=utf-8
 
 " Use Unix as the standard file type
 set ff=unix
@@ -191,31 +181,30 @@ set wrap
 
 
 " Disable highlight when <leader><cr> is pressed
-map <silent> <F2> :noh<cr>
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+nnoremap <silent> <F2> :noh<cr>
+nnoremap <C-j> <C-W>j
+nnoremap <C-k> <C-W>k
+nnoremap <C-h> <C-W>h
+nnoremap <C-l> <C-W>l
 
 " map macro recording from q to leader-q
 noremap <Leader>q q
 noremap q <Nop>
 
 " map redo C-r to r
-map <silent> r :red<cr>
+nnoremap <silent> r :red<cr>
 
 " Useful mappings for managing tabs
-map <silent> gb :tabprev<cr>
+nnoremap <silent> gb :tabprev<cr>
 "map <silent> gt :tabnext<cr>
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <leader>tl :exe "tabn ".g:lasttab<CR>
+nnoremap <leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 " Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
 try
@@ -243,4 +232,4 @@ set statusline +=[TYPE=%Y]
 set statusline +=[POS=%l/%L(%p%%),%v]
 
 " Remap VIM 0 to first non-blank character
-map 0 ^
+nnoremap 0 ^
