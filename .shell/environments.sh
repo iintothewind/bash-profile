@@ -30,14 +30,13 @@ if [[ $(uname) == Linux ]]; then
 
   # Go Environments
   if type go > /dev/null 2>&1 ; then
-    export GO_PATH="$HOME/.go"
+    export GOPATH="$HOME/.go"
     export PATH="$PATH:$GOPATH/bin"
   fi
 
   # Rust Environments
   if type rustc > /dev/null 2>&1 ; then
-    export RUST_PATH="$HOME/.cargo/env"
-    export PATH="$PATH:$RUST_PATH"
+    export PATH="$PATH:$HOME/.cargo/bin"
   fi
 
   pyversion=$(python --version 2>&1)
@@ -147,7 +146,7 @@ if [[ $(uname) == Darwin ]]; then
 
   # gnuman
   if [[ -d $BREW_PREFIX/coreutils/libexec/gnuman ]]; then
-    export MANPTH="$BREW_PREFIX/coreutils/libexec/gnuman:$MANPATH"
+    export MANPATH="$BREW_PREFIX/coreutils/libexec/gnuman:$MANPATH"
   fi
 
   # brew settings

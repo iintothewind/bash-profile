@@ -18,49 +18,82 @@ function tail_args() {
 function tgza() {
   local path=$1
   local file=$2
-  if [[ "$file" == *tgz || "$file" == *tar.gz ]] && [[ -d $path ]]; then
-    echo "tar cvzf $file -C $path ."
-    tar cvzf "$file" -C "$path" .
-  else
+  if [[ $# -lt 2 ]]; then
     echo "tgza <src-path> <dest-file>"
     echo "alias for: tar cvzf <dest-file.tgz> -C <src-path> ."
-    echo "dest-file is required to be ended with .tgz or tar.gz"
-    echo "src-path must be existing"
+    echo "dest-file is required to be ended with .tgz or .tar.gz"
+    return 1
   fi
+  if [[ ! -d "$path" ]]; then
+    echo "src-path must be existing: $path"
+    return 1
+  fi
+  case "$file" in
+    *.tgz|*.tar.gz) ;;
+    *)
+      echo "dest-file must end with .tgz or .tar.gz: $file"
+      return 1
+      ;;
+  esac
+  echo "tar cvzf $file -C $path ."
+  tar cvzf "$file" -C "$path" .
 }
 
 function tgzx() {
-  if [[ $# -ge 2 ]] && [[ "$1" == *tgz || "$1" == *tar.gz ]] && [[ -f "$1" ]]; then
-    local tgzFile=$1
-    local destPath=$2
-    local extractFiles=$(echo $@ | cut -d' ' -f3-)
-    echo "tar xvzf $tgzFile -C $destPath $extractFiles"
-
-    mkdir -p "$destPath"
-    tar xvzf "$tgzFile" -C "$destPath" $extractFiles
-  else
+  if [[ $# -lt 2 ]]; then
     echo "tgzx <src-file> <dest-path> [extract-files]"
     echo "alias for: tar xvzf <src-file> -C <dest-path> [extract-files]"
     echo "list files in tgz: tar vtf <src-file>"
-    echo "src-file must be existing"
+    return 1
   fi
+  if [[ ! -f "$1" ]]; then
+    echo "src-file must be existing: $1"
+    return 1
+  fi
+  case "$1" in
+    *.tgz|*.tar.gz|*.gz) ;;
+    *)
+      echo "src-file must end with .tgz, .tar.gz, or .gz: $1"
+      return 1
+      ;;
+  esac
+
+  local tgzFile=$1
+  local destPath=$2
+  shift 2
+  echo "tar xvzf $tgzFile -C $destPath $*"
+
+  mkdir -p "$destPath"
+  tar xvzf "$tgzFile" -C "$destPath" "$@"
 }
 
 function epoch_date() {
-  local input=$@
+  local input="$*"
   if [[ $input =~ ^[0-9]{10,}$ ]]; then
-    date -d "@${input:0:10}" "+%Y-%m-%d %H:%M:%S" ;
+    local epoch="${input:0:10}"
+    if [[ $(uname) == Darwin ]]; then
+      date -r "$epoch" "+%Y-%m-%d %H:%M:%S"
+    else
+      date -d "@$epoch" "+%Y-%m-%d %H:%M:%S"
+    fi
   else
-    echo invalid epoch format, current epoch: `date +%s` date: `date "+%Y-%m-%d %H:%M:%S"`
+    echo invalid epoch format, current epoch: $(date +%s) date: $(date "+%Y-%m-%d %H:%M:%S")
   fi
 }
 
 function date_epoch() {
-  local input=$@
+  local input="$*"
   if [[ $input =~ ^[1-9][0-9]{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]).+(20|21|22|23|[0-1][0-9]):[0-5][0-9]:[0-5][0-9]$ ]]; then
-    date -d "${input:0}" "+%s" ;
+    if [[ $(uname) == Darwin ]]; then
+      local d t
+      d=$(echo "$input" | grep -oE '[0-9]{4}-[0-9]{2}-[0-9]{2}')
+      t=$(echo "$input" | grep -oE '[0-9]{2}:[0-9]{2}:[0-9]{2}$')
+      date -j -f "%Y-%m-%d %H:%M:%S" "$d $t" "+%s"
+    else
+      date -d "$input" "+%s"
+    fi
   else
-    echo invalid date format, current date: `date "+%Y-%m-%d %H:%M:%S"` epoch: `date +%s`
+    echo invalid date format, current date: $(date "+%Y-%m-%d %H:%M:%S") epoch: $(date +%s)
   fi
 }
 
@@ -73,8 +106,12 @@ function bcal() {
 }
 
 function ffmax() {
-  if [[ $1 =~ ^[-+][0-9]+[MG]$ ]] && test -d ${2:-.}; then
-    find ${2:-.} -size ${1^^} -exec ls -lh {} \+ | sort -nr | sed "/^total.*$/d" | awk '{print $0}'
+  local size_arg="$1"
+  local dir="${2:-.}"
+  local size_upper
+  if [[ $size_arg =~ ^[-+][0-9]+[MG]$ ]] && test -d "$dir"; then
+    size_upper=$(echo "$size_arg" | tr '[:lower:]' '[:upper:]')
+    find "$dir" -size "$size_upper" -exec ls -lh {} \+ | sort -nr | sed "/^total.*$/d" | awk '{print $0}'
   else
     echo "wrong size format, should be e.g +2M,-6G, or input directory not existing"
   fi
@@ -90,37 +127,37 @@ function qps() {
 }
 
 function catdup() {
-  if test -f $@ && [[ `file $@` =~ .+.text ]]; then
-    cat $@ | sort | uniq -dc
+  if [[ -f "$1" ]] && file -b "$1" | grep -qi 'text'; then
+    sort "$1" | uniq -dc
   else
     echo "input file does not exist or not a text file"
   fi
 }
 
 function md() {
-  if [ ! -n "$1" ]; then
+  if [ -z "$1" ]; then
     echo "enter a name for this folder"
-  elif [ -d $1 ]; then
+  elif [ -d "$1" ]; then
     echo "$1 already exists"
   else
-    mkdir -p $1 && cd $1 && pwd
+    mkdir -p "$1" && cd "$1" && pwd
   fi
 }
 
 function bu() {
-  if test -f $1; then
-    cp $1 $1.`date +%Y%m%d%H%M%S`.backup;
+  if test -f "$1"; then
+    cp "$1" "$1.$(date +%Y%m%d%H%M%S).backup"
   else
     echo "$1 does not exist"
   fi
 }
 
 function fips() {
+  local list=""
   if type ip > /dev/null 2>&1 ; then
-    local list=$(ip -o -4 addr list | awk '{print $4}' | cut -d'/' -f1 | tr '\n' ',')
-  fi
-  if type ifconfig > /dev/null 2>&1 ; then
-    local list=$(ifconfig | grep "inet " | awk '{print $2}' | sed 's/addr://' | tr '\n' ',')
+    list=$(ip -o -4 addr list | awk '{print $4}' | cut -d'/' -f1 | tr '\n' ',')
+  elif type ifconfig > /dev/null 2>&1 ; then
+    list=$(ifconfig | grep "inet " | awk '{print $2}' | sed 's/addr://' | tr '\n' ',')
   fi
   echo ${list%,}
 }
@@ -142,8 +179,8 @@ function qjps() {
 }
 
 function lsjar() {
-  if type jar > /dev/null 2>&1 && [[ "$@" =~ .+.jar && -f $@ ]]; then
-    jar -tf $@
+  if type jar > /dev/null 2>&1 && [[ -f "$1" && "$1" == *.jar ]]; then
+    jar -tf "$1"
   else
     echo "jar does not exist, or not an existing jar file"
   fi
@@ -152,8 +189,8 @@ function lsjar() {
 function findInJar() {
   local path=$1
   local file=$2
-  if type jar > /dev/null 2>&1 &&  [[ -d $path && -n $file ]]; then
-    find $path -type f -iname "*.jar" -print0 | while read -d $'\0' jarFile; do
+  if type jar > /dev/null 2>&1 && [[ -d "$path" && -n "$file" ]]; then
+    find "$path" -type f -iname "*.jar" -print0 | while read -d $'\0' jarFile; do
       if [[ -f "$jarFile" ]]; then
         jar -tf "$jarFile" | while read -r line; do
           if [[ "$line" == *"$file"* ]]; then
@@ -162,14 +199,17 @@ function findInJar() {
         done
       fi
     done
+  else
+    echo "findInJar <path> <filename-pattern>"
+    echo "jar must exist; path must be a directory; filename pattern is required"
   fi
 }
 
 function ags() {
   if type ag > /dev/null 2>&1; then
     echo "ag [--support-type] pattern [path]"
-    if [[ $@ != "" ]]; then
-      ag --list-file-types | grep $@
+    if [[ $# -gt 0 ]]; then
+      ag --list-file-types | grep "$@"
     else
       echo "please give a file extension to search the support type"
     fi
@@ -181,8 +221,8 @@ function ags() {
 function rgs() {
   if type rg > /dev/null 2>&1; then
     echo "rg [-t support-type] pattern [path]"
-    if [[ $@ != "" ]]; then
-      rg --type-list | grep $@
+    if [[ $# -gt 0 ]]; then
+      rg --type-list | grep "$@"
     else
       echo "please give a file extension to search the support type"
     fi
@@ -214,7 +254,7 @@ function chext() {
   local path=$1
   local oldExt=$2
   local newExt=$3
-  if [[ -d $path && -n $oldExt && -n $newExt ]]; then
+  if [[ -d "$path" && -n "$oldExt" && -n "$newExt" ]]; then
     # temprarily navigate to given path
     #pushd $path > /dev/null
     find "$path" -type f -name "*.$oldExt" -exec sh -c 'mv "$0" "${0%.$1}.$2"' {} "$oldExt" "$newExt" \;
@@ -377,21 +417,21 @@ if type keytool > /dev/null 2>&1 && [[ $JAVA_HOME != "" ]]; then
   function list_cert() {
     local keystore=${1:-$JAVA_HOME/jre/lib/security/cacerts}
     local storepass=${2:-changeit}
-    keytool -list -keystore $keystore -storepass $storepass
+    keytool -list -keystore "$keystore" -storepass "$storepass"
   }
 
-function import_cert() {
-  local file=${1}
-  local alias=${2}
-  local keypass=${3}
-  local keystore=${4:-$JAVA_HOME/jre/lib/security/cacerts}
-  local storepass=${5:-changeit}
-  if test -n "$keypass"; then
-    keytool -importcert -keystore "${keystore}" -storepass "${storepass}" -file "${file}" -alias "${alias}" -keypass "${keypass}"
-  else
-    keytool -importcert -keystore "${keystore}" -storepass "${storepass}" -file "${file}" -alias "${alias}"
-  fi
-}
+  function import_cert() {
+    local file=${1}
+    local cert_alias=${2}
+    local keypass=${3}
+    local keystore=${4:-$JAVA_HOME/jre/lib/security/cacerts}
+    local storepass=${5:-changeit}
+    if test -n "$keypass"; then
+      keytool -importcert -keystore "${keystore}" -storepass "${storepass}" -file "${file}" -alias "${cert_alias}" -keypass "${keypass}"
+    else
+      keytool -importcert -keystore "${keystore}" -storepass "${storepass}" -file "${file}" -alias "${cert_alias}"
+    fi
+  }
 fi
 
 if type openssl > /dev/null 2>&1 && type sed > /dev/null 2>&1; then
