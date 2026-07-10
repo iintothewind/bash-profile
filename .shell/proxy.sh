@@ -3,14 +3,14 @@
 function shellProxy() {
   if [ "$1" == "" ] || [ "$2" == "" ]; then
     echo "proxy host and port are required"
+    return 1
+  fi
+  if [ "$3" != "" ] && [ "$4" != "" ]; then
+    export http_proxy=http://$3:$4@$1:$2
+    export https_proxy=http://$3:$4@$1:$2
   else
-    if [ "$3" != "" ] && [ "$4" != "" ]; then
-      export http_proxy=http://$3:$4@$1:$2
-      export https_proxy=http://$3:$4@$1:$2
-    else
-      export http_proxy=http://$1:$2
-      export https_proxy=http://$1:$2
-    fi
+    export http_proxy=http://$1:$2
+    export https_proxy=http://$1:$2
   fi
   return 0
 }
@@ -38,6 +38,7 @@ function sysProxy() {
     done
   else
     echo "mac only, proxy host and port are required"
+    return 1
   fi
   return 0
 }
@@ -55,6 +56,7 @@ function javaProxy() {
     fi
   else
     echo "proxy host and port are required"
+    return 1
   fi
   return 0
 }
@@ -68,6 +70,7 @@ function pacProxy() {
     done
   else
     echo "pac file is required"
+    return 1
   fi
   return 0
 }
