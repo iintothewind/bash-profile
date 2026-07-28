@@ -1,2 +1,50 @@
-# Shell scripts: always LF (Unix) in repo and on checkout
+# Force LF for all text files in the repo and on checkout
+* text=auto eol=lf
+
+# Explicit text types
 *.sh text eol=lf
+*.bash text eol=lf
+*.zsh text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.toml text eol=lf
+*.xml text eol=lf
+*.conf text eol=lf
+*.cfg text eol=lf
+*.ini text eol=lf
+*.properties text eol=lf
+*.vim text eol=lf
+*.rc text eol=lf
+*.sc text eol=lf
+*.sbt text eol=lf
+*.pac text eol=lf
+*.cnx text eol=lf
+
+# Dotfiles / profiles without extensions
+.bash_profile text eol=lf
+.bashrc text eol=lf
+.profile text eol=lf
+.gitconfig text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+.dir_colors text eol=lf
+.npmrc text eol=lf
+.gemrc text eol=lf
+.ghci text eol=lf
+.ideavimrc text eol=lf
+.vimrc text eol=lf
+.tmux.conf text eol=lf
+.polipo text eol=lf
+
+# Binary
+*.jar binary
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.ttf binary
+*.pdf binary
