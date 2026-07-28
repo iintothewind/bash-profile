@@ -12,72 +12,58 @@ if type rclone > /dev/null 2>&1; then
   export RCLONE_HUMAN_READABLE=1
 fi
 
+_SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
+
+# ./local/bin
+[[ -d $HOME/.local/bin ]] && export PATH="$PATH:$HOME/.local/bin"
+
+# bun
+[[ -d $HOME/.bun/bin ]] && export PATH="$PATH:$HOME/.bun/bin"
+
+# Go Environments
+if type go > /dev/null 2>&1; then
+  export GOPATH="$HOME/.go"
+  export PATH="$PATH:$GOPATH/bin"
+fi
+
+# JavaScript Environments
+if type npm > /dev/null 2>&1 && [[ -d $HOME/.npm/modules ]]; then
+  export PATH="$PATH:$HOME/.npm/modules/bin"
+fi
+
 # linux only
 if [[ $(uname) == Linux ]]; then
-  # ./local/bin
-  if [[ -d $HOME/.local/bin ]]; then
-    export PATH="$PATH:$HOME/.local/bin"
-  fi
   # haskell-platform
-  if [[ -d $HOME/.cabal ]]; then
-    export PATH="$PATH:$HOME/.cabal/bin"
-  fi
+  [[ -d $HOME/.cabal ]] && export PATH="$PATH:$HOME/.cabal/bin"
+
   # Java Environments
   if [[ -f /usr/bin/java ]]; then
     #export JAVA_HOME="/usr/java/jdk1.8.0_181"
-    export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
-  fi
-
-  # Go Environments
-  if type go > /dev/null 2>&1 ; then
-    export GOPATH="$HOME/.go"
-    export PATH="$PATH:$GOPATH/bin"
+    export SBT_OPTS="$_SBT_OPTS"
   fi
 
   # Rust Environments
-  if type rustc > /dev/null 2>&1 ; then
+  if type rustc > /dev/null 2>&1; then
     export PATH="$PATH:$HOME/.cargo/bin"
   fi
 
-  pyversion=$(python --version 2>&1)
-  if [[ "$pyversion" == *Python*2.?.?* ]]; then
-    if [[ -f /usr/local/bin/virtualenvwrapper.sh && -f /usr/bin/python ]]; then
-      export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python"
+  for _py in python python3; do
+    pyversion=$($_py --version 2>&1)
+    if [[ "$pyversion" == *Python*?.?.?* && -f /usr/local/bin/virtualenvwrapper.sh && -f /usr/bin/$_py ]]; then
+      export VIRTUALENVWRAPPER_PYTHON="/usr/bin/$_py"
       export WORKON_HOME="$HOME/.envs"
     fi
-  fi
-
-  pyversion=$(python3 --version 2>&1)
-  if [[ "$pyversion" == *Python*3.?.?* ]]; then
-    if [[ -f /usr/local/bin/virtualenvwrapper.sh && -f /usr/bin/python3 ]]; then
-      export VIRTUALENVWRAPPER_PYTHON="/usr/bin/python3"
-      export WORKON_HOME="$HOME/.envs"
-    fi
-  fi
-
-  # JavaScript Environments
-  if type npm > /dev/null 2>&1 && [[ -d $HOME/.npm/modules ]]; then
-    export PATH="$PATH:$HOME/.npm/modules/bin"
-  fi
-
+  done
 fi
 
 # mac only
 if [[ $(uname) == Darwin ]]; then
   # gnubin
-  if [[ -d $BREW_PREFIX/coreutils/libexec/gnubin ]]; then
+  [[ -d $BREW_PREFIX/coreutils/libexec/gnubin ]] && \
     export PATH="$BREW_PREFIX/coreutils/libexec/gnubin:$PATH"
-  fi
-
-  # ./local/bin
-  if [[ -d $HOME/.local/bin ]]; then
-    export PATH="$PATH:$HOME/.local/bin"
-  fi
 
   # brew sbin
-  if [[ -d /usr/local/sbin ]]; then
-    export PATH="$PATH:/usr/local/sbin"
-  fi
+  [[ -d /usr/local/sbin ]] && export PATH="$PATH:/usr/local/sbin"
 
   # Sqlite Environments
   #if [[ -d $BREW_PREFIX/sqlite ]]; then
@@ -85,57 +71,32 @@ if [[ $(uname) == Darwin ]]; then
   #fi
 
   # haskell-platform
-  if [[ -d $HOME/Library/Haskell ]]; then
-    export PATH="$PATH:$HOME/Library/Haskell/bin"
-  fi
-
+  [[ -d $HOME/Library/Haskell ]] && export PATH="$PATH:$HOME/Library/Haskell/bin"
 
   # H2 drivers
   if [[ -d $BREW_PREFIX/h2 ]]; then
-    if [[ -f $HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar ]]; then
-      export H2DRIVERS="$HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar"
-    fi
+    _mssql_jdbc="$HOME/.m2/repository/com/microsoft/sqlserver/mssql-jdbc/6.2.1.jre8/mssql-jdbc-6.2.1.jre8.jar"
+    [[ -f $_mssql_jdbc ]] && export H2DRIVERS="$_mssql_jdbc"
   fi
 
   # Python Environments
-  pyversion=$(python --version 2>&1)
-  if [[ "$pyversion" == *Python*2.?.?* ]]; then
-    if [[ -d "$HOME/Library/Python/${pyversion:7:3}/bin" ]]; then
-      export PATH="$PATH:$HOME/Library/Python/${pyversion:7:3}/bin"
+  for _py in python python3; do
+    pyversion=$($_py --version 2>&1)
+    if [[ "$pyversion" == *Python*?.?.?* ]]; then
+      [[ -d "$HOME/Library/Python/${pyversion:7:3}/bin" ]] && \
+        export PATH="$PATH:$HOME/Library/Python/${pyversion:7:3}/bin"
+      if [[ -f /usr/local/bin/virtualenvwrapper.sh && -f $BREW_BIN/$_py ]]; then
+        export VIRTUALENVWRAPPER_PYTHON="$BREW_BIN/$_py"
+        export WORKON_HOME="$HOME/.envs"
+      fi
     fi
-    if [[ -f /usr/local/bin/virtualenvwrapper.sh && -f $BREW_BIN/python ]]; then
-      export VIRTUALENVWRAPPER_PYTHON="$BREW_BIN/python"
-      export WORKON_HOME="$HOME/.envs"
-    fi
-  fi
-
-  pyversion=$(python3 --version 2>&1)
-  if [[ "$pyversion" == *Python*3.?.?* ]]; then
-    if [[ -d "$HOME/Library/Python/${pyversion:7:3}/bin" ]]; then
-      export PATH="$PATH:$HOME/Library/Python/${pyversion:7:3}/bin"
-    fi
-    if [[ -f /usr/local/bin/virtualenvwrapper.sh && -f $BREW_BIN/python3 ]]; then
-      export VIRTUALENVWRAPPER_PYTHON="$BREW_BIN/python3"
-      export WORKON_HOME="$HOME/.envs"
-    fi
-  fi
+  done
 
   # Java Environments
   javaHome=$(/usr/libexec/java_home -v 1.8 2>&1)
   if [[ "$javaHome" == *jdk1.8* ]] || [[ "$javaHome" == *jdk-8* ]]; then
     export JAVA_HOME=$javaHome
-    export SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
-  fi
-
-  # Go Environments
-  if type go > /dev/null 2>&1 ; then
-    export GOPATH="$HOME/.go"
-    export PATH="$PATH:$GOPATH/bin"
-  fi
-
-  # JavaScript Environments
-  if type npm > /dev/null 2>&1 && [[ -d $HOME/.npm/modules ]]; then
-    export PATH="$PATH:$HOME/.npm/modules/bin"
+    export SBT_OPTS="$_SBT_OPTS"
   fi
 
   if [[ -s "$BREW_PREFIX/nvm/nvm.sh" ]]; then
@@ -145,12 +106,11 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   # gnuman
-  if [[ -d $BREW_PREFIX/coreutils/libexec/gnuman ]]; then
+  [[ -d $BREW_PREFIX/coreutils/libexec/gnuman ]] && \
     export MANPATH="$BREW_PREFIX/coreutils/libexec/gnuman:$MANPATH"
-  fi
 
   # brew settings
   export HOMEBREW_NO_AUTO_UPDATE=1
-  #export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles"
-  #export HOMEBREW_BOTTLE_DOMAIN="https://mirrors.shu.edu.cn/homebrew-bottles"
 fi
+
+unset _SBT_OPTS _mssql_jdbc _py pyversion javaHome
