@@ -27,10 +27,13 @@ fi
 if [[ -f $HOME/.shell/prompt.sh ]]; then
   . $HOME/.shell/prompt.sh
 fi
-# path completion
-if type gsed > /dev/null 2>&1 && [[ "$SHELL" == "/usr/local/bin/bash" && -f $HOME/.shell/path_completion.sh ]]; then
-  . $HOME/.shell/path_completion.sh
-  _bcpp --defaults
+# path completion - https://github.com/sio/bash-complete-partial-path
+# Requires Bash 4+; macOS/FreeBSD need gsed (brew install gnu-sed)
+if [[ -f $HOME/.shell/path_completion.sh ]] && (( BASH_VERSINFO[0] >= 4 )); then
+  if type gsed > /dev/null 2>&1 || [[ $OSTYPE != darwin* && $OSTYPE != freebsd* ]]; then
+    . $HOME/.shell/path_completion.sh
+    _bcpp --defaults
+  fi
 fi
 
 if type zoxide > /dev/null 2>&1; then

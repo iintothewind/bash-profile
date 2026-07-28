@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 #
+# bash-complete-partial-path                                    v1.0.0
+#
 # Zsh-like expansion of incomplete file paths for Bash.
 # Source this file from your ~/.bashrc and use `_bcpp --defaults`
 # to enable the described behavior.
@@ -32,18 +34,17 @@ _bcpp_sed_detect() {
     local SED GNU_SED
     SED="sed"
     GNU_SED="gsed" # macOS ships BSD sed by default, gnu-sed has to be installed with brew
-    if [[ $OSTYPE == darwin* ]]
+    if [[ $OSTYPE == darwin* || $OSTYPE == freebsd* ]]
     then
         if type "$GNU_SED" &> /dev/null
         then
             SED="$GNU_SED"
         else
-            echo "Completion script requires GNU sed, please install it with brew" >&2
+            echo "bash-complete-partial-path: Please install GNU sed (gsed)" >&2
         fi
     fi
-    echo "$SED"
+    echo "command $SED"
 }
-_BCPP_SED=$(_bcpp_sed_detect)
 
 
 #
@@ -57,11 +58,11 @@ _bcpp_put_wildcards() {
     PROCESSED=$( \
         echo "$INPUT" | \
         $_BCPP_SED \
-            -e 's:\([^\*\~]\)/:\1*/:g' \
-            -e 's:\([^\/\*]\)$:\1*:g' \
-            -e 's:^\(\~[^\/]*\)\*\/:\1/:' \
-            -Ee 's:(\.+)\*/:\1/:g' \
-            -Ee 's:(^|/)(\$[^/]+)\*(/|$):\2\3:g'
+           -Ee 's:([^\*\~])/:\1*/:g;
+                s:([^\/\*])$:\1*:g;
+                s:^(\~[^\/]*)\*\/:\1/:;
+                s:(\.+)\*/:\1/:g;
+                s:(^|/)(\$[^/]+)\*(/|$):\2\3:g'
     )
     eval "TILDE_EXPANSION=$(\
         printf \
@@ -80,6 +81,22 @@ _bcpp_put_wildcards() {
 }
 
 
+# Run a job in background without printing job control messages and without a
+# subshell
+# https://stackoverflow.com/a/51061046
+_bcpp_silent_bg() {
+    { 2>&3 "$@"& } 3>&2 2>/dev/null
+    builtin disown &>/dev/null  # Prevent whine if job has already completed
+    return 0  # do not clutter $? value (last exit code)
+}
+
+# Helper function for wrapping compgen output to named pipe
+_bcpp_compgen() {
+    local wildcards="$1"
+    local pipe="$2"
+    compgen -G "$wildcards" "$wildcards" 2>/dev/null >"$pipe"
+}
+
 #
 # Bash completion function for expanding partial paths
 #
@@ -87,7 +104,7 @@ _bcpp_put_wildcards() {
 # argument to specify desired completion behavior
 #
 _bcpp_complete() {
-    local WILDCARDS ACTION LINE OPTION INPUT UNQUOTED_INPUT QUOTE
+    local WILDCARDS ACTION LINE OPTION INPUT QUOTE
 
     ACTION="$1"
     if [[ "_$1" == "_-d" ]]
@@ -125,7 +142,12 @@ _bcpp_complete() {
         else
             OPTION="filenames"
         fi
-        COMPREPLY=($(compgen -o "$OPTION" "$INPUT"))
+        if [[ -d "$INPUT" && "${INPUT: -1}" != '/' ]]
+        then
+            COMPREPLY=("$INPUT/")
+        else
+            COMPREPLY=($(compgen -o "$OPTION" "$INPUT"))
+        fi
         return
     fi
 
@@ -133,6 +155,16 @@ _bcpp_complete() {
     WILDCARDS=$(_bcpp_put_wildcards "$INPUT")
 
     # Collect completion options
+    local pipe
+    pipe="$_BCPP_FIFO"
+    [[ -z "$pipe" ]] && return 1  # fail on empty filename
+    command mkfifo -m 600 "$pipe"
+
+    local monitor
+    [[ "$-" == *m* ]] && monitor=yes || monitor=no
+    [[ "$monitor" == yes ]] && set +m
+
+    _bcpp_silent_bg _bcpp_compgen "$WILDCARDS" "$pipe"
     while read -r -d $'\n' LINE
     do
         if [[ "_$ACTION" == "_directory" && ! -d "$LINE" ]]
@@ -148,8 +180,9 @@ _bcpp_complete() {
             LINE=$(printf "%q" "$LINE")
         fi
         COMPREPLY+=("$LINE")
-    done <<< $(compgen -G "$WILDCARDS" "$WILDCARDS" 2>/dev/null)
-    return 0  # do not clutter $? value (last exit code)
+    done < "$pipe"
+    command rm "$pipe"
+    [[ "$monitor" == yes ]] && set -m
 }
 
 
@@ -197,8 +230,8 @@ _bcpp() {
         "    --readline-color"
         "        Enable colors in completion"
         "    --readline-menu"
-        "        Use \`menu-complete\` when TAB key is pressed instead of default"
-        "        \`complete\`"
+        "        Use \`menu-complete\` when Tab key is pressed instead of default"
+        "        \`complete\`. Use Shift+Tab to return to previous suggestion"
         "    --readline-misc"
         "        Other useful readline tweaks"
         ""
@@ -331,4 +364,10 @@ _bcpp() {
         bind 'set show-all-if-ambiguous on'
         bind 'set show-all-if-unmodified on'
     fi
+
+    # Calculate location for fifo file
+    _BCPP_FIFO=$(mktemp -u --tmpdir 'bcpp_pipe_XXXXXXXX' 2>/dev/null || mktemp -u -t 'bcpp_pipe')
+
+    # Detect sed command
+    _BCPP_SED=$(_bcpp_sed_detect)
 }
