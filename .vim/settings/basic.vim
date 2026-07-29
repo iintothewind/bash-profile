@@ -1,11 +1,10 @@
 " Basic
 
-" General
-" Sets how many lines of history VIM has to remember
-set history=500
-
-" noncompatible with vi
+" Must be first
 set nocompatible
+
+" General
+set history=500
 
 " Enable filetype plugins
 filetype plugin on
@@ -17,6 +16,7 @@ set splitright
 " Set to auto read when a file is changed from the outside
 set autoread
 set autowrite
+
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let g:mapleader = ";"
@@ -26,13 +26,12 @@ let g:mapleader = ";"
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 " Set utf8 as standard encoding
 set encoding=utf-8
-set termencoding=utf-8
 set fencs=utf-8,gbk
-if v:lang =~? '^/(zh/)/|/(ja/)/|/(ko/)'
+if v:lang =~? '^\(zh\|ja\|ko\)'
   set ambiwidth=double
 endif
 if has("win32")
@@ -64,7 +63,6 @@ endif
 set hid
 
 " Configure backspace so it acts as it should act
-set backspace=2
 set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
@@ -104,11 +102,6 @@ set novisualbell
 set t_vb=
 set tm=500
 
-" Properly disable sound on errors on MacVim
-if has("gui_macvim")
-  autocmd GUIEnter * set vb t_vb=
-endif
-
 " fold according to indent
 set fdl=99
 set fdls=1
@@ -122,34 +115,23 @@ nmap <leader>p "+p
 vmap <leader>y "+y
 vmap <leader>d "+d<cr>
 
-" Enable 256 colors palette in Gnome Terminal
-"if $COLORTERM == 'gnome-terminal'
-  "set t_Co=256
-"endif
+" Enable 256 colors palette
 set t_Co=256
-
 set background=dark
-try
-  colorscheme desert
-catch
-endtry
+" colorscheme set in plugins.vim (lucius)
 
 " Set extra options when running in GUI mode
 if has('gui_running')
-  set guifont=Monospace:bold:h9:cGB2312
   set guioptions-=m
   set guioptions-=T
   set guioptions-=r
   set guioptions-=L
   set guicursor=n-v-c:blinkon0
-  set t_Co=256
   set guitablabel=%M\ %t
   nnoremap <leader><F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
   nnoremap <leader><F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
   nnoremap <leader><F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 endif
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf-8
 
 " Use Unix as the standard file type
 set ff=unix
@@ -179,8 +161,7 @@ set autoindent
 set smartindent
 set wrap
 
-
-" Disable highlight when <leader><cr> is pressed
+" Disable highlight when <F2> is pressed
 nnoremap <silent> <F2> :noh<cr>
 nnoremap <C-j> <C-W>j
 nnoremap <C-k> <C-W>k
@@ -191,9 +172,6 @@ nnoremap <C-l> <C-W>l
 noremap <Leader>q q
 noremap q <Nop>
 
-" map redo C-r to r
-nnoremap <silent> r :red<cr>
-
 " Useful mappings for managing tabs
 nnoremap <silent> gb :tabprev<cr>
 "map <silent> gt :tabnext<cr>
@@ -201,7 +179,16 @@ nnoremap <silent> gb :tabprev<cr>
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
 nnoremap <leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
+
+augroup basic_settings
+  autocmd!
+  autocmd TabLeave * let g:lasttab = tabpagenr()
+  " Return to last edit position when opening files
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  if has("gui_macvim")
+    autocmd GUIEnter * set vb t_vb=
+  endif
+augroup END
 
 " Switch CWD to the directory of the open buffer
 nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -213,23 +200,8 @@ try
 catch
 endtry
 
-" Return to last edit position when opening files
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-" Always show the status line
+" Always show the status line (eleline.vim owns the content)
 set laststatus=2
-
-" Format the status line
-" file name
-set statusline +=%F%m%r%h%w
-" right align
-set statusline +=%=
-" format:encoding
-set statusline +=[%{&ff}:%{&fenc!=''?&fenc:&enc}]
-" file type
-set statusline +=[TYPE=%Y]
-" position
-set statusline +=[POS=%l/%L(%p%%),%v]
 
 " Remap VIM 0 to first non-blank character
 nnoremap 0 ^
