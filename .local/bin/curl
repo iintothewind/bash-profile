@@ -1,0 +1,9 @@
+#!/bin/sh
+exec timeout --kill-after=3s 20s \
+  /usr/bin/curl \
+  --fail-with-body \
+  --location \
+  --retry 0 \
+  "$@" \
+  --connect-timeout 5 \
+  --max-time 15
