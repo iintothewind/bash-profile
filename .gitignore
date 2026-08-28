@@ -62,3 +62,4 @@ fabric.properties
 .sock
 target/*
 .vscode/
+.reasonix/
