@@ -1,6 +1,23 @@
 # bash-profile
 This is a place we can share the most useful settings of our bash profiles
 
+## sync
+
+`.shell/sync.sh` provides `sync_cfg`, which uses rsync to sync dotfiles from this repo to `$HOME`:
+
+- synced items: `.config` `.shell` `.vim` `.gitattributes` `.gitconfig` `.gitignore` `.ideavimrc` `.tmux.conf` `.vimrc`
+- `rsync --delete`: extra files under these paths in `$HOME` are removed
+- `.bash_profile`: copied over, replacing the existing one
+- `.bashrc`: content before the `# synced from bash-profile` marker is kept; on every sync everything after the marker is replaced with the latest `.bash_profile`; if no marker exists, marker + content are appended at the end
+
+First-time install (no dotfiles in `$HOME` yet):
+
+```bash
+cd <this repo> && source .shell/sync.sh && sync_cfg
+```
+
+Afterwards `sync_cfg` is loaded by `~/.bash_profile` in every login shell; just run `sync_cfg` from the repo directory to sync.
+
 ## install gnu bash
 
 ```
@@ -100,6 +117,8 @@ $ rmProxy
 # display proxy status
 $ pxys
 ```
+### .Shell/sync.sh
+the sync entry, run `sync_cfg` to sync this repo to $HOME (see "sync" section)
 
 ### alias
 many useful aliases in .shell/alias.sh
@@ -153,9 +172,6 @@ maven settings configuration
 
 ### .ivy2 ivysettings.xml
 ivy settings
-
-### .gradle
-gradle settings
 
 ### .sbt repositories
 scala sbt repositories
