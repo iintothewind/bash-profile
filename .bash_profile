@@ -23,6 +23,10 @@ fi
 if [[ -f $HOME/.shell/alias.sh ]]; then
   . $HOME/.shell/alias.sh
 fi
+# sync
+if [[ -f $HOME/.shell/sync.sh ]]; then
+  . $HOME/.shell/sync.sh
+fi
 # prompt
 if [[ -f $HOME/.shell/prompt.sh ]]; then
   . $HOME/.shell/prompt.sh

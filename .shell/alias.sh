@@ -290,30 +290,6 @@ function renamex() {
 }
 
 
-function sync_cfg() {
-  if [[ $(pwd) == *bash-profile ]]; then
-    cp -ruv .shell ~/
-    cp -ruv .vim ~/
-    cp -ruv .m2 ~/
-    cp -ruv .gradle ~/
-    cp -ruv .ivy2 ~/
-    cp -ruv .sbt ~/
-    cp -ruv .ammonite ~/
-    cp -ruv .cabal ~/
-    cp -ruv .stack ~/
-    cp -ruv .config ~/
-    cp -ruv .docker ~/
-    cp -ruv .bash_profile ~/
-    cp -ruv .vimrc ~/
-    cp -ruv .gitconfig ~/
-    cp -ruv .gitignore ~/
-    cp -ruv .gemrc ~/
-    cp -ruv .ghci ~/
-    cp -ruv .polipo ~/
-    cp -ruv .tmux.conf ~/
-  fi
-}
-
 # cd
 alias u='cd ..'
 alias uu='cd ../../'
