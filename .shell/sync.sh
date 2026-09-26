@@ -6,7 +6,7 @@ function sync_cfg() {
       .config
       .shell
       .vim
-      .gitattribute
+      .gitattributes
       .gitconfig
       .gitignore
       .ideavimrc
