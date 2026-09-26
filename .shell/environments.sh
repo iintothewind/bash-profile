@@ -20,6 +20,9 @@ _SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -X
 # bun
 [[ -d $HOME/.bun/bin ]] && export PATH="$PATH:$HOME/.bun/bin"
 
+# cargo
+[[ -d $HOME/.cargo/bin ]] && export PATH="$PATH:$HOME/.cargo/bin"
+
 # Go Environments
 if type go > /dev/null 2>&1; then
   export GOPATH="$HOME/.go"
