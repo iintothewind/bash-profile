@@ -52,16 +52,15 @@
     "window.title": "${dirty} ${activeEditorMedium}${separator}${rootName}",
     "update.mode": "none",
     "vim.leader": ";",
-    "vim.easymotion": true,
-    "vim.sneak": true,
-    "vim.visualstar": true,
-    "vim.incsearch": true,
+    "easymotion": true,
+    "visualstar": true,
+    "incsearch": true,
     "vim.statusBarColorControl": true,
     "vim.statusBarColors.normal": "#0A68CC",
     "vim.statusBarColors.insert": "#5F0000",
     "vim.statusBarColors.visual": "#5F00AF",
     "vim.statusBarColors.visualblock": "#86592D",
-    "vim.statusBarColors.replace": "#00000",
+    "vim.statusBarColors.replace": "#000000",
     "vim.easymotionMarkerBackgroundColor": "#F0F0F0",
     "vim.easymotionMarkerForegroundColorOneChar": "#FF0000",
     "vim.normalModeKeyBindingsNonRecursive": [
@@ -142,10 +141,7 @@
     "editor.wordWrapColumn": 300,
     "workbench.iconTheme": "vscode-icons",
     "telemetry.telemetryLevel": "off",
-    "workbench.settings.enableNaturalLanguageSearch": false,
+    "workbench.enableNaturalLanguageSearch": false,
     "workbench.colorTheme": "Visual Studio Light",
-    "vim.commandLineModeKeyBindings": [
-
-    ],
-
+    "vim.commandLineModeKeyBindings": []
   }

@@ -1,6 +1,6 @@
 " Load plug
 call plug#begin('~/.vim/plugged')
-Plug 'airblade/vim-gitgutter', {'branch': 'main'}
+Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'godlygeek/tabular'
 Plug 'itchyny/vim-cursorword'
@@ -8,14 +8,15 @@ Plug 'liuchengxu/eleline.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'matze/vim-move'
 Plug 'navicore/vissort.vim'
-Plug 'roman/golden-ratio'
 Plug 'scrooloose/nerdcommenter'
 Plug 'skywind3000/vim-auto-popmenu'
 Plug 'skywind3000/vim-dict'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+" fzf is normally installed by the OS package manager (brew install fzf /
+" apt install fzf / cargo install fzf). The old { 'do': './install --bin' }
+" hook and the separate junegunn/fzf checkout are no longer needed.
 Plug 'junegunn/fzf.vim'
 call plug#end()
 

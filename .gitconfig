@@ -12,10 +12,6 @@
   status       = auto
   branch       = auto
   interactive  = auto
-[credential]
-  helper       = cache --timeout 86400
-[http]
-  sslVerify    = false
 [merge]
   tool         = vimdiff
 [diff]
@@ -38,11 +34,9 @@
   last         = log --graph --pretty=format:'%Cred%h%Creset -%C(auto)%d%Creset %s %Cgreen(%cr) %C(cyan)<%an>%Creset' --abbrev-commit --date=relative -1
   bclean       = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -n 1 git branch -d; }; f"
 [pull]
-	rebase = true
+  rebase       = true
 [credential]
-  ;helper = osxkeychain
-  ;helper = manager
-  helper = cache --timeout=86400
+  helper       = cache --timeout=86400
 
 [pager]
     diff = delta
@@ -60,4 +54,11 @@
 [interactive]
     diffFilter = delta --color-only
 
+[http]
+  sslVerify    = true
 
+# Internal hosts with self-signed certs. Prefer a corporate CA bundle:
+#   git config --global http.sslCAInfo /path/to/corp-ca.pem
+# Only fall back to disabling verification when no CA is available, and
+# keep the exception scoped to the host instead of setting it globally.
+# sslVerify stays true globally so no other host is silently trusted.

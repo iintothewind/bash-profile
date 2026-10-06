@@ -12,7 +12,11 @@ if type rclone > /dev/null 2>&1; then
   export RCLONE_HUMAN_READABLE=1
 fi
 
-_SBT_OPTS="-Dsbt.repository.secure=false -Xmx2G -XX:+CMSClassUnloadingEnabled -XX:MaxMetaspaceSize=768M"
+# sbt.repository.secure was required for the old Bintray resolver layout.
+# With Bintray gone and ~/.sbt/repositories using HTTPS, it is no longer
+# needed and inverts the intended behaviour, so it is dropped.
+# CMSClassUnloadingEnabled was removed from HotSpot in JDK 14.
+_SBT_OPTS="-Xmx2G -XX:MaxMetaspaceSize=768M"
 
 # ./local/bin
 [[ -d $HOME/.local/bin ]] && export PATH="$PATH:$HOME/.local/bin"
@@ -83,6 +87,10 @@ if [[ $(uname) == Darwin ]]; then
   fi
 
   # Python Environments
+  # macOS system python3 lives in the Xcode CLT and is externally managed
+  # (PEP 668), so $HOME/Library/Python/3.x/bin is empty for 3.9+. The
+  # user scripts dir is now ~/.local/bin, which is already on PATH above.
+  # Still handle the legacy layout in case old interpreters are present.
   for _py in python python3; do
     pyversion=$($_py --version 2>&1)
     if [[ "$pyversion" == *Python*?.?.?* ]]; then
@@ -96,9 +104,14 @@ if [[ $(uname) == Darwin ]]; then
   done
 
   # Java Environments
-  javaHome=$(/usr/libexec/java_home -v 1.8 2>&1)
-  if [[ "$javaHome" == *jdk1.8* ]] || [[ "$javaHome" == *jdk-8* ]]; then
-    export JAVA_HOME=$javaHome
+  # Honour JAVA_HOME if it is already set to a modern JDK; otherwise fall
+  # back to /usr/libexec/java_home. The old code only matched jdk1.8/jdk-8,
+  # so on a JDK 17/21-only machine JAVA_HOME was silently left unset.
+  if [[ -z "$JAVA_HOME" && -x /usr/libexec/java_home ]]; then
+    javaHome=$(/usr/libexec/java_home 2>/dev/null)
+    [[ -n "$javaHome" ]] && export JAVA_HOME="$javaHome"
+  fi
+  if [[ -n "$JAVA_HOME" ]]; then
     export SBT_OPTS="$_SBT_OPTS"
   fi
 
