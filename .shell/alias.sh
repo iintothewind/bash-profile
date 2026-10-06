@@ -231,21 +231,24 @@ function rgs() {
   fi
 }
 
-# used after a pipe, for example: echo '{ "k": "v"}' | cf_jsonfmt
+# Legacy python2-era helpers. Kept as thin wrappers over the cf_* versions
+# in .shell/cf.sh, which prefer python3 -- these used to call bare `python`,
+# which on a python2-only box silently formats JSON differently.
+# used after a pipe, for example: echo '{ "k": "v"}' | jsonFormat
 function jsonFormat() {
-  if type python > /dev/null 2>&1; then
-    python -mjson.tool
+  if type python3 > /dev/null 2>&1 || type python > /dev/null 2>&1; then
+    cf_json_format
   else
-    echo "python is not found in PATH"
+    echo "python/python3 is not found in PATH" >&2
     return 1
   fi
 }
 
 function jsonEscape() {
-  if type python > /dev/null 2>&1; then
-    python -c 'import sys, json; print(json.dumps(sys.stdin.read().strip()))'
+  if type python3 > /dev/null 2>&1 || type python > /dev/null 2>&1; then
+    cf_json_escape
   else
-    echo "python is not found in PATH"
+    echo "python/python3 is not found in PATH" >&2
     return 1
   fi
 }
@@ -258,9 +261,9 @@ function chext() {
     # temprarily navigate to given path
     #pushd $path > /dev/null
     find "$path" -type f -name "*.$oldExt" -exec sh -c 'mv "$0" "${0%.$1}.$2"' {} "$oldExt" "$newExt" \;
-    # navigate back 
+    # navigate back
     #popd > /dev/null
-  else 
+  else
     echo "chext path oldExt newExt"
     echo "args: path oldExt newExt are required, extension name should not include dot (.) character"
   fi
@@ -279,7 +282,7 @@ function renamex() {
         echo "Renamed $file to $newFile"
       fi
     done
-  else 
+  else
     echo "renamex path searchPattern replaceRegex"
     echo "args: path searchPattern replaceRegex are required"
     echo "searchPattern is a name pattern for find"
@@ -368,6 +371,11 @@ if type ssh-keygen > /dev/null 2>&1 ; then
   }
 fi
 
+# NOTE: shadowsocks (ssserver/sslocal) and kcptun are both EOL and no longer
+# packaged by Homebrew. The aliases below are kept behind `type` guards so
+# they only appear if you still have the binaries installed; the modern
+# equivalents are shadowsocks-rust / sing-box.
+
 if type ssserver > /dev/null 2>&1 ; then
   alias ssvrup="ssserver -c $HOME/.shadowsocks.json -d start"
   alias ssvrdown="ssserver -c $HOME/.shadowsocks.json -d stop"
@@ -389,9 +397,23 @@ if type VBoxManage > /dev/null 2>&1 ; then
   alias vvminfo="VBoxManage showvminfo"
 fi
 
+# JDK 9+ dropped the bundled jre/ directory; the cacerts path differs by
+# major version, so probe for whichever exists.
+function _cacerts_path() {
+  local candidates=(
+    "$JAVA_HOME/lib/security/cacerts"
+    "$JAVA_HOME/jre/lib/security/cacerts"
+  )
+  local c
+  for c in "${candidates[@]}"; do
+    [[ -f "$c" ]] && { printf '%s\n' "$c"; return 0; }
+  done
+  printf '%s\n' "${candidates[0]}"
+}
+
 if type keytool > /dev/null 2>&1 && [[ $JAVA_HOME != "" ]]; then
   function list_cert() {
-    local keystore=${1:-$JAVA_HOME/jre/lib/security/cacerts}
+    local keystore=${1:-$(_cacerts_path)}
     local storepass=${2:-changeit}
     keytool -list -keystore "$keystore" -storepass "$storepass"
   }
@@ -400,7 +422,7 @@ if type keytool > /dev/null 2>&1 && [[ $JAVA_HOME != "" ]]; then
     local file=${1}
     local cert_alias=${2}
     local keypass=${3}
-    local keystore=${4:-$JAVA_HOME/jre/lib/security/cacerts}
+    local keystore=${4:-$(_cacerts_path)}
     local storepass=${5:-changeit}
     if test -n "$keypass"; then
       keytool -importcert -keystore "${keystore}" -storepass "${storepass}" -file "${file}" -alias "${cert_alias}" -keypass "${keypass}"
@@ -423,12 +445,14 @@ fi
 if [[ $(uname) == Linux ]]; then
   alias rrc="source $HOME/.bashrc"
   function rmrtlan() {
+    local iface
     echo "WARNING: This will delete the default route and disconnect the network!"
-    read -p "Are you sure? [y/N] " -n 1 -r
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-      sudo route del default enp0s31f6
+    read -p "Enter the interface to drop (e.g. eth0, enp0s31f6): " iface
+    if [[ -z "$iface" ]]; then
+      echo "no interface given, aborting" >&2
+      return 1
     fi
+    sudo ip route del default dev "$iface"
   }
   alias scrnoff="xset dpms force off "
   if type gvim > /dev/null 2>&1 ; then
@@ -468,6 +492,14 @@ if [[ $(uname) == Darwin ]]; then
     alias rm="trash -v "
   fi
 
+  # eza is the maintained fork of exa (exa is archived); prefer it when present.
+  if type eza > /dev/null 2>&1 ; then
+    alias ll="eza -l --time-style=long-iso --sort=modified"
+    alias lh="eza -lh --time-style=long-iso --sort=modified"
+    alias la="eza -la --time-style=long-iso --sort=modified"
+  fi
+
+  # polipo is no longer a Homebrew formula; kept behind a path guard.
   if test -d $BREW_PREFIX/polipo; then
     alias plpon="brew services start polipo"
     alias plpoff="brew services stop polipo ; killall ShadowsocksX"
@@ -482,7 +514,9 @@ if [[ $(uname) == Darwin ]]; then
     alias spdown="supervisorctl shutdown ; killall ShadowsocksX"
   fi
 
-  if type minidlnad > /dev/null 2>&1 ; then
+  # The guard used to be misspelled "minidlnad", so this alias could never
+  # be defined.
+  if type minidlna > /dev/null 2>&1 ; then
     alias rsminidlna="brew services stop minidlna && rm -f ~/.config/minidlna/files.db && brew services start minidlna"
   fi
 

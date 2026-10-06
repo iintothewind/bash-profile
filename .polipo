@@ -164,6 +164,12 @@ diskCacheRoot = ""
 
 # alwaysAddNoTransform = true
 
-socksParentProxy = localhost:1080
-proxyAddress = 0.0.0.0
+# Local-only HTTP proxy. Keep the bind on the loopback interface: the
+# previous "0.0.0.0" (also unquoted, which the strict parser dislikes)
+# exposed the proxy to every interface on the network.
+proxyAddress = "127.0.0.1"
 proxyPort = 18123
+
+# SOCKS upstream. Polipo is largely unmaintained; sing-box/clash are the
+# usual replacements, so treat this config as legacy.
+socksParentProxy = localhost:1080

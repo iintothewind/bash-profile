@@ -1,5 +1,8 @@
 {
-  "debug" : false,
-  "experimental" : false,
-  "registry-mirrors": ["https://docker.mirrors.ustc.edu.cn/"]
+  "debug": false,
+  "experimental": false,
+  "registry-mirrors": [
+    "https://docker.1ms.run",
+    "https://docker.1panel.live"
+  ]
 }

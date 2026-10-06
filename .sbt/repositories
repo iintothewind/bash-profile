@@ -1,11 +1,15 @@
 [repositories]
   local
   maven-local
-  aliyun-mave: https://maven.aliyun.com/nexus/content/groups/public
-  typesafe-maven: https://dl.bintray.com/typesafe/maven-releases
-  typesafe-ivy: https://dl.bintray.com/typesafe/ivy-releases, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
-  sbtplugin: https://dl.bintray.com/sbt/sbt-plugin-releases, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
-  jcenter: https://jcenter.bintray.com
+
+  # Bintray shut down in May 2021. The typesafe-maven / typesafe-ivy /
+  # sbtplugin / jcenter entries that used to live here all pointed at
+  # dl.bintray.com and jcenter.bintray.com and can no longer resolve.
+  # Artifacts that used to be typesafe-only are on Maven Central now.
+  aliyun-maven: https://maven.aliyun.com/repository/public
+  maven-central
+  typesafe-maven: https://repo.typesafe.com/typesafe/maven-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
+  sbt-plugin-releases: https://repo.scala-sbt.org/scalasbt/sbt-plugin-releases/, [organization]/[module]/(scala_[scalaVersion]/)(sbt_[sbtVersion]/)[revision]/[type]s/[artifact](-[classifier]).[ext]
   apache: https://repository.apache.org/content/repositories/releases
   atlassian: https://maven.atlassian.com/repository/public
   sonatype: https://oss.sonatype.org/content/groups/public
