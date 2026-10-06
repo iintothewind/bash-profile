@@ -1,1 +1,0 @@
-:def hg \x -> return $ ":!~/.local/bin/hoogle " ++ x
