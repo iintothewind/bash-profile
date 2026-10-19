@@ -5,6 +5,7 @@ function sync_cfg() {
     local items=(
       .config
       .shell
+      .nvim
       .vim
       .gitattributes
       .gitconfig
