@@ -125,9 +125,6 @@ many useful aliases in .shell/alias.sh
 
 ## vim settings
 
-### .vim/doc
-the help doc chinese version
-
 ### .vim/settings
 the vimrc settings
 
