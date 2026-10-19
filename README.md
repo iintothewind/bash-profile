@@ -5,7 +5,7 @@ This is a place we can share the most useful settings of our bash profiles
 
 `.shell/sync.sh` provides `sync_cfg`, which uses rsync to sync dotfiles from this repo to `$HOME`:
 
-- synced items: `.config` `.nvim` `.shell` `.vim` `.gitattributes` `.gitconfig` `.gitignore` `.ideavimrc` `.tmux.conf` `.vimrc`
+- synced items: `.config` `.config/nvim` `.shell` `.vim` `.gitattributes` `.gitconfig` `.gitignore` `.ideavimrc` `.tmux.conf` `.vimrc`
 - `rsync --delete`: extra files under these paths in `$HOME` are removed
 - `.bash_profile`: copied over, replacing the existing one
 - `.bashrc`: content before the `# synced from bash-profile` marker is kept; on every sync everything after the marker is replaced with the latest `.bash_profile`; if no marker exists, marker + content are appended at the end
