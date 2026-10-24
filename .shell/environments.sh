@@ -34,6 +34,14 @@ if type go > /dev/null 2>&1; then
 fi
 
 # JavaScript Environments
+# Load nvm first so the node/npm it provides are on PATH before the check below.
+export NVM_DIR="$HOME/.nvm"
+if [[ -s "$NVM_DIR/nvm.sh" ]]; then
+  . "$NVM_DIR/nvm.sh"
+  [[ -s "$NVM_DIR/bash_completion" ]] && . "$NVM_DIR/bash_completion"
+fi
+
+# npm global modules bin
 if type npm > /dev/null 2>&1 && [[ -d $HOME/.npm/modules ]]; then
   export PATH="$PATH:$HOME/.npm/modules/bin"
 fi
@@ -113,12 +121,6 @@ if [[ $(uname) == Darwin ]]; then
   fi
   if [[ -n "$JAVA_HOME" ]]; then
     export SBT_OPTS="$_SBT_OPTS"
-  fi
-
-  if [[ -s "$BREW_PREFIX/nvm/nvm.sh" ]]; then
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"
-    [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"
   fi
 
   # gnuman

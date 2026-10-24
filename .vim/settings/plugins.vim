@@ -1,6 +1,5 @@
 " Load plug
 call plug#begin('~/.vim/plugged')
-Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'godlygeek/tabular'
 Plug 'itchyny/vim-cursorword'
@@ -61,8 +60,6 @@ command! -bang -nargs=? -complete=dir Files
 " surround.vim config
 vnoremap Si S(i<esc>f)
 
-" Git gutter (Git diff)
-let g:gitgutter_enabled = 1
 
 " vim-auto-popmenu
 let g:apc_enable_ft = {'*' : 1}
