@@ -194,6 +194,14 @@ _bcpp_complete_file() { _bcpp_complete file; }
 # Manage enhanced path completion
 _bcpp() {
     local DEFAULT ALL KEYS ARG USAGE UNKNOWN
+    # Completion and readline tweaks only apply in an interactive shell. When
+    # this file is sourced by a non-interactive bash (a script, BASH_ENV, or a
+    # Windows/MSYS2 tool that loads ~/.bashrc), every `bind` below warns
+    # "line editing not enabled"; bail out early there.
+    case $- in
+        *i*) ;;
+        *) return 0 ;;
+    esac
 
     DEFAULT="--files --dirs --cooperate --nocase --readline"
     ALL="--files --dirs --cooperate --nocase --readline"
