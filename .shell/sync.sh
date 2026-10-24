@@ -3,9 +3,7 @@
 function sync_cfg() {
   if [[ $(pwd) == *bash-profile ]]; then
     local items=(
-      .config
       .shell
-      .config/nvim
       .vim
       .gitattributes
       .gitconfig
@@ -14,6 +12,12 @@ function sync_cfg() {
       .tmux.conf
       .vimrc
     )
+    # Sync each subdirectory under .config individually so --delete only ever
+    # touches that subdir, never unrelated entries in ~/.config (e.g. other
+    # apps' configs on Linux).
+    for item in .config/*/; do
+      rsync -a --itemize-changes --delete "${item%/}" ~/
+    done
     for item in "${items[@]}"; do
       rsync -a --itemize-changes --delete "$item" ~/
     done
