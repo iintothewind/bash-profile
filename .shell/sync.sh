@@ -21,7 +21,7 @@ function sync_cfg() {
     # touches that subdir, never unrelated entries in ~/.config (e.g. other
     # apps' configs on Linux).
     for item in .config/*/; do
-      rsync -a --itemize-changes --delete "${item%/}" ~/
+      rsync -a --itemize-changes --delete "${item%/}" ~/.config
     done
     for item in "${items[@]}"; do
       rsync -a --itemize-changes --delete "$item" ~/
