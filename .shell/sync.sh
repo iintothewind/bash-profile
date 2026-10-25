@@ -2,6 +2,11 @@
 
 function sync_cfg() {
   if [[ $(pwd) == *bash-profile ]]; then
+    # Git Bash/MSYS2 set $HOME to a Windows path (C:\Users\...); rsync parses
+    # the leading C: as a remote host, so normalize HOME to the POSIX path
+    # (/c/Users/ivar) so `~/` is a local destination. cygpath exists only on
+    # MSYS; Linux/macOS leave HOME untouched.
+    command -v cygpath > /dev/null 2>&1 && HOME=$(cygpath -u "$HOME")
     local items=(
       .shell
       .vim
