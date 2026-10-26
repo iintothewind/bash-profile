@@ -13,9 +13,7 @@ Plug 'skywind3000/vim-dict'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-" fzf is normally installed by the OS package manager (brew install fzf /
-" apt install fzf / cargo install fzf). The old { 'do': './install --bin' }
-" hook and the separate junegunn/fzf checkout are no longer needed.
+Plug 'junegunn/fzf', { 'do': { -> fzf_install() } }
 Plug 'junegunn/fzf.vim'
 call plug#end()
 
