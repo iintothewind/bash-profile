@@ -13,7 +13,7 @@ Plug 'skywind3000/vim-dict'
 Plug 'terryma/vim-expand-region'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'junegunn/fzf', { 'do': { -> fzf_install() } }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 call plug#end()
 
