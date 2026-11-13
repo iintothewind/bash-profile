@@ -1,0 +1,23 @@
+" gvimrc: GUI-only settings (gvim, MacVim). Vim sources ~/.vim/gvimrc by itself when the GUI
+" starts, after ~/.vimrc; a terminal Vim never reads it, so nothing here tests has('gui_running').
+
+" no menu bar, toolbar or scroll bars
+set guioptions-=m
+set guioptions-=T
+set guioptions-=r
+set guioptions-=L
+" <Leader><F1> / <F2> / <F3> toggle the menu bar / the toolbar / the right scroll bar
+nnoremap <Leader><F1> :if &guioptions =~# 'm'<Bar>set guioptions-=m<Bar>else<Bar>set guioptions+=m<Bar>endif<CR>
+nnoremap <Leader><F2> :if &guioptions =~# 'T'<Bar>set guioptions-=T<Bar>else<Bar>set guioptions+=T<Bar>endif<CR>
+nnoremap <Leader><F3> :if &guioptions =~# 'r'<Bar>set guioptions-=r<Bar>else<Bar>set guioptions+=r<Bar>endif<CR>
+
+" no blinking cursor in Normal, Visual and Command-line mode
+set guicursor=n-v-c:blinkon0
+" tab label: modified flag, then the file name without its directory
+set guitablabel=%M\ %t
+
+if has('mac') || has('macunix')
+  set guifont=Hack:h14,Source\ Code\ Pro:h12,Menlo:h11
+else
+  set guifont=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+endif
