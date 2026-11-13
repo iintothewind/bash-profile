@@ -91,14 +91,17 @@ manico
 ### .Shell/alias.sh
 the alias settings file
 
-### .Shell/environments.sh
-the files to set up local environments, such as JAVA_HOME, PYTHON_HOME, etc
+### .Shell/env.sh
+the files to set up local environments, such as PATH, GOPATH, etc; macOS-only ones (Homebrew, JAVA_HOME) are in .shell/os/darwin/env.sh
 
 ### .Shell/prompt.sh
 provide you a sexy bash prompt in following format:
-username on hostname in filepath on git-branch
+username at hostname in filepath
 
-### .Shell/proxy
+plus Zsh-like partial path completion (`/u/s/a<Tab>`), vendored from sio/bash-complete-partial-path
+
+### .Shell/os/darwin/proxy.sh
+macOS only
 
 ```
 # recommend NOPASSWD in /etc/sudoers
@@ -111,7 +114,7 @@ $ localProxy
 # set mac system proxy, require admin passwd, require http host and port if http_proxy environment vaiable not set
 $ sysProxy
 
-# remove proxy in shell, also remove system proxy if system proxy enabled
+# remove proxy in shell, also remove system proxy if enabled
 $ rmProxy
 
 # display proxy status

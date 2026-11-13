@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# os/darwin/proxy.sh: switch HTTP proxies for the shell, the JVM (JAVA_OPTS) and macOS network services.
+# Loaded by init.sh in every shell when $OSTYPE is darwin*, after functions.sh; uses cf_trim from cf.sh.
+# Contract:
+#   - definitions only: nothing runs at load time (no_proxy/NO_PROXY are exported by env.sh)
+#   - errors go to stderr with return 1
+#   - no OS check in here: being in this directory is the check
 
 # Parse http_proxy-style URL into host/port/user/pass.
 # Sets: _proxy_host _proxy_port _proxy_user _proxy_pass
@@ -49,11 +55,6 @@ function shellProxy() {
 }
 
 function sysProxy() {
-  if [[ $(uname) != Darwin ]]; then
-    echo "mac only" >&2
-    return 1
-  fi
-
   local host=$1 port=$2
   if [[ -z "$host" || -z "$port" ]]; then
     proxy_parse || {
@@ -74,6 +75,11 @@ function sysProxy() {
   return "$rc"
 }
 
+# Print $JAVA_OPTS without the -Dhttp(s).proxy* flags, trimmed.
+function _proxy_java_opts_without_proxy() {
+  cf_trim "$(printf '%s\n' "${JAVA_OPTS:-}" | sed -E 's/ *-Dhttps?\.proxy(Host|Port|User|Password)=[^ ]*//g')"
+}
+
 function javaProxy() {
   local host=$1 port=$2 user=$3 pass=$4
   if [[ -z "$host" || -z "$port" ]]; then
@@ -87,11 +93,8 @@ function javaProxy() {
     pass=${pass:-$_proxy_pass}
   fi
 
-  # strip previous proxy-related JAVA_OPTS, then append
-  local opts=${JAVA_OPTS:-}
-  opts=$(printf '%s\n' "$opts" | sed -E 's/ *-Dhttps?\.proxy(Host|Port|User|Password)=[^ ]*//g')
-  opts="${opts#"${opts%%[![:space:]]*}"}"
-  opts="${opts%"${opts##*[![:space:]]}"}"
+  local opts
+  opts=$(_proxy_java_opts_without_proxy)
 
   local proxy_opts="-Dhttp.proxyHost=${host} -Dhttp.proxyPort=${port} -Dhttps.proxyHost=${host} -Dhttps.proxyPort=${port}"
   if [[ -n "$user" && -n "$pass" ]]; then
@@ -103,10 +106,6 @@ function javaProxy() {
 }
 
 function pacProxy() {
-  if [[ $(uname) != Darwin ]]; then
-    echo "mac only" >&2
-    return 1
-  fi
   if [[ ! "$1" =~ ^https?://.+\.pac([?#].*)?$ ]]; then
     echo "pac url is required (http/https .../*.pac)" >&2
     return 1
@@ -127,9 +126,7 @@ function rmProxy() {
 
   if [[ -n "${JAVA_OPTS:-}" ]]; then
     local opts
-    opts=$(printf '%s\n' "$JAVA_OPTS" | sed -E 's/ *-Dhttps?\.proxy(Host|Port|User|Password)=[^ ]*//g')
-    opts="${opts#"${opts%%[![:space:]]*}"}"
-    opts="${opts%"${opts##*[![:space:]]}"}"
+    opts=$(_proxy_java_opts_without_proxy)
     if [[ -n "$opts" ]]; then
       export JAVA_OPTS="$opts"
     else
@@ -137,18 +134,16 @@ function rmProxy() {
     fi
   fi
 
-  if [[ $(uname) == Darwin ]]; then
-    local network_service
-    while IFS= read -r network_service; do
-      if [[ $(networksetup -getwebproxy "$network_service") == *"Enabled: Yes"* ]]; then
-        sudo networksetup -setwebproxystate "$network_service" off
-        sudo networksetup -setsecurewebproxystate "$network_service" off
-      fi
-      if [[ -n $(networksetup -getautoproxyurl "$network_service" | awk '/URL:/{print $2}') ]]; then
-        sudo networksetup -setautoproxystate "$network_service" off
-      fi
-    done < <(networksetup -listallnetworkservices | tail -n +2)
-  fi
+  local network_service
+  while IFS= read -r network_service; do
+    if [[ $(networksetup -getwebproxy "$network_service") == *"Enabled: Yes"* ]]; then
+      sudo networksetup -setwebproxystate "$network_service" off
+      sudo networksetup -setsecurewebproxystate "$network_service" off
+    fi
+    if [[ -n $(networksetup -getautoproxyurl "$network_service" | awk '/URL:/{print $2}') ]]; then
+      sudo networksetup -setautoproxystate "$network_service" off
+    fi
+  done < <(networksetup -listallnetworkservices | tail -n +2)
   return 0
 }
 
@@ -160,31 +155,18 @@ function pxys() {
   if [[ "${JAVA_OPTS:-}" == *proxy* ]]; then
     echo "JAVA_OPTS=$JAVA_OPTS"
   fi
-  if [[ $(uname) == Darwin ]]; then
-    local network_service
-    while IFS= read -r network_service; do
-      echo "$network_service http proxy:"
-      networksetup -getwebproxy "$network_service"
-      echo "$network_service https proxy:"
-      networksetup -getsecurewebproxy "$network_service"
-      echo "$network_service auto proxy url:"
-      networksetup -getautoproxyurl "$network_service"
-      echo ""
-    done < <(networksetup -listallnetworkservices | tail -n +2)
-  fi
+  local network_service
+  while IFS= read -r network_service; do
+    echo "$network_service http proxy:"
+    networksetup -getwebproxy "$network_service"
+    echo "$network_service https proxy:"
+    networksetup -getsecurewebproxy "$network_service"
+    echo "$network_service auto proxy url:"
+    networksetup -getautoproxyurl "$network_service"
+    echo ""
+  done < <(networksetup -listallnetworkservices | tail -n +2)
 }
 
 function localProxy() {
   shellProxy localhost 18123
 }
-
-function corpProxy() {
-  shellProxy "proxy.prd.plb.paypalcorp.com" 8080
-}
-
-function corpPac() {
-  pacProxy "http://proxypacfile.paypalcorp.com/proxy.pac"
-}
-
-export no_proxy="localhost,127.0.0.1,192.168.0.0/16,10.0.0.0/8,.local"
-export NO_PROXY="$no_proxy"

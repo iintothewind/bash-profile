@@ -1,44 +1,404 @@
 #!/usr/bin/env bash
+# prompt.sh: the interactive line editor: two-line prompt "user at host in dir" then "$" (after gf3's
+# Sexy Bash Prompt), then Zsh-like partial path completion (`/u/s/a<Tab>` -> /usr/share/applications).
+# Loaded by init.sh in interactive shells only.
+# Prompt colors are literal ANSI codes inside PS1: nothing forked, nothing printed, nothing exported.
+# The completion section at the end is vendored sio/bash-complete-partial-path v1.0.0: never edit it,
+# replace it from upstream. It needs bash >= 4 and GNU sed; `_bcpp --defaults` forks mktemp and sed
+# detection at load time, and that section is exempt from bash 3.2 compatibility.
 
-# @gf3’s Sexy Bash Prompt, inspired by “Extravagant Zsh Prompt”
-# Shamelessly copied from https://github.com/gf3/dotfiles
-
-if tput setaf 1 &> /dev/null; then
-  tput sgr0
-  if [[ $(tput colors) -ge 256 ]] 2>/dev/null; then
-    # Changed these colors to fit Solarized theme
-    MAGENTA=$(tput setaf 125)
-    ORANGE=$(tput setaf 166)
-    GREEN=$(tput setaf 64)
-    PURPLE=$(tput setaf 61)
-    WHITE=$(tput setaf 244)
-  else
-    MAGENTA=$(tput setaf 5)
-    ORANGE=$(tput setaf 4)
-    GREEN=$(tput setaf 2)
-    PURPLE=$(tput setaf 1)
-    WHITE=$(tput setaf 7)
-  fi
-  BOLD=$(tput bold)
-  RESET=$(tput sgr0)
-  else
-  MAGENTA="\033[1;31m"
-  ORANGE="\033[1;33m"
-  GREEN="\033[1;32m"
-  PURPLE="\033[1;35m"
-  WHITE="\033[1;37m"
-  BOLD=""
-  RESET="\033[m"
+if [[ ${TERM:-} == *256color* || ${COLORTERM:-} == truecolor || ${COLORTERM:-} == 24bit ]]; then
+  # 256-color palette picked for the Solarized theme
+  _ps_user='38;5;125' _ps_host='38;5;166' _ps_dir='38;5;64' _ps_text='38;5;244'
+else
+  _ps_user='35' _ps_host='34' _ps_dir='32' _ps_text='37'
 fi
 
-export MAGENTA
-export ORANGE
-export GREEN
-export PURPLE
-export WHITE
-export BOLD
-export RESET
+PS1="\[\e[1;${_ps_user}m\]\u\[\e[${_ps_text}m\] at \[\e[${_ps_host}m\]\h\[\e[${_ps_text}m\] in \[\e[${_ps_dir}m\]\W\[\e[${_ps_text}m\]\n\\$\[\e[0m\] "
 
-export PS1="\[${BOLD}${MAGENTA}\]\u\[$WHITE\] at \[$ORANGE\]\h\[$WHITE\] in \[$GREEN\]\W\[$WHITE\]\n\$\[$RESET\] "
+unset _ps_user _ps_host _ps_dir _ps_text
+
+# --- partial path completion ------------------------------------------------
+# Needs bash >= 4 and GNU sed (gsed on macOS and FreeBSD). Returning here also keeps bash 3.2 from
+# parsing the vendored code below.
+if ((BASH_VERSINFO[0] < 4)) || { [[ $OSTYPE == darwin* || $OSTYPE == freebsd* ]] && ! _has gsed; }; then
+  return 0
+fi
+
+# --- vendored: sio/bash-complete-partial-path v1.0.0, upstream file minus its shebang ----------
+#
+# bash-complete-partial-path                                    v1.0.0
+#
+# Zsh-like expansion of incomplete file paths for Bash.
+# Source this file from your ~/.bashrc and use `_bcpp --defaults`
+# to enable the described behavior.
+#
+# Example: `/u/s/a<Tab>` will be expanded into `/usr/share/applications`
+#
+# https://github.com/sio/bash-complete-partial-path
+#
 
 
+# Copyright 2018-2019 Vitaly Potyarkin
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+#
+# Detect sed binary once at load time
+#
+_bcpp_sed_detect() {
+    local SED GNU_SED
+    SED="sed"
+    GNU_SED="gsed" # macOS ships BSD sed by default, gnu-sed has to be installed with brew
+    if [[ $OSTYPE == darwin* || $OSTYPE == freebsd* ]]
+    then
+        if type "$GNU_SED" &> /dev/null
+        then
+            SED="$GNU_SED"
+        else
+            echo "bash-complete-partial-path: Please install GNU sed (gsed)" >&2
+        fi
+    fi
+    echo "command $SED"
+}
+
+
+#
+# Take a single incomplete path and fill it with wildcards
+# e.g. /u/s/app/ -> /u*/s*/app*
+#
+_bcpp_put_wildcards() {
+    local PROCESSED TILDE_EXPANSION INPUT
+
+    INPUT="$@"
+    PROCESSED=$( \
+        echo "$INPUT" | \
+        $_BCPP_SED \
+           -Ee 's:([^\*\~])/:\1*/:g;
+                s:([^\/\*])$:\1*:g;
+                s:^(\~[^\/]*)\*\/:\1/:;
+                s:(\.+)\*/:\1/:g;
+                s:(^|/)(\$[^/]+)\*(/|$):\2\3:g'
+    )
+    eval "TILDE_EXPANSION=$(\
+        printf \
+            '%q' \
+            "$PROCESSED"|$_BCPP_SED -e 's:^\\\~:~:g' -Ee 's:(^|/)\\(\$):\1\2:g' \
+    )"
+
+    # Workaround for Mingw pseudo directories for drives,
+    # i.e. `/c/` refers to drive `C:\`, but glob `/c*/` returns no matches
+    if [[ "$INPUT" =~ ^\/[a-zA-Z]\/.* && -d "${INPUT::2}" ]]
+    then
+        TILDE_EXPANSION="${TILDE_EXPANSION::2}${TILDE_EXPANSION:3}"
+    fi
+
+    echo "$TILDE_EXPANSION"
+}
+
+
+# Run a job in background without printing job control messages and without a
+# subshell
+# https://stackoverflow.com/a/51061046
+_bcpp_silent_bg() {
+    { 2>&3 "$@"& } 3>&2 2>/dev/null
+    builtin disown &>/dev/null  # Prevent whine if job has already completed
+    return 0  # do not clutter $? value (last exit code)
+}
+
+# Helper function for wrapping compgen output to named pipe
+_bcpp_compgen() {
+    local wildcards="$1"
+    local pipe="$2"
+    compgen -G "$wildcards" "$wildcards" 2>/dev/null >"$pipe"
+}
+
+#
+# Bash completion function for expanding partial paths
+#
+# This is a generic worker. It accepts 'file' or 'directory' as the first
+# argument to specify desired completion behavior
+#
+_bcpp_complete() {
+    local WILDCARDS ACTION LINE OPTION INPUT QUOTE
+
+    ACTION="$1"
+    if [[ "_$1" == "_-d" ]]
+    then  # _filedir compatibility
+        ACTION="directory"
+    fi
+    if [[ "$COMP_CWORD" -ge 0 ]]
+    then
+        INPUT="${COMP_WORDS[$COMP_CWORD]}"
+    else
+        INPUT=""
+    fi
+
+    # Detect and strip opened quotes
+    if [[ "${INPUT:0:1}" == "'" || "${INPUT:0:1}" == '"' ]]
+    then
+        QUOTE="${INPUT:0:1}"
+        INPUT="${INPUT:1}"
+    else
+        QUOTE=""
+    fi
+
+    # Prepare the reply
+    COMPREPLY=()
+    compopt -o nospace
+    compopt -o bashdefault
+    compopt -o default
+
+    # If input is already a valid path, do not try to be clever
+    if [[ -e "$INPUT" ]]
+    then
+        if [[ "_$ACTION" == "_directory" ]]
+        then
+            OPTION="dirnames"
+        else
+            OPTION="filenames"
+        fi
+        if [[ -d "$INPUT" && "${INPUT: -1}" != '/' ]]
+        then
+            COMPREPLY=("$INPUT/")
+        else
+            COMPREPLY=($(compgen -o "$OPTION" "$INPUT"))
+        fi
+        return
+    fi
+
+    # Add wildcards to each path element
+    WILDCARDS=$(_bcpp_put_wildcards "$INPUT")
+
+    # Collect completion options
+    local pipe
+    pipe="$_BCPP_FIFO"
+    [[ -z "$pipe" ]] && return 1  # fail on empty filename
+    command mkfifo -m 600 "$pipe"
+
+    local monitor
+    [[ "$-" == *m* ]] && monitor=yes || monitor=no
+    [[ "$monitor" == yes ]] && set +m
+
+    _bcpp_silent_bg _bcpp_compgen "$WILDCARDS" "$pipe"
+    while read -r -d $'\n' LINE
+    do
+        if [[ "_$ACTION" == "_directory" && ! -d "$LINE" ]]
+        then  # skip non-directory paths when looking for directory
+            continue
+        fi
+        if [[ -z "$LINE" ]]
+        then  # skip empty suggestions
+            continue
+        fi
+        if [[ -z "$QUOTE"  ]]
+        then  # escape special characters unless user has opened a quote
+            LINE=$(printf "%q" "$LINE")
+        fi
+        COMPREPLY+=("$LINE")
+    done < "$pipe"
+    command rm "$pipe"
+    [[ "$monitor" == yes ]] && set -m
+}
+
+
+# Wrappers
+_bcpp_complete_dir() { _bcpp_complete directory; }
+_bcpp_complete_file() { _bcpp_complete file; }
+
+
+# Manage enhanced path completion
+_bcpp() {
+    local DEFAULT ALL KEYS ARG USAGE UNKNOWN
+
+    DEFAULT="--files --dirs --cooperate --nocase --readline"
+    ALL="--files --dirs --cooperate --nocase --readline"
+    USAGE=(
+        "Usage: $FUNCNAME OPTIONS"
+        "    Manage enhanced path completion in bash"
+        ""
+        "Options:"
+        "    --defaults"
+        "        Enable the subset of features recommended by maintainer."
+        "        Currently equals to:"
+        "        \"$DEFAULT\""
+        "    --all"
+        "        Enable all optional features. Equals to:"
+        "        \"$ALL\""
+        "    --help"
+        "        Show this help message"
+        ""
+        "Individual feature flags:"
+        "    --files"
+        "        Enable enhanced completion for file paths"
+        "    --dirs"
+        "        Complete \`cd\` with paths to directories only"
+        "    --cooperate"
+        "        Cooperate with system-wide bash-completion if it's in use."
+        "        This function must be invoked AFTER the main bash-completion"
+        "        is loaded."
+        "        Deprecated alias: --override"
+        "    --nocase"
+        "        Make path completion case insensitive"
+        "    --readline"
+        "        Configure readline for better user experience. Equals to:"
+        "        \"--readline-menu --readline-color --readline-misc\""
+        "    --readline-color"
+        "        Enable colors in completion"
+        "    --readline-menu"
+        "        Use \`menu-complete\` when Tab key is pressed instead of default"
+        "        \`complete\`. Use Shift+Tab to return to previous suggestion"
+        "    --readline-misc"
+        "        Other useful readline tweaks"
+        ""
+        "Copyright 2018-2019 Vitaly Potyarkin"
+        "<https://github.com/sio/bash-complete-partial-path>"
+        ""
+        "This program is Free Software and comes with ABSOLUTELY NO WARRANTY,"
+        "to the extent permitted by applicable law. For more information see:"
+        "<http://www.apache.org/licenses/LICENSE-2.0>"
+    )
+
+    # Modify selected features list
+    for ARG in "$@"
+    do
+        case "$ARG" in
+            --defaults)
+                set -- "$@" $DEFAULT ;;
+            --all)
+                set -- "$@" $ALL ;;
+        esac
+    done
+
+    # Detect selected features
+    KEYS=""
+    for ARG in "$@"
+    do
+        case "$ARG" in
+            --files)
+                KEYS="${KEYS}f" ;;
+            --dirs)
+                KEYS="${KEYS}d" ;;
+            --cooperate|--override)
+                KEYS="${KEYS}o" ;;
+            --nocase)
+                KEYS="${KEYS}c" ;;
+            --readline)
+                KEYS="${KEYS}mlr" ;;
+            --readline-menu)
+                KEYS="${KEYS}m" ;;
+            --readline-color)
+                KEYS="${KEYS}l" ;;
+            --readline-misc)
+                KEYS="${KEYS}r" ;;
+            --help|--usage|-h)
+                KEYS="${KEYS}H" ;;
+            --defaults|--all)
+                ;;
+            *)
+                KEYS="${KEYS}U"
+                UNKNOWN+=("$ARG")
+                ;;
+        esac
+    done
+
+    # Special cases that terminate function
+    if [[ "$KEYS" == *H* || -z "$@" ]]  # --help|--usage|-h
+    then
+        printf "%s\n" "${USAGE[@]}"
+        return 0
+    fi
+    if [[ "$KEYS" == *U* ]]  # unknown arguments
+    then
+        echo -e \
+            "Unknown arguments: ${UNKNOWN[@]}" \
+            "\nRefer to \`$FUNCNAME --help\` for more information" \
+            >&2
+        return 1
+    fi
+
+    # Enable selected functionality. The order of execution does not depend on
+    # the order of command line parameters
+    if [[ "$KEYS" == *o* ]]  # --cooperate|--override
+    then
+        local DYNAMIC
+        DYNAMIC=$(complete -p|grep -E -- '-D.*_completion_loader|_completion_loader.*-D')
+
+        local _bcpp_filedir_original_code
+        _bcpp_filedir_original_code=$(declare -f _filedir|tail -n+2)
+        if [[ ! -z "$_bcpp_filedir_original_code" ]]
+        then
+            type _bcpp_filedir_original &>/dev/null || \
+                eval "_bcpp_filedir_original() $_bcpp_filedir_original_code"
+            _filedir() {
+                _bcpp_filedir_original "$@"
+                [ "${#COMPREPLY[@]}" -eq 0 ] && _bcpp_complete "$@"
+            }
+        fi
+
+        local _bcpp_filedir_xspec_original_code
+        _bcpp_filedir_xspec_original_code=$(declare -f _filedir_xspec|tail -n+2)
+        if [[ ! -z "$_bcpp_filedir_xspec_original_code" ]]
+        then
+            type _bcpp_filedir_xspec_original &>/dev/null || \
+                eval "_bcpp_filedir_xspec_original() $_bcpp_filedir_xspec_original_code"
+            _filedir_xspec() {
+                _bcpp_filedir_xspec_original "$@"
+                [ "${#COMPREPLY[@]}" -eq 0 ] && _bcpp_complete "$@"
+            }
+        fi
+    fi
+    if [[ "$KEYS" == *f* ]]  # --files
+    then
+        # Do not overwrite default completion function if dynamic completion
+        # loader is enabled
+        [[ -z "$DYNAMIC" ]] && complete -D -F _bcpp_complete_file
+    fi
+    if [[ "$KEYS" == *d* ]]  # --dirs
+    then
+        complete -F _bcpp_complete_dir cd
+        complete -F _bcpp_complete_dir pushd
+    fi
+    if [[ "$KEYS" == *c* ]]  # --nocase
+    then
+        shopt -s nocaseglob
+        bind 'set completion-ignore-case on'
+    fi
+    if [[ "$KEYS" == *m* ]]  # --readline-menu
+    then
+        bind 'TAB:menu-complete'
+        bind '"\e[Z": menu-complete-backward'  # Shift+Tab
+        bind 'set menu-complete-display-prefix on'
+    fi
+    if [[ "$KEYS" == *l* ]]  # --readline-color
+    then
+        bind 'set colored-completion-prefix on'
+        bind 'set colored-stats on'
+    fi
+    if [[ "$KEYS" == *r* ]]  # --readline-misc
+    then
+        bind 'set show-all-if-ambiguous on'
+        bind 'set show-all-if-unmodified on'
+    fi
+
+    # Calculate location for fifo file
+    _BCPP_FIFO=$(mktemp -u --tmpdir 'bcpp_pipe_XXXXXXXX' 2>/dev/null || mktemp -u -t 'bcpp_pipe')
+
+    # Detect sed command
+    _BCPP_SED=$(_bcpp_sed_detect)
+}
+
+# --- end of vendored code ----------------------------------------------------
+
+_bcpp --defaults

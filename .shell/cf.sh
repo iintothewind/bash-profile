@@ -1,10 +1,16 @@
-#! /usr/bin/env bash
+#!/usr/bin/env bash
+# cf.sh: cf_* library functions (strings, JSON, HTTP, macOS ram disk, audio conversion).
+# Loaded by init.sh in every shell, interactive or not.
+# Contract:
+#   - definitions only: nothing runs at load time; tools are checked with _has when a function is called
+#   - stdout carries results only; errors go to stderr with return 1
+#   - every public function is cf_-prefixed
 
 # Prefer python3 when available
 function cf_python_check() {
-  if type python3 > /dev/null 2>&1; then
+  if _has python3; then
     python3 "$@"
-  elif type python > /dev/null 2>&1; then
+  elif _has python; then
     python "$@"
   else
     echo "python is not found in PATH" >&2
@@ -93,7 +99,7 @@ function cf_req() {
     esac
   done
 
-  if ! type curl > /dev/null 2>&1; then
+  if ! _has curl; then
     echo "curl is not found in PATH" >&2
     return 1
   fi
@@ -202,7 +208,7 @@ function cf_rand() {
 #   - hdid(8)
 #
 function cf_mount_ram() {
-  if [[ $(uname) != Darwin ]]; then
+  if [[ $OSTYPE != darwin* ]]; then
     echo "this function works on mac only" >&2
     return 1
   fi
@@ -245,7 +251,7 @@ function cf_mount_ram() {
 #   - hdid(8)
 #
 function cf_unmount_ram() {
-  if [[ $(uname) != Darwin ]]; then
+  if [[ $OSTYPE != darwin* ]]; then
     echo "this function works on mac only" >&2
     return 1
   fi
@@ -280,7 +286,7 @@ function cf_convert_audio() {
   local path=$3
   local ext=$4
 
-  if ! type ffmpeg > /dev/null 2>&1 || ! type parallel > /dev/null 2>&1; then
+  if ! _has ffmpeg || ! _has parallel; then
     echo "ffmpeg or parallel is not installed" >&2
     return 1
   fi
@@ -302,11 +308,21 @@ function cf_convert_to_vorbis() {
   cf_convert_audio libvorbis ogg "$1" "$2"
 }
 
-# typo-compatible alias
-function cf_convert_to_orbis() {
-  cf_convert_to_vorbis "$@"
-}
-
 function cf_convert_to_m4a() {
   cf_convert_audio aac m4a "$1" "$2"
+}
+
+# cf_download_cert <host> [port]: print the PEM certificates presented by <host>:<port> (default 443)
+function cf_download_cert() {
+  local remoteHost=$1
+  local remotePort=${2:-443}
+  if [[ -z "$remoteHost" ]]; then
+    echo "usage: cf_download_cert <host> [port]" >&2
+    return 1
+  fi
+  if ! _has openssl; then
+    echo "openssl is not found in PATH" >&2
+    return 1
+  fi
+  openssl s_client -connect "${remoteHost}:${remotePort}" < /dev/null 2>&1 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p'
 }
